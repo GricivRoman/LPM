@@ -1,21 +1,33 @@
 <body>
     <header style="font-size: larger;">
         <nav class="navbar navbar-dark bg-dark navbar-expand-md">
-            <div class="mx-2">
-                <a class="navbar-nav navbar-brand nav-link" routerLink="employees"><fa-icon [icon]="carrotIcon"></fa-icon> Food diary </a>
+            <div class="navbar-collapse collapse order-1">
+                <div class="mx-2">
+                    <a class="navbar-nav navbar-brand nav-link" routerLink="employees"><fa-icon [icon]="mainIcon" class="fa-xl mt-1 mx-2"></fa-icon> </a>
+                </div>
+                <div>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link card-link" style="cursor: pointer;">
+                                Сотрудники
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#theMenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div id="theMenu" class="navbar-collapse collapse">
-                <ul class="navbar-nav">
+            <div class="order-2">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" *ngIf="!authorized" (click)="login()" style="cursor: pointer;">Login</a>
+                        <a class="nav-link" *ngIf="!authorized" (click)="login()" style="cursor: pointer;">
+                            <fa-icon [icon]="loginIcon" class="fa-lg mt-1 mx-2"></fa-icon>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link card-link" *ngIf="authorized" (click)="logout()" style="cursor: pointer;">Logout</a>
+                        <a class="nav-link card-link" *ngIf="authorized" (click)="logout()" style="cursor: pointer;">
+                            <fa-icon [icon]="logoutIcon" class="fa-lg mt-1 mx-2"></fa-icon>
+                        </a>
                     </li>
-                </ul>
+                </ul> 
             </div>
         </nav>
     </header>

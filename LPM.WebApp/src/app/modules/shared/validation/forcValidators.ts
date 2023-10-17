@@ -5,7 +5,7 @@ export class ForcValidators {
 	static earlierThan(date: Date): ValidatorFn {
 		return (control: AbstractControl) : ValidationErrors | null => {
 			if(control?.value && new Date(control.value) >= date){
-				return { 'earlierThan': `Date must be earlier than ${date.toLocaleDateString('ru')}` };
+				return { 'earlierThan': `Дата должна быть раньше чем ${date.toLocaleDateString('ru')}` };
 			}
 
 			return null;
@@ -15,7 +15,7 @@ export class ForcValidators {
 	static laterThan(date: Date): ValidatorFn {
 		return (control: AbstractControl) : ValidationErrors | null => {
 			if(control?.value && new Date(control.value) <= date){
-				return { 'laterThan': `Date must be later than ${date.toLocaleDateString('ru')}` };
+				return { 'laterThan': `Дата должна быть позже ${date.toLocaleDateString('ru')}` };
 			}
 			return null;
 		};
@@ -24,7 +24,7 @@ export class ForcValidators {
 	static earlierOrEqualThan(date: Date): ValidatorFn {
 		return (control: AbstractControl) : ValidationErrors | null => {
 			if(control?.value && new Date(control.value) > date){
-				return { 'earlierOrEqualThan': `Date must be earlier or equal than ${date.toLocaleDateString('ru')}` };
+				return { 'earlierOrEqualThan': `Дата должна быть не позднее ${date.toLocaleDateString('ru')}` };
 			}
 			return null;
 		};
@@ -33,7 +33,7 @@ export class ForcValidators {
 	static laterOrEqualThan(date: Date): ValidatorFn {
 		return (control: AbstractControl) : ValidationErrors | null => {
 			if(control?.value && new Date(control.value) < date){
-				return { 'laterOrEqualThan': `Date must be later or equal than ${date.toLocaleDateString('ru')}` };
+				return { 'laterOrEqualThan': `Дата должна быть не ранее ${date.toLocaleDateString('ru')}` };
 			}
 			return null;
 		};
@@ -42,7 +42,7 @@ export class ForcValidators {
 	static greaterThan(num: number): ValidatorFn {
 		return (control: AbstractControl) : ValidationErrors | null => {
 			if(control && control.value <= num){
-				return { 'greaterThan': `Field must be greater than ${num}` };
+				return { 'greaterThan': `Значение должно быть больше ${num}` };
 			}
 			return null;
 		};
@@ -51,7 +51,7 @@ export class ForcValidators {
 	static greaterOrEqualThan(num: number): ValidatorFn {
 		return (control: AbstractControl) : ValidationErrors | null => {
 			if(control && control.value < num){
-				return { 'greaterOrEqualThan': `Field must be greater or equal than ${num}` };
+				return { 'greaterOrEqualThan': `Значение должно быть не менее ${num}` };
 			}
 			return null;
 		};
@@ -60,7 +60,7 @@ export class ForcValidators {
 	static lassThan(num: number): ValidatorFn {
 		return (control: AbstractControl) : ValidationErrors | null => {
 			if(control && control.value >= num){
-				return { 'lassThan': `Field must be less than ${num}` };
+				return { 'lassThan': `Значение должно быть меньше ${num}` };
 			}
 			return null;
 		};
@@ -69,7 +69,7 @@ export class ForcValidators {
 	static lassOrEqualThan(num: number): ValidatorFn {
 		return (control: AbstractControl) : ValidationErrors | null => {
 			if(control && control.value > num){
-				return { 'lassOrEqualThan': `Field must be less or equal than ${num}` };
+				return { 'lassOrEqualThan': `Значение должно быть не более ${num}` };
 			}
 			return null;
 		};

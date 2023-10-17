@@ -21,11 +21,11 @@ export class BaseControlComponent implements OnInit {
 		const errBody = err[1];
 		switch(key){
 		case 'required':
-			return `${this.label} field is required`;
+			return 'Поле обязательно';
 		case 'minlength':
-			return `Required min length is ${errBody.requiredLength} but you entered ${errBody.actualLength}`;
+			return `Минимальная длинна ${errBody.requiredLength} символов`;
 		case 'email':
-			return 'Field must contains an e-male type string';
+			return 'Необходимо ввести e-mail';
 		default:
 			return errBody;
 		}

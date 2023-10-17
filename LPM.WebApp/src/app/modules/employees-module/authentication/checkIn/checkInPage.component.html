@@ -1,34 +1,36 @@
 <form [formGroup]="form">
     <div class="row">
-        <div class="col-xl-6 offset-xl-3 col-sm-8 offset-sm-2">
+        <div class="col-xl-3 offset-xl-4 col-lg-3 offset-lg-4 col-md-4 offset-4 col-sm-6 offset-3 col-8 offset-2">
             <div class="row">
-                <div class="form-group mx-xl-0 mx-sm-2">
-                    <div class="col-xl-8 col-sm-10 mb-1">
-                        <app-forc-text
-                            [label]="'User name'"
+                <div>
+                    <app-forc-text
+                            [label]="'Имя пользователя'"
                             [control]="form.controls.userName"
-                        ></app-forc-text>
-                    </div>
-                    <div class="col-xl-8 col-sm-10">
-                        <app-forc-email
-                            [label]="'E-mail'"
-                            [control]="form.controls.email"
-                        ></app-forc-email>
-                    </div>
-                    <div class="col-xl-8 col-sm-10">
-                        <app-forc-password
-                            [label]="'Password'"
-                            [control]="form.controls.password"
-                        ></app-forc-password>
-                    </div>
+                    ></app-forc-text>
                 </div>
             </div>
             <div class="row mt-1">
-                <div class="col-xl-3 col-sm-4">
-                    <button class="btn btn-outline-secondary mx-xl-0 mx-sm-2" (click)="backToLogin()">Back</button>
+                <div>
+                    <app-forc-email
+                        [label]="'E-mail'"
+                        [control]="form.controls.email"
+                    ></app-forc-email>
                 </div>
-                <div class="col-xl-4 offset-xl-3 col-sm-5 offset-sm-3">
-                    <button class="btn btn-primary mx-xl-0 px-xl-2 mx-sm-4" (click)="checkIn()" [disabled]="checkInButtonDisabled">Check-in</button>
+            </div>
+            <div class="row mt-1">
+                <div>
+                    <app-forc-password
+                        [label]="'Пароль'"
+                        [control]="form.controls.password"
+                    ></app-forc-password>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col">
+                    <button class="btn btn-outline-secondary" (click)="backToLogin()">Back</button>
+                </div>
+                <div class="col text-end">
+                    <button class="btn btn-primary" (click)="checkIn()" [disabled]="checkInButtonDisabled">Check-in</button>
                 </div>
             </div>
         </div>
