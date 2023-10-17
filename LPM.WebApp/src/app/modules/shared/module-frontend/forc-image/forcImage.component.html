@@ -1,0 +1,8 @@
+<div>
+    <form enctype="multipart/form-data">
+        <label for="fileInput">
+            <img [src]="picture" id="imgViewer" title="Click to upload a picture">
+        </label>
+        <input id="fileInput" type="file" (change)="photoChanges($event)">
+    </form>
+</div>

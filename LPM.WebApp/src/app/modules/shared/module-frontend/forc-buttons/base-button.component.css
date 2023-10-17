@@ -1,0 +1,49 @@
+.button {
+    font-size: 1.15rem;
+    border: 0.1em;
+    border-radius: 15%;
+    border: 0.05em solid #3d3d3d;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.button:active {
+    font-size: 1.05rem;
+    transform: translateZ(-0.075rem);
+}
+
+.add-button {
+    background-color: #6bdb6fe8;
+}
+
+.add-button:hover {
+    background-color: #1d9b1d;
+    color: white;
+}
+
+.edit-button {
+    background-color: #e6c845;
+}
+
+.edit-button:hover {
+    background-color: #eea03a;
+    color: white;
+}
+
+.delete-button {
+    background-color: #f55539;
+}
+
+.delete-button:hover {
+    background-color: #ee2e0c;
+    color: white;
+}
+
+.button-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.button-disabled.button:active {
+    font-size: 1.15rem;
+    transform: 0;
+}

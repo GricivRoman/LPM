@@ -1,0 +1,27 @@
+name: Web-App CI
+
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Forc.WebApp
+    strategy:
+      matrix:
+        node-version: [18]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node_version: ${{ matrix.node_version }}
+
+      - name: run CI
+        run: |
+          npm install # or yarn install
+          npm run lint --force # or yarn lint
+          npm run build --force # or yarn build

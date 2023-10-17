@@ -1,0 +1,46 @@
+.mat-mdc-select  {
+    border: 1px;
+    border-style: groove;
+    border-color: #dee2e6;
+    border-radius: 0.375rem;
+    display: inline-flex;
+    height: 2.33rem;
+}
+
+::ng-deep .mat-mdc-select .mat-mdc-select-value {
+    width: 95%;
+}
+
+::ng-deep .mat-mdc-select .mat-mdc-select-arrow svg {
+    transform: translate(-70%, -50%);
+}
+
+::ng-deep .mat-mdc-select .mat-mdc-select-value .mat-mdc-select-value-text {
+    margin: .75rem 0 .75rem .375rem;
+}
+
+::ng-deep .cdk-overlay-container .cdk-overlay-pane .select-list{
+    margin-top: 2px;
+    border-radius: 0.375rem;
+}
+
+::ng-deep .cdk-overlay-container .cdk-overlay-pane .select-list .mat-mdc-option.mdc-list-item{
+    font-size: small;
+    padding: 0 6px;
+}
+
+::ng-deep .cdk-overlay-container .cdk-overlay-pane .select-list .mat-mdc-option{
+    min-height: 20px;
+}
+
+::ng-deep .cdk-overlay-container .cdk-overlay-pane .select-list .mat-mdc-option.mdc-list-item span{
+    margin-right: 6px;
+}
+
+::ng-deep .cdk-overlay-container .cdk-overlay-pane .select-list .mat-mdc-option.mdc-list-item .mat-pseudo-checkbox{
+    margin-left: 6px;
+    margin-right: 6px;
+    width: 14px;
+    height: 14px;
+}
+

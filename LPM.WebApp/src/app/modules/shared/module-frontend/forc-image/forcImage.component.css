@@ -1,0 +1,10 @@
+#fileInput {
+    display: none;
+}
+
+#imgViewer {
+    margin-top: 0.3rem;
+    border-radius: 3%;
+    max-width: 100%;
+    max-height: 100%;
+}

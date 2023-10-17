@@ -1,0 +1,24 @@
+<dx-data-grid class="mt-2"
+        [dataSource]="dataSource"        
+        [showBorders]="true"
+        [showRowLines]="true"
+        [focusedRowEnabled]="true"
+        [rowAlternationEnabled]="true"
+        [allowColumnResizing]="allowColumnResizing"
+        columnResizingMode="nextColumn"
+        [columnMinWidth]="columnMinWidth"
+        [columnAutoWidth]="columnAutoWidth"
+        [columns]="columns"
+        [width]="gridWidth"
+        keyExpr="id"
+        [searchPanel]="searchPanel"
+        [(autoNavigateToFocusedRow)]="autoNavigateToFocusedRow"
+        [(focusedRowKey)]="focusedRowKey"
+        (onRowDblClick)="onRowDblClick()"
+    >
+        <dxo-selection [mode] = "selectionMode"></dxo-selection>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-paging [pageSize]="pageSize"></dxo-paging>
+        <dxo-grouping [autoExpandAll]="expandAll"></dxo-grouping>
+        <dxo-group-panel [visible]="allowGrouping"></dxo-group-panel>
+  </dx-data-grid>

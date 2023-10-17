@@ -1,0 +1,16 @@
+<div>
+    <label for="name">{{label}}</label>
+    <input
+        id="name"
+        class="form-control"
+        [formControl]="control"
+        (focus)="onControlFocus()"
+        (blur)="onContolBlur()"
+        type="number"
+        autocomplete="off"
+        [min]="0"
+        >
+    <div class="text-danger" *ngIf="shouldShowError">
+        <p>{{err}}</p>
+    </div>
+</div>

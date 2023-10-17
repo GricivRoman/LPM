@@ -1,0 +1,7 @@
+<div>
+    <label for="name">{{label}}</label>
+    <input id="name" class="form-control" [formControl]="control" (focus)="onControlFocus()" (blur)="onContolBlur()" type="date">
+    <div class="text-danger" *ngIf="shouldShowError">
+        <p>{{err}}</p>
+    </div>
+</div>

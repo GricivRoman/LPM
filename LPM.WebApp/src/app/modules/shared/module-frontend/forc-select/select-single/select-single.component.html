@@ -1,0 +1,6 @@
+<label for="select">{{label}}</label>
+<mat-select id="select" [formControl]="control" panelClass="select-list" [hideSingleSelectionIndicator]="true" (opened)="selectorOpened()">
+    <mat-option *ngFor="let item of selectList" [value]="item">
+      {{item.value}}
+    </mat-option>
+</mat-select>
