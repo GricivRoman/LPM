@@ -9,8 +9,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiInterceptor } from './modules/shared/services/api-interceptor';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthActivatorService } from './modules/employees-module/authentication/authGuard';
-import { AuthenticationService } from './modules/employees-module/authentication/authentication.service';
+import { AuthActivatorService } from './modules/personnel-management/authentication/authGuard';
+import { AuthenticationService } from './modules/personnel-management/authentication/authentication.service';
 
 @NgModule({
 	declarations: [

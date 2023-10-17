@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
 	selector: 'employees-list',
-	template: ''
+	template: 'сотрудники'
 })
 export class EmployeesList {
 
