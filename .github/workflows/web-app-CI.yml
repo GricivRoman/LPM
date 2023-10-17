@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./Forc.WebApp
+        working-directory: ./LPM.WebApp
     strategy:
       matrix:
         node-version: [18]
