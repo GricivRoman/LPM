@@ -1,18 +1,18 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 
 @NgModule({
-    imports: [
+	imports: [
 
-    ],
-    declarations: [
+	],
+	declarations: [
 
-    ],
-    exports: [
+	],
+	exports: [
 
-    ],
-    providers: [
-        
-    ]
+	],
+	providers: [
+
+	]
 })
 export class EmployeesModule {
 

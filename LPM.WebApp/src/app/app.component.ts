@@ -10,7 +10,7 @@ import { AuthResponse } from './modules/shared/local-storage/auth-response';
 })
 export class AppComponent {
 	authorized: boolean;
-		
+
 	protected title = 'ForcWebApp';
 	protected mainIcon = faAddressCard;
 	protected loginIcon = faDoorClosed;

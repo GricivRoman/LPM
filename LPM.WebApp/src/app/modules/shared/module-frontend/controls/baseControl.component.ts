@@ -21,7 +21,7 @@ export class BaseControlComponent implements OnInit {
 		const errBody = err[1];
 		switch(key){
 		case 'required':
-			return `Поле обязательно`;
+			return 'Поле обязательно';
 		case 'minlength':
 			return `Минимальная длинна ${errBody.requiredLength} символов`;
 		case 'email':
