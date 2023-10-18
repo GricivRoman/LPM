@@ -1,4 +1,4 @@
-﻿namespace LPM.Database.Enums
+﻿namespace LPM.Infrastructure.Enums
 {
     public enum SexEnum
     {

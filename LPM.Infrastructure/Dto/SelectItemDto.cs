@@ -1,4 +1,4 @@
-﻿namespace LPM.WebApi.Dto
+﻿namespace LPM.Infrastructure.Dto
 {
     public class SelectItemDto<Tkey>
     {

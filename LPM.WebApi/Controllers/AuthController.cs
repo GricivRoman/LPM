@@ -1,4 +1,4 @@
-﻿using LPM.WebApi.Dto;
+﻿using LPM.Infrastructure.Dto;
 using LPM.WebApi.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

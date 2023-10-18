@@ -1,4 +1,4 @@
-﻿using LPM.WebApi.Dto;
+﻿using LPM.Infrastructure.Dto;
 
 namespace LPM.WebApi.Interfaces
 {

@@ -1,13 +1,13 @@
 ﻿using LPM.Infrastructure.Enums;
-using LPM.Database.Models.Base;
 
-namespace LPM.Database.Models
+namespace LPM.Infrastructure.Dto
 {
     /// <summary>
     /// Приказ о назначении
     /// </summary>
-    public class OrderAppointment : BaseEntity<Guid>
+    public class OrderAppointmentDto
     {
+        public Guid? Id { get; set; }
         /// <summary>
         /// ID сотрудника
         /// </summary>
@@ -16,7 +16,7 @@ namespace LPM.Database.Models
         /// <summary>
         /// Сотрудник
         /// </summary>
-        public Employee Employee { get; set; }
+        public EmployeeDto Employee { get; set; }
 
         /// <summary>
         /// ID департамента
@@ -26,7 +26,7 @@ namespace LPM.Database.Models
         /// <summary>
         /// Департамент
         /// </summary>
-        public Department Department { get; set; }
+        public DepartmentDto Department { get; set; }
 
         /// <summary>
         /// Дата начала работы

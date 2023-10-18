@@ -1,4 +1,4 @@
-﻿using LPM.WebApi.Dto;
+﻿using LPM.Infrastructure.Dto;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 

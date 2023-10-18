@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LPM.WebApi.Dto;
+using LPM.Infrastructure.Dto;
 using LPM.Database.Models.Base;
 
 namespace LPM.WebApi.MappingConfiguration

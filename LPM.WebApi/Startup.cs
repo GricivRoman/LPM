@@ -4,14 +4,14 @@ using LPM.Database.Models;
 using LPM.WebApi.Interfaces;
 using LPM.WebApi.Middlewares;
 using LPM.WebApi.Services;
-using LPM.WebApi.Validation;
+using LPM.Infrastructure.Validation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using System.Reflection;
 using System.Text;
+using System.Reflection;
 
 namespace LPM.WebApi
 {
@@ -69,7 +69,7 @@ namespace LPM.WebApi
             });
 
             
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddControllers().AddFluentValidation(fv =>
             {

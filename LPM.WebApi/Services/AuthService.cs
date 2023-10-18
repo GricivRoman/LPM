@@ -1,6 +1,6 @@
 ﻿using LPM.Database;
 using LPM.Database.Models;
-using LPM.WebApi.Dto;
+using LPM.Infrastructure.Dto;
 using LPM.WebApi.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;

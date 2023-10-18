@@ -1,4 +1,4 @@
-﻿namespace LPM.WebApi.Dto
+﻿namespace LPM.Infrastructure.Dto
 {
     /// <summary>
     /// Модель ответа при авторизации

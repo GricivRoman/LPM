@@ -1,12 +1,17 @@
-﻿using LPM.Database.Models.Base;
-
-namespace LPM.Database.Models
+﻿namespace LPM.Infrastructure.Dto
 {
     /// <summary>
     /// Отдел-департамент
     /// </summary>
-    public class Department : EntityWithName<Guid>
+    public class DepartmentDto
     {
+        public Guid? Id { get; set; }
+
+        /// <summary>
+        /// Наименование отдела
+        /// </summary>
+        public string Name { get; set; }
+
         /// <summary>
         /// Сокращенное наименование
         /// </summary>
@@ -25,11 +30,11 @@ namespace LPM.Database.Models
         /// <summary>
         /// Сокращенное наименование
         /// </summary>
-        public Organizadion Organizadion { get; set; }
+        public OrganizationDto Organizadion { get; set; }
 
         /// <summary>
         /// Приказы о назначении в отдел
         /// </summary>
-        public ICollection<OrderAppointment> OrderAppointments { get; set; }
+        public ICollection<OrderAppointmentDto> OrderAppointments { get; set; }
     }
 }
