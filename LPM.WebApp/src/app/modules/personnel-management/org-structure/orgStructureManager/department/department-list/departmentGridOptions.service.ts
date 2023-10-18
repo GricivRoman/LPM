@@ -1,17 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { GridOptionsService } from 'src/app/modules/shared/module-frontend/forc-grid/grid-options.service';
 import { Column } from 'devextreme/ui/data_grid';
 import { GridOptions } from 'src/app/modules/shared/module-frontend/forc-grid/grid-options.component';
 import { GridSelectionModeStates } from 'src/app/modules/shared/module-frontend/forc-grid/gridElementsModeStates';
 
 @Injectable()
-export class OrganizationLIstOptionsService implements GridOptionsService {
-	getColumns(): Column[] {
+export class DepartmentGridOptionService implements GridOptionsService {
+    getColumns(): Column[] {
 		return [{
-			dataField: 'shortName',
-			caption: 'Наименование',
+			dataField: 'organization.value',
+			caption: 'Организация',
 			dataType: 'string',
-			width: 140
+			width: 170
+		},
+		{
+			dataField: 'shortName',
+			caption: 'Отдел',
+			dataType: 'number',
+			format: {
+				precision: 0
+			},
+			width: 170
 		},
 		{
 			dataField: 'employeesNumber',
@@ -21,12 +30,6 @@ export class OrganizationLIstOptionsService implements GridOptionsService {
 				precision: 0
 			},
 			width: 170
-		},
-		{
-			dataField: 'mainOrganization',
-			caption: 'Основная',
-			dataType: 'boolean',
-			width: 100
 		}
 		];
 	}
@@ -35,7 +38,7 @@ export class OrganizationLIstOptionsService implements GridOptionsService {
 		options.columns = this.getColumns();
 		options.selectionMode = GridSelectionModeStates.single;
 		options.columnAutoWidth = false;
-		options.gridWidth = '420';
+		options.gridWidth = '510';
 		return options;
 	}
 }

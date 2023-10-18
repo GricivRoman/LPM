@@ -14,5 +14,5 @@ export class Organization extends BaseEntity {
 	creationDate?: Date;
 
 	/* Количество сотрудников */
-	employeesCount: number;
+	employeesNumber: number;
 }

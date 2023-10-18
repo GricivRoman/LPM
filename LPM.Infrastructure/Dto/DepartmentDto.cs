@@ -36,5 +36,10 @@
         /// Приказы о назначении в отдел
         /// </summary>
         public ICollection<OrderAppointmentDto> OrderAppointments { get; set; }
+
+        /// <summary>
+        /// Кол-во сотрудников
+        /// </summary>
+        public int EmployeesNumber { get; set; }
     }
 }

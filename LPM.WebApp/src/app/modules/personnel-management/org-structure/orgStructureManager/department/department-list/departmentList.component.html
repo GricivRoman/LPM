@@ -1,0 +1,6 @@
+<div>
+    <app-add-btn (click)="add()" [disabled]="addButtonDisabled"></app-add-btn>
+    <app-edit-btn class="mx-1" (click)="edit()" [disabled]="editButtonDisabled"></app-edit-btn>
+    <app-delete-btn (click)="delete()" [disabled]="deleteButtonDisabled"></app-delete-btn>
+</div>
+<app-grid [dataService]="gridDataService" [optionsService]="gridOptionService" [onRowDblClick]="onRowDoubleClick" (gridDataLoaded)="gridDataLoaded($event)"></app-grid>

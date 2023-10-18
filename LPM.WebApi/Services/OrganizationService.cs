@@ -34,7 +34,7 @@ namespace LPM.WebApi.Services
 
 
             return _mapper.Map<List<OrganizationDto>>(organivationList)
-                    .Map(x => x.EmployeesCount = CountEmployeesOfOrganization(x))
+                    .Map(x => x.EmployeesNumver = CountEmployeesOfOrganization(x))
                     .ToList();
         }
 

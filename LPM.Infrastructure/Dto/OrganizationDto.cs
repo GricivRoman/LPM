@@ -40,6 +40,6 @@
         /// <summary>
         /// Количество сотрудников
         /// </summary>
-        public int EmployeesCount { get; set; }
+        public int EmployeesNumver { get; set; }
     }
 }
