@@ -29,7 +29,7 @@ namespace LPM.WebApi.Services
             _config = config;
             _context = context;
         }
-        public async Task CreateUserAsync(CheckInViewModel userModel)
+        public async Task CreateUserAsync(CheckInDto userModel)
         {
             var userlist = _context.Set<User>().Where(x => x.Email == userModel.Email).ToList();
             var user = await _userManager.FindByEmailAsync(userModel.Email);
@@ -57,7 +57,7 @@ namespace LPM.WebApi.Services
             }
         }
 
-        public async Task<CredentialsViewModel> CreateTokenAsync(LoginViewModel model)
+        public async Task<CredentialsDto> CreateTokenAsync(LoginDto model)
         {
             var userByUserName = await _userManager.FindByNameAsync(model.UserNameOrEmail);
             var userByEmail = await _userManager.FindByEmailAsync(model.UserNameOrEmail);
@@ -99,7 +99,7 @@ namespace LPM.WebApi.Services
                 signingCredentials: creds,
                 expires: DateTime.UtcNow.AddMinutes(120));
 
-            var userCredentials = new CredentialsViewModel
+            var userCredentials = new CredentialsDto
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Expiration = token.ValidTo,

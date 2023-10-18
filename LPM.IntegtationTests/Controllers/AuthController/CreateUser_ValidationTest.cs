@@ -14,7 +14,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
         [Fact]
         public async Task CreateUser_EmptyForm_ReturnValidatioErrors()
         {
-            var model = new CheckInViewModel
+            var model = new CheckInDto
             {
                 UserName = "",
                 Email = "",
@@ -50,7 +50,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
         [Fact]
         public async Task CreateUser_InvalidForm_ReturnValidatioErrors()
         {
-            var model = new CheckInViewModel
+            var model = new CheckInDto
             {
                 UserName = "RR",
                 Email = "JJJJJJJJJJ_TTTTT@@",

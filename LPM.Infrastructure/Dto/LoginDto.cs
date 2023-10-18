@@ -3,7 +3,7 @@
     /// <summary>
     /// Модель авторизации
     /// </summary>
-    public class LoginViewModel
+    public class LoginDto
     {
         /// <summary>
         /// Имя или почтовый адресс для авторизации

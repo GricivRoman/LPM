@@ -15,7 +15,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
         [Fact]
         public async Task CreateUser_CorrectModel_ReturnOK()
         {
-            var model = new CheckInViewModel
+            var model = new CheckInDto
             {
                 UserName = "Test",
                 Email = "TestEmail@gmail.com",

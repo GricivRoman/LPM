@@ -17,7 +17,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
         [InlineData("TTTTOELNSAD23145")]
         public async Task Login_InvalidPassword_ReturnFail(string passwordGuess)
         {
-            var checkInModel = new CheckInViewModel
+            var checkInModel = new CheckInDto
             {
                 UserName = "Test",
                 Email = "TestEmail@gmail.com",
@@ -27,7 +27,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
             var response = await _httpClient.PostAsJsonAsync($"{rootUrl}/checkin", checkInModel);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            var loginModel = new LoginViewModel
+            var loginModel = new LoginDto
             {
                 UserNameOrEmail = "TestEmail@gmail.com",
                 Password = passwordGuess

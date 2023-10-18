@@ -3,7 +3,7 @@
     /// <summary>
     /// Модель ответа при авторизации
     /// </summary>
-    public class CredentialsViewModel
+    public class CredentialsDto
     {
         /// <summary>
         /// Токен для обращения к методам, требующим авторизации

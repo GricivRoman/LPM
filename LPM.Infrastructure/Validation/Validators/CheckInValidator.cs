@@ -3,7 +3,7 @@ using LPM.WebApi.Dto;
 
 namespace LPM.WebApi.Validation.Validators
 {
-    public class CheckInValidator : AbstractValidator<CheckInViewModel>
+    public class CheckInValidator : AbstractValidator<CheckInDto>
     {
         public CheckInValidator()
         {

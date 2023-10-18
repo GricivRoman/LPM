@@ -18,7 +18,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
 
         public async Task CreateUser_InvalidPassWord_ReturnBadRequest(string password, string expectedErrorMessage)
         {
-            var model = new CheckInViewModel
+            var model = new CheckInDto
             {
                 UserName = "Test",
                 Email = "TestEmail@gmail.com",

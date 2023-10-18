@@ -14,7 +14,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
         [Fact]
         public async Task Login_InvalidModel_ReturnValidationErrors()
         {
-            var model = new LoginViewModel
+            var model = new LoginDto
             {
                 Password = "",
                 UserNameOrEmail = ""

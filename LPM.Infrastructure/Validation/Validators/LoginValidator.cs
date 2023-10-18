@@ -3,7 +3,7 @@ using LPM.WebApi.Dto;
 
 namespace LPM.WebApi.Validation.Validators
 {
-    public class LoginValidator : AbstractValidator<LoginViewModel>
+    public class LoginValidator : AbstractValidator<LoginDto>
     {
         public LoginValidator()
         {
