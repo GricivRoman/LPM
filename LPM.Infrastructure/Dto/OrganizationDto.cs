@@ -36,5 +36,10 @@
         /// Пользователи, которым доступна организация
         /// </summary>
         public ICollection<UserDto> Users { get; set; }
+
+        /// <summary>
+        /// Количество сотрудников
+        /// </summary>
+        public int EmployeesCount { get; set; }
     }
 }

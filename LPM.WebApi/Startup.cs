@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Text;
 using System.Reflection;
+using LPM.Infrastructure.Interfaces;
 
 namespace LPM.WebApi
 {
@@ -81,8 +82,10 @@ namespace LPM.WebApi
                 opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
-            services.AddScoped<IAccountService, AuthService>();
             services.AddScoped<ValidationFilterAttribute>();
+            services.AddScoped<IAccountService, AuthService>();
+            services.AddScoped<IOrganizationService, OrganizationService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

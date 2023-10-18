@@ -11,6 +11,8 @@ import { ModalWindowService } from '../../shared/module-frontend/forc-popup/moda
 import { ApiValidationErrorsResolvingService } from '../../shared/services/apiValidationErrorsResolving.service';
 import { OrganizationFormComponent } from './orgStructureManager/organization/organication-list/organizationForm/organizationForm.component';
 import { ForcControlsModule } from '../../shared/module-frontend/controls/forc-controls.module';
+import { DataService } from '../../shared/services/data.service';
+import { AlertService } from '../../shared/module-frontend/forc-alert/alert.service';
 
 @NgModule({
 	imports: [
@@ -29,7 +31,9 @@ import { ForcControlsModule } from '../../shared/module-frontend/controls/forc-c
 		OrganizationLIstOptionsService,
 		OrganizationListDataService,
 		ModalWindowService,
-		ApiValidationErrorsResolvingService
+		ApiValidationErrorsResolvingService,
+		DataService,
+		AlertService
 	]
 })
 export class OrgStructureModule {

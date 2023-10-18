@@ -1,5 +1,6 @@
 ﻿using LPM.Infrastructure.Dto;
 using Microsoft.AspNetCore.Http;
+using Serilog;
 using System.Net;
 
 namespace LPM.WebApi.Middlewares
@@ -31,6 +32,7 @@ namespace LPM.WebApi.Middlewares
 
         private async Task HandleExceptionAsync(HttpContext context, string exMsg, HttpStatusCode httpStatusCode)
         {
+            Log.Information(exMsg);
             HttpResponse response = context.Response;
             response.ContentType = "application/json";
             response.StatusCode = (int)httpStatusCode;
