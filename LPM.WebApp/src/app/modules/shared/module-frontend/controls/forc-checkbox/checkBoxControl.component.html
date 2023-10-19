@@ -1,6 +1,6 @@
 <div>
-    <label for="name">{{label}}</label>
-    <input id="name" class="form-control" [formControl]="control" (focus)="onControlFocus()" (blur)="onContolBlur()" type="email">
+    <label>{{label}}</label>
+    <input class="mx-1" id="name" [formControl]="control" (focus)="onControlFocus()" (blur)="onContolBlur()" type="checkbox">
     <div class="text-danger" *ngIf="shouldShowError">
         <p>{{err}}</p>
     </div>

@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="row">
+        <app-forc-text
+            label="Наименование организации"
+            [control]="form.controls.name"
+        ></app-forc-text>
+    </div>
+    <div class="row">
+        <app-forc-text
+            label="Сокращенное наименование"
+            [control]="form.controls.shortName"
+        ></app-forc-text>
+    </div>
+</div>
+<div class="row">
+    <app-forc-checkbox
+        label="Отметить организацию как основную"
+        [control]="form.controls.isMainOrganization"
+    ></app-forc-checkbox>
+</div>

@@ -1,4 +1,4 @@
-﻿using LPM.WebApi.Validation;
+﻿using LPM.Infrastructure.Validation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LPM.WebApi.Controllers

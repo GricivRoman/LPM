@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using LPM.WebApi.Dto;
+using LPM.Infrastructure.Dto;
 
-namespace LPM.WebApi.Validation.Validators
+namespace LPM.Infrastructure.Validation.Validators
 {
-    public class LoginValidator : AbstractValidator<LoginViewModel>
+    public class LoginValidator : AbstractValidator<LoginDto>
     {
         public LoginValidator()
         {

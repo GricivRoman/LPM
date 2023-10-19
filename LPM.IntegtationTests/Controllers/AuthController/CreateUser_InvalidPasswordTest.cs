@@ -1,5 +1,5 @@
 ﻿using LPM.IntegtationTests.Infrastructure;
-using LPM.WebApi.Dto;
+using LPM.Infrastructure.Dto;
 using System.Net.Http.Json;
 using System.Net;
 
@@ -18,7 +18,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
 
         public async Task CreateUser_InvalidPassWord_ReturnBadRequest(string password, string expectedErrorMessage)
         {
-            var model = new CheckInViewModel
+            var model = new CheckInDto
             {
                 UserName = "Test",
                 Email = "TestEmail@gmail.com",

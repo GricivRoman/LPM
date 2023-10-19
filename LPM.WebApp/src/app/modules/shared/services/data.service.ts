@@ -30,7 +30,7 @@ export class DataService<T extends BaseEntity> {
 	}
 
 	public update(model: T): Observable<void>{
-		return this.http.put<void>(`${this.url}`, model);
+		return this.http.patch<void>(`${this.url}`, model);
 	}
 
 	public delete(id: Guid): Observable<void>{

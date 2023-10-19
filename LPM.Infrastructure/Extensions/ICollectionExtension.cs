@@ -1,4 +1,4 @@
-﻿namespace LPM.WebApi.Extensions
+﻿namespace LPM.Infrastructure.Extensions
 {
     public static class ICollectionExtension
     {

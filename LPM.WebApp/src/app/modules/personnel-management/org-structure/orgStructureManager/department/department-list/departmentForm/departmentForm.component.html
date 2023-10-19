@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="row">
+        <div>
+            <app-select-organization
+                label="Организация"
+                [control]="form.controls.organization"
+            ></app-select-organization>
+        </div>
+    </div>
+    <div class="row">
+        <app-forc-text
+            label="Наименование отдела"
+            [control]="form.controls.name"
+        ></app-forc-text>
+    </div>
+    <div class="row">
+        <app-forc-text
+            label="Сокращенное наименование"
+            [control]="form.controls.shortName"
+        ></app-forc-text>
+    </div>
+    <div class="row">
+        <app-forc-text-area
+            label="Описание"
+            [control]="form.controls.description"
+            [cols]="50"
+            [rows]="3"
+            [maxLength]="256"
+        ></app-forc-text-area>
+    </div>
+</div>

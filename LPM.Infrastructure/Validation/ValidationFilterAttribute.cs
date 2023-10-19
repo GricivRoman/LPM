@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace LPM.WebApi.Validation
+namespace LPM.Infrastructure.Validation
 {
     public class ValidationFilterAttribute : IActionFilter
     {

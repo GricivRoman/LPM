@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, Output, EventEmitter, HostListener } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { GridSelectionModeStates } from './gridElementsModeStates';
 import { GridOptionsService } from './grid-options.service';
@@ -23,6 +23,20 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 	public onRowDblClick: () => void;
 
 	@Output() gridDataLoaded = new EventEmitter<TClass[]>;
+
+	private inerClick: boolean;
+	@HostListener("click")
+	clickedInsideGrid(){
+		this.inerClick = true;
+	}
+
+	@HostListener("document:click")
+	documentClicked(){
+		if(!this.inerClick){
+			this.grid.instance.deselectAll();
+		}
+		this.inerClick = false;
+	}
 
 	public dataSource: TClass[];
 	protected columns: Column[];

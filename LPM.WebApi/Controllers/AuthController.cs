@@ -1,4 +1,4 @@
-﻿using LPM.WebApi.Dto;
+﻿using LPM.Infrastructure.Dto;
 using LPM.WebApi.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,7 @@ namespace LPM.WebApi.Controllers
 
         [HttpPost]
         [Route("checkin")]
-        public async Task<IActionResult> CheckInAsync([FromBody]CheckInViewModel userModel)
+        public async Task<IActionResult> CheckInAsync([FromBody]CheckInDto userModel)
         {
             await _accountService.CreateUserAsync(userModel);
             return Ok();
@@ -26,7 +26,7 @@ namespace LPM.WebApi.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> CreateTokenAsync([FromBody] LoginViewModel model)
+        public async Task<IActionResult> CreateTokenAsync([FromBody] LoginDto model)
         {
             var creds = await _accountService.CreateTokenAsync(model);
             return Ok(creds);

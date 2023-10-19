@@ -22,6 +22,117 @@ namespace LPM.Database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("LPM.Database.Models.Department", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ShortName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("Department");
+                });
+
+            modelBuilder.Entity("LPM.Database.Models.Employee", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("HasVHI")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("WorkPlace")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employee");
+                });
+
+            modelBuilder.Entity("LPM.Database.Models.OrderAppointment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DateEnd")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("DateStart")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("EmployeeType")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("OficialDateStart")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("EmployeeId", "DepartmentId")
+                        .IsUnique();
+
+                    b.ToTable("OrderAppointment");
+                });
+
+            modelBuilder.Entity("LPM.Database.Models.Organizadion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsMainOrganization")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ShortName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Organizadion");
+                });
+
             modelBuilder.Entity("LPM.Database.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -220,6 +331,51 @@ namespace LPM.Database.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("OrganizadionUser", b =>
+                {
+                    b.Property<Guid>("OrganizadionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("OrganizadionId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OrganizadionUser");
+                });
+
+            modelBuilder.Entity("LPM.Database.Models.Department", b =>
+                {
+                    b.HasOne("LPM.Database.Models.Organizadion", "Organizadion")
+                        .WithMany("Departments")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organizadion");
+                });
+
+            modelBuilder.Entity("LPM.Database.Models.OrderAppointment", b =>
+                {
+                    b.HasOne("LPM.Database.Models.Department", "Department")
+                        .WithMany("OrderAppointments")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("LPM.Database.Models.Employee", "Employee")
+                        .WithMany("OrderAppointments")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -269,6 +425,36 @@ namespace LPM.Database.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("OrganizadionUser", b =>
+                {
+                    b.HasOne("LPM.Database.Models.Organizadion", null)
+                        .WithMany()
+                        .HasForeignKey("OrganizadionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("LPM.Database.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LPM.Database.Models.Department", b =>
+                {
+                    b.Navigation("OrderAppointments");
+                });
+
+            modelBuilder.Entity("LPM.Database.Models.Employee", b =>
+                {
+                    b.Navigation("OrderAppointments");
+                });
+
+            modelBuilder.Entity("LPM.Database.Models.Organizadion", b =>
+                {
+                    b.Navigation("Departments");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,7 +10,8 @@ import { SexSelectService } from './sexSelect.service';
             [control]="control"
             [selectService]="selectService"
         ></app-select-single>
-    `
+    `,
+	providers:[SexSelectService]
 })
 export class SexSelectComponent {
 

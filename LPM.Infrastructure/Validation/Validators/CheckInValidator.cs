@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using LPM.WebApi.Dto;
+using LPM.Infrastructure.Dto;
 
-namespace LPM.WebApi.Validation.Validators
+namespace LPM.Infrastructure.Validation.Validators
 {
-    public class CheckInValidator : AbstractValidator<CheckInViewModel>
+    public class CheckInValidator : AbstractValidator<CheckInDto>
     {
         public CheckInValidator()
         {

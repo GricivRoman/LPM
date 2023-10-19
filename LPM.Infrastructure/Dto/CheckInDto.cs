@@ -1,9 +1,9 @@
-﻿namespace LPM.WebApi.Dto
+﻿namespace LPM.Infrastructure.Dto
 {
     /// <summary>
     /// Модель регистрации нового пользователя
     /// </summary>
-    public class CheckInViewModel
+    public class CheckInDto
     {
         /// <summary>
         /// Ник пользователя

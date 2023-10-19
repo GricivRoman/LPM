@@ -1,5 +1,5 @@
 ﻿using LPM.IntegtationTests.Infrastructure;
-using LPM.WebApi.Dto;
+using LPM.Infrastructure.Dto;
 using System.Net;
 using System.Net.Http.Json;
 
@@ -15,7 +15,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
         [Fact]
         public async Task Login_CorrectModel_ReturnAuthorizedData()
         {
-            var checkInModel = new CheckInViewModel
+            var checkInModel = new CheckInDto
             {
                 UserName = "Test",
                 Email = "TestEmail@gmail.com",
@@ -27,7 +27,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
 
 
             // Login by username
-            var loginModel = new LoginViewModel
+            var loginModel = new LoginDto
             {
                 UserNameOrEmail = "Test",
                 Password = "R12345qwe"
@@ -36,7 +36,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
             response = await _httpClient.PostAsJsonAsync($"{rootUrl}/login", loginModel);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            var authorizedData = await response.Content.ReadFromJsonAsync<CredentialsViewModel>();
+            var authorizedData = await response.Content.ReadFromJsonAsync<CredentialsDto>();
 
             Assert.Multiple(() =>
             {
@@ -50,7 +50,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
 
 
             // Login by e-mail
-            loginModel = new LoginViewModel
+            loginModel = new LoginDto
             {
                 UserNameOrEmail = "TestEmail@gmail.com",
                 Password = "R12345qwe"
@@ -59,7 +59,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
             response = await _httpClient.PostAsJsonAsync($"{rootUrl}/login", loginModel);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            authorizedData = await response.Content.ReadFromJsonAsync<CredentialsViewModel>();
+            authorizedData = await response.Content.ReadFromJsonAsync<CredentialsDto>();
 
             Assert.Multiple(() =>
             {

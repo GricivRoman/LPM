@@ -9,6 +9,12 @@ namespace LPM.Database.EntitiesConfigurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
+
+            builder.HasMany(x => x.Organizations)
+                .WithMany(x => x.Users)
+                .UsingEntity(
+                i => i.HasOne(typeof(User)).WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.NoAction),
+                j => j.HasOne(typeof(Organizadion)).WithMany().HasForeignKey("OrganizadionId").OnDelete(DeleteBehavior.NoAction));
         }
     }
 }

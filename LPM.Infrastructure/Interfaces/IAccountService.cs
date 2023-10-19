@@ -1,11 +1,11 @@
-﻿using LPM.WebApi.Dto;
+﻿using LPM.Infrastructure.Dto;
 
 namespace LPM.WebApi.Interfaces
 {
     public interface IAccountService
     {
-        Task CreateUserAsync(CheckInViewModel userModel);
+        Task CreateUserAsync(CheckInDto userModel);
 
-        Task<CredentialsViewModel> CreateTokenAsync(LoginViewModel model);
+        Task<CredentialsDto> CreateTokenAsync(LoginDto model);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using LPM.IntegtationTests.Infrastructure;
-using LPM.WebApi.Dto;
+using LPM.Infrastructure.Dto;
 using System.Net.Http.Json;
 using System.Net;
 
@@ -15,7 +15,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
         [Fact]
         public async Task CreateUser_DoubleUser_ReturnBadRequest()
         {
-            var model = new CheckInViewModel
+            var model = new CheckInDto
             {
                 UserName = "Test",
                 Email = "TestEmail@gmail.com",
@@ -24,7 +24,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
             var response = await _httpClient.PostAsJsonAsync($"{rootUrl}/checkin", model);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            model = new CheckInViewModel
+            model = new CheckInDto
             {
                 UserName = "Other",
                 Email = "TestEmail@gmail.com",
@@ -40,7 +40,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
                 Assert.Equal("User with this E-mail already exists", errorMessage);
             });
 
-            model = new CheckInViewModel
+            model = new CheckInDto
             {
                 UserName = "Test",
                 Email = "OtherMail@mail.ru",

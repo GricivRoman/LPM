@@ -1,5 +1,5 @@
 ﻿using LPM.IntegtationTests.Infrastructure;
-using LPM.WebApi.Dto;
+using LPM.Infrastructure.Dto;
 using System.Net;
 using System.Net.Http.Json;
 
@@ -15,7 +15,7 @@ namespace LPM.IntegtationTests.Controllers.AuthController
         [Fact]
         public async Task CreateUser_CorrectModel_ReturnOK()
         {
-            var model = new CheckInViewModel
+            var model = new CheckInDto
             {
                 UserName = "Test",
                 Email = "TestEmail@gmail.com",
