@@ -1,5 +1,5 @@
 ﻿using LPM.IntegtationTests.Infrastructure;
-using LPM.WebApi.Dto;
+using LPM.Infrastructure.Dto;
 using System.Net.Http.Json;
 
 namespace LPM.IntegtationTests.Controllers.AuthController
