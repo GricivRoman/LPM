@@ -8,7 +8,7 @@ export class Organization extends BaseEntity {
 	shortName: string;
 
 	/* Основная организация пользователя */
-	mainOrganization: boolean;
+	isMainOrganization: boolean;
 
 	/* Дата создания */
 	creationDate?: Date;

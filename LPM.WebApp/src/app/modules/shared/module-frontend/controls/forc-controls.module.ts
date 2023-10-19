@@ -7,6 +7,7 @@ import { NumberControlComponent } from './forc-number/numberControl.component';
 import { CheckBoxControlComponent } from './forc-checkbox/checkBoxControl.component';
 import { PasswordControlComponent } from './forc-password/passwordControlComponent';
 import { DateTimeControlComponent } from './forc-date/dateTimeControl.component';
+import { TextAreaControlComponent } from './forc-textArea/textAreaControl.component';
 
 @NgModule({
 	imports: [
@@ -20,7 +21,8 @@ import { DateTimeControlComponent } from './forc-date/dateTimeControl.component'
 		EmailControlComponent,
 		NumberControlComponent,
 		CheckBoxControlComponent,
-		DateTimeControlComponent
+		DateTimeControlComponent,
+		TextAreaControlComponent
 	],
 	exports: [
 		TextControlComponent,
@@ -28,7 +30,8 @@ import { DateTimeControlComponent } from './forc-date/dateTimeControl.component'
 		EmailControlComponent,
 		NumberControlComponent,
 		CheckBoxControlComponent,
-		DateTimeControlComponent
+		DateTimeControlComponent,
+		TextAreaControlComponent
 	],
 	providers: [
 

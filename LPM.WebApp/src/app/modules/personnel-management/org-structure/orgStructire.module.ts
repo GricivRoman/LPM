@@ -18,13 +18,15 @@ import { DepartmentListComponent } from './orgStructureManager/department/depart
 import { DepartmentFormComponent } from './orgStructureManager/department/department-list/departmentForm/departmentForm.component';
 import { DepartmentGridDataService } from './orgStructureManager/department/department-list/departmentGridData.service';
 import { DepartmentGridOptionService } from './orgStructureManager/department/department-list/departmentGridOptions.service';
+import { OrganizationSelectModule } from '../../shared/select-controls/organization-select/organizationSelect.module';
 
 @NgModule({
 	imports: [
 		OrgStructureRoutingModule,
 		GridModule,
 		ForcButtonsModule,
-		ForcControlsModule
+		ForcControlsModule,
+		OrganizationSelectModule
 	],
 	declarations: [
 		OrgStructureManagerComponent,

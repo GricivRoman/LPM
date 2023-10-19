@@ -32,6 +32,14 @@ namespace LPM.WebApi.Controllers
             return Ok(organizationList);
         }
 
+        [HttpGet]
+        [Route("select-list")]
+        public async Task<IActionResult> GetOrganizationSelectItemList()
+        {
+            var selectList = await _organizationService.GetOrganizationSelectItemList();
+            return Ok(selectList);
+        }
+
         [HttpPost]
         [HttpPatch]
         [Route("")]

@@ -2,7 +2,7 @@
         [dataSource]="dataSource"        
         [showBorders]="true"
         [showRowLines]="true"
-        [focusedRowEnabled]="true"
+        
         [rowAlternationEnabled]="true"
         [allowColumnResizing]="allowColumnResizing"
         columnResizingMode="nextColumn"
@@ -21,4 +21,10 @@
         <dxo-paging [pageSize]="pageSize"></dxo-paging>
         <dxo-grouping [autoExpandAll]="expandAll"></dxo-grouping>
         <dxo-group-panel [visible]="allowGrouping"></dxo-group-panel>
+        <dxo-scrolling
+            [useNative]="false"
+            [scrollByContent]="true"
+            [scrollByThumb]="true"
+            showScrollbar="onHover"
+        ></dxo-scrolling>
   </dx-data-grid>

@@ -14,7 +14,7 @@ namespace LPM.WebApi.MappingConfiguration
                 .ForMember(x => x.ShortName, i => i.MapFrom(j => j.ShortName))
                 .ForMember(x => x.Description, i => i.MapFrom(j => j.Description))
                 .ForMember(x => x.OrganizationId, i => i.MapFrom(j => j.OrganizationId))
-                .ForMember(x => x.Organizadion, i => i.MapFrom(j => j.Organizadion))
+                .ForMember(x => x.Organization, i => i.MapFrom(j => j.Organizadion))
                 .ForMember(x => x.OrderAppointments, i => i.MapFrom(j => j.OrderAppointments))
                 .ReverseMap();
         }

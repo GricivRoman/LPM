@@ -20,18 +20,30 @@ namespace LPM.WebApi.Services
 
         public async Task<DepartmentDto> GetDepartmentAsync(Guid id)
         {
-            var department = await _context.Set<Department>().Where(x => x.Id == id).SingleOrDefaultAsync();
+            var department = await _context.Set<Department>()
+                    .Where(x => x.Id == id)
+                    .Include(x => x.Organizadion)
+                    .SingleOrDefaultAsync();
+
             return _mapper.Map<DepartmentDto>(department);
         }
 
         public async Task<List<DepartmentDto>> GetDepartmentListAsync()
         {
-            var departmentList = await _context.Set<Department>().ToListAsync();
+            var departmentList = await _context.Set<Department>()
+                    .Include(x => x.Organizadion)
+                    .ToListAsync();
+
             return _mapper.Map<List<DepartmentDto>>(departmentList);
         }
 
         public async Task<Guid> SaveDepartmentAsync(DepartmentDto model)
         {
+            if (model.Organization ==null)
+            {
+                throw new ApplicationException("Необходимо заполнить поле Огранизация");
+            }
+
             Department department;
 
             if (model.Id.HasValue)
@@ -47,7 +59,7 @@ namespace LPM.WebApi.Services
                 _context.Add(department);
             }
 
-            department.OrganizationId = model.OrganizationId;
+            department.OrganizationId = model.Organization.Id;
             department.Name = model.Name;
             department.ShortName = model.ShortName;
             department.Description = model.Description;

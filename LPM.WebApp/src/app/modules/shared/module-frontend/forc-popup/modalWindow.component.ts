@@ -1,5 +1,7 @@
 import { Component, OnDestroy, Type, ViewChild } from '@angular/core';
 import { CommonModule, NgComponentOutlet } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
 	selector: 'app-popup-window',

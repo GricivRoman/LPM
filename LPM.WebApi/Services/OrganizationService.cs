@@ -34,8 +34,21 @@ namespace LPM.WebApi.Services
 
 
             return _mapper.Map<List<OrganizationDto>>(organivationList)
-                    .Map(x => x.EmployeesNumver = CountEmployeesOfOrganization(x))
+                    .Map(x => x.EmployeesNumber = CountEmployeesOfOrganization(x))
                     .ToList();
+        }
+
+        public async Task<List<SelectItemDto<Guid>>> GetOrganizationSelectItemList()
+        {
+            var selectList = await _context.Set<Organizadion>()
+                .Select(x => new SelectItemDto<Guid>
+                {
+                    Id = x.Id,
+                    Value = x.ShortName
+                })
+                .ToListAsync();
+
+            return selectList;
         }
 
         public async Task<Guid> SaveOrganizationAsync(OrganizationDto model)
@@ -58,7 +71,16 @@ namespace LPM.WebApi.Services
             organization.Name = model.Name;
             organization.ShortName = model.ShortName;
             organization.CreationDate = model.CreationDate;
-            organization.MainOrganization = model.MainOrganization;
+
+            if (model.IsMainOrganization)
+            {
+                var previousMainOrg = await _context.Set<Organizadion>().Where(x => x.IsMainOrganization).SingleOrDefaultAsync();
+                if(previousMainOrg != null)
+                {
+                    previousMainOrg.IsMainOrganization = false;
+                }
+            }
+            organization.IsMainOrganization = model.IsMainOrganization;
 
             await _context.SaveChangesAsync();
 

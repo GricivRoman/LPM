@@ -23,7 +23,7 @@ export class OrganizationLIstOptionsService implements GridOptionsService {
 			width: 170
 		},
 		{
-			dataField: 'mainOrganization',
+			dataField: 'isMainOrganization',
 			caption: 'Основная',
 			dataType: 'boolean',
 			width: 100

@@ -20,7 +20,7 @@
         /// <summary>
         /// Основная организация пользователя
         /// </summary>
-        public bool MainOrganization { get; set; }
+        public bool IsMainOrganization { get; set; }
 
         /// <summary>
         /// Дата создания
@@ -40,6 +40,6 @@
         /// <summary>
         /// Количество сотрудников
         /// </summary>
-        public int EmployeesNumver { get; set; }
+        public int EmployeesNumber { get; set; }
     }
 }

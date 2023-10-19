@@ -31,7 +31,7 @@ export class DepartmentListComponent extends FormWithGridComponent<Department> {
     add(){
 		this.modalService.openWithTwoButtons(
 			DepartmentFormComponent,
-			'Создать организацию',
+			'Создать отдел',
 			'md',
 			true,
 			(componentRef: ComponentRef<DepartmentFormComponent>) => {
@@ -53,7 +53,7 @@ export class DepartmentListComponent extends FormWithGridComponent<Department> {
 	edit(){
 		this.modalService.openWithTwoButtons(
 			DepartmentFormComponent,
-			'Редактировать организацию',
+			'Редактировать отдел',
 			'md',
 			true,
 			(componentRef: ComponentRef<DepartmentFormComponent>) => {

@@ -30,7 +30,7 @@
         /// <summary>
         /// Сокращенное наименование
         /// </summary>
-        public OrganizationDto Organizadion { get; set; }
+        public SelectItemDto<Guid> Organization { get; set; }
 
         /// <summary>
         /// Приказы о назначении в отдел

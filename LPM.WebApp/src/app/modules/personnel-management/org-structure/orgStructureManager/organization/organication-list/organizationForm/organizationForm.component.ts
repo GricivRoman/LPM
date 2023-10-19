@@ -24,6 +24,6 @@ export class OrganizationFormComponent extends ReactiveFromComponent<Organizatio
 	override form = new FormGroup({
 		name: new FormControl(''),
 		shortName: new FormControl(''),
-		mainOrganization: new FormControl(false)
+		isMainOrganization: new FormControl(false)
 	});
 }

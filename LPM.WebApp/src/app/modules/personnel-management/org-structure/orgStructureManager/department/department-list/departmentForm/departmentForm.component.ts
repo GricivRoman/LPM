@@ -24,6 +24,7 @@ export class DepartmentFormComponent extends ReactiveFromComponent<Department> {
 	override form = new FormGroup({
 		name: new FormControl(''),
 		shortName: new FormControl(''),
-        description: new FormControl('')
+        description: new FormControl(''),
+        organization: new FormControl('')
 	});
 }

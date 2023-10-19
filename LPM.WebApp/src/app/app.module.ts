@@ -11,6 +11,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthActivatorService } from './modules/personnel-management/authentication/authGuard';
 import { AuthenticationService } from './modules/personnel-management/authentication/authentication.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
 	declarations: [
@@ -25,7 +28,10 @@ import { AuthenticationService } from './modules/personnel-management/authentica
 		CommonModule,
 		HttpClientModule,
 		MatDialogModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		MatMenuModule,
+		MatAutocompleteModule,
+		MatSelectModule
 	],
 	providers: [
 		{
