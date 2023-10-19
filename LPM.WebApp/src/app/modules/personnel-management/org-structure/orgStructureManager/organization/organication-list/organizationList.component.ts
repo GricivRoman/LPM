@@ -22,7 +22,7 @@ export class OrganizationListComponent extends FormWithGridComponent<Organizatio
 		public override alertService: AlertService
 	){
 		super(modalService, dataService, alertService);
-		
+
 		dataService.url = 'organization';
 		this.gridOptionService = gridOptionService;
 		this.gridDataService = gridDataService;

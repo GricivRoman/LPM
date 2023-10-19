@@ -37,6 +37,20 @@ namespace LPM.WebApi.Services
             return _mapper.Map<List<DepartmentDto>>(departmentList);
         }
 
+        public async Task<List<SelectItemDto<Guid>>> GettDepartmentSelectItemList(Guid organizationId)
+        {
+            var selectList = await _context.Set<Department>()
+                .Where(x => x.OrganizationId == organizationId)
+                .Select(x => new SelectItemDto<Guid>
+                {
+                    Id = x.Id,
+                    Value = x.ShortName
+                })
+                .ToListAsync();
+
+            return selectList;
+        }
+
         public async Task<Guid> SaveDepartmentAsync(DepartmentDto model)
         {
             if (model.Organization ==null)

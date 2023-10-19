@@ -36,7 +36,12 @@ namespace LPM.Infrastructure.Dto
         /// <summary>
         /// Дата трудоустройства
         /// </summary>
-        public DateTime OficialDateStart { get; set; }
+        public DateTime? OficialDateStart { get; set; }
+
+        /// <summary>
+        /// Дата окончания испытательного срока
+        /// </summary>
+        public DateTime? ProbationEndDate { get; set; }
 
         /// <summary>
         /// Дата окончания
@@ -51,6 +56,6 @@ namespace LPM.Infrastructure.Dto
         /// <summary>
         /// Тип позиции
         /// </summary>
-        public EmployeeType EmployeeType { get; set; }
+        public EmployeeTypeEnum EmployeeType { get; set; }
     }
 }

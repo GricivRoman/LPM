@@ -25,12 +25,12 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 	@Output() gridDataLoaded = new EventEmitter<TClass[]>;
 
 	private inerClick: boolean;
-	@HostListener("click")
+	@HostListener('click')
 	clickedInsideGrid(){
 		this.inerClick = true;
 	}
 
-	@HostListener("document:click")
+	@HostListener('document:click')
 	documentClicked(){
 		if(!this.inerClick){
 			this.grid.instance.deselectAll();

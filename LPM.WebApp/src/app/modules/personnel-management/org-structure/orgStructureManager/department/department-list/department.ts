@@ -1,19 +1,19 @@
-import { BaseEntity } from "src/app/modules/shared/models/baseEntity";
-import { SelectItem } from "src/app/modules/shared/models/selectItem";
+import { BaseEntity } from 'src/app/modules/shared/models/baseEntity';
+import { SelectItem } from 'src/app/modules/shared/models/selectItem';
 
 export class Department extends BaseEntity {
-    /* Наименование */
-    name : string;
+	/* Наименование */
+	name : string;
 
-    /* Краткое наименование */
-    shortName: string;
+	/* Краткое наименование */
+	shortName: string;
 
-    /* Описание */
-    description: string;
+	/* Описание */
+	description: string;
 
-    /* Организация */
-    organizadion: SelectItem
+	/* Организация */
+	organizadion: SelectItem;
 
-    /* Количество сотрудников */
+	/* Количество сотрудников */
 	employeesNumber: number;
 }

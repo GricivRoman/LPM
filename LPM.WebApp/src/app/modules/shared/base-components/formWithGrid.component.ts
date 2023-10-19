@@ -1,6 +1,6 @@
-import { Component, ViewChild, Input, Output, EventEmitter, ComponentRef, Inject } from '@angular/core';
-import { BaseEntity } from "../models/baseEntity";
-import { GridComponent } from "../module-frontend/forc-grid/grid.component";
+import { Component, ViewChild, Input, Output, EventEmitter, ComponentRef } from '@angular/core';
+import { BaseEntity } from '../models/baseEntity';
+import { GridComponent } from '../module-frontend/forc-grid/grid.component';
 import { Guid } from 'guid-typescript';
 import { ModalWindowService } from '../module-frontend/forc-popup/modalWindow.service';
 import { DataService } from '../services/data.service';
@@ -11,8 +11,8 @@ import { GridDataService } from '../module-frontend/forc-grid/grid-data.service'
 import { GridOptionsService } from '../module-frontend/forc-grid/grid-options.service';
 
 @Component({
-    selector: 'app-form-with-grid',
-    template: ''
+	selector: 'app-form-with-grid',
+	template: ''
 })
 export abstract class FormWithGridComponent<TModel extends BaseEntity> {
     @ViewChild(GridComponent, {static: false}) grid : GridComponent<TModel>;
@@ -25,11 +25,11 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity> {
     public userId?: Guid;
 
 	@Output() dataLoaded = new EventEmitter<TModel[]>;
-    
-    public gridOptionService: GridOptionsService;
-    public gridDataService: GridDataService<TModel>;
-	
-    constructor(
+
+	public gridOptionService: GridOptionsService;
+	public gridDataService: GridDataService<TModel>;
+
+	constructor(
         public modalService: ModalWindowService,
 		public dataService: DataService<TModel>,
 		public alertService: AlertService

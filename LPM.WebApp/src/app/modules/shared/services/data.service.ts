@@ -20,9 +20,13 @@ export class DataService<T extends BaseEntity> {
 		return this.http.get<T[]>(`${this.url}/list`);
 	}
 
-	// TODO пагинация
-	public getSelectItemList(): Observable<T[]>{
-		return this.http.get<T[]>(`${this.url}/select-list`);
+	// TODO сделать через query, там реализовать пагинацию + передачу объекта для фильтрации
+	public getSelectItemList(id?: Guid): Observable<T[]>{
+		let endpoint: string = 'select-list';
+		if(id){
+			endpoint += `/${id}`;
+		}
+		return this.http.get<T[]>(`${this.url}/${endpoint}`);
 	}
 
 	public save(model: T): Observable<Guid>{

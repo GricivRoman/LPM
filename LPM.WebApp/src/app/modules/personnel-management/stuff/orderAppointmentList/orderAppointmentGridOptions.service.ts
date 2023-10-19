@@ -5,32 +5,15 @@ import { GridOptions } from 'src/app/modules/shared/module-frontend/forc-grid/gr
 import { GridSelectionModeStates } from 'src/app/modules/shared/module-frontend/forc-grid/gridElementsModeStates';
 
 @Injectable()
-export class DepartmentGridOptionService implements GridOptionsService {
+export class OrderAppointmentGridOptionsService implements GridOptionsService {
 	getColumns(): Column[] {
-		return [{
-			dataField: 'organization.value',
-			caption: 'Организация',
-			dataType: 'string',
-			width: 170
-		},
-		{
-			dataField: 'shortName',
-			caption: 'Отдел',
-			dataType: 'number',
-			format: {
-				precision: 0
+		return [
+			{
+				dataField: 'name',
+				caption: 'ФИО',
+				dataType: 'string',
+				width: 140
 			},
-			width: 170
-		},
-		{
-			dataField: 'employeesNumber',
-			caption: 'Кол-во сотрудников',
-			dataType: 'number',
-			format: {
-				precision: 0
-			},
-			width: 170
-		}
 		];
 	}
 	getGridOptions(): GridOptions{
@@ -38,7 +21,6 @@ export class DepartmentGridOptionService implements GridOptionsService {
 		options.columns = this.getColumns();
 		options.selectionMode = GridSelectionModeStates.single;
 		options.columnAutoWidth = false;
-		options.gridWidth = '510';
 		return options;
 	}
 }

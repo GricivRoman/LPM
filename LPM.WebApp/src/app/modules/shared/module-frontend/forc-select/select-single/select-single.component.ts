@@ -58,4 +58,8 @@ export class SelectSingleComponent implements OnInit {
 			}
 		});
 	}
+
+	resetSelectList(){
+		this.selectList = [this.loadingItem];
+	}
 }

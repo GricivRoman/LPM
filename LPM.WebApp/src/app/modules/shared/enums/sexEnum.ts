@@ -5,7 +5,7 @@ export enum SexEnum {
 
 export class SexEnumDictionary {
 	public static list : Map<SexEnum, string> = new Map<SexEnum, string>([
-		[SexEnum.male, 'Male'],
-		[SexEnum.female, 'Female'],
+		[SexEnum.male, 'Мужчина'],
+		[SexEnum.female, 'Женщина']
 	]);
 }

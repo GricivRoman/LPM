@@ -3,6 +3,7 @@ using System;
 using LPM.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LPM.Database.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231019121300_AlterTableOrderAppointment_AddColumnProbationEndDate")]
+    partial class AlterTableOrderAppointment_AddColumnProbationEndDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,7 +97,7 @@ namespace LPM.Database.Migrations
                     b.Property<int>("EmployeeType")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("OficialDateStart")
+                    b.Property<DateTime>("OficialDateStart")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Position")

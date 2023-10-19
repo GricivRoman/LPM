@@ -6,7 +6,7 @@ import { DataService } from 'src/app/modules/shared/services/data.service';
 
 @Injectable()
 export class OrganizationListDataService implements GridDataService<Organization> {
-	
+
 	constructor(@Inject('OrganizationDataService')private dataService: DataService<Organization>){
 		this.dataService.url = 'organization';
 	}

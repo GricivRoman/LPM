@@ -9,7 +9,7 @@ const routes: Routes = [
 	},
 	{
 		path: 'employees',
-		loadChildren: () => import ('./modules/personnel-management/employee/employees.module').then(m => m.EmployeesModule),
+		loadChildren: () => import ('./modules/personnel-management/stuff/stuff.module').then(m => m.StuffModule),
 		canActivate: [AutGuard]
 	},
 	{

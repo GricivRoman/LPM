@@ -1,5 +1,6 @@
 ﻿using LPM.Infrastructure.Dto;
 using LPM.Infrastructure.Interfaces;
+using LPM.WebApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,15 @@ namespace LPM.WebApi.Controllers
         {
             var departmentList = await _departmentService.GetDepartmentListAsync();
             return Ok(departmentList);
+        }
+
+        // TODO сделать через query, там реализовать пагинацию + передачу объекта для фильтрации
+        [HttpGet]
+        [Route("select-list/{organizationId}")]
+        public async Task<IActionResult> GetOrganizationSelectItemList(Guid organizationId)
+        {
+            var selectList = await _departmentService.GettDepartmentSelectItemList(organizationId);
+            return Ok(selectList);
         }
 
         [HttpPost]

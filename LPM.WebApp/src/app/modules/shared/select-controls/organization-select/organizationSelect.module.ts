@@ -16,8 +16,8 @@ import { DataService } from '../../services/data.service';
 	],
 	providers: [
 		DataService,
-        { provide: 'OS_DataService', useClass: DataService },
-        OrganizationSelectService
+		{ provide: 'OS_DataService', useClass: DataService },
+		OrganizationSelectService
 	]
 })
 export class OrganizationSelectModule {
