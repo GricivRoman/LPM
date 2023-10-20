@@ -30,7 +30,7 @@ export class OrderAppointmentFormComponent extends ReactiveFromComponent<OrderAp
 	// TODO департамент задизейблен, пока не установлена организация
 	override form = new FormGroup({
 		organization: new FormControl<SelectItem>(new SelectItem()),
-		department: new FormControl<SelectItem>(new SelectItem()),
+		department: new FormControl<SelectItem>({value: new SelectItem(), disabled: true}),
 		dateStart: new FormControl(''),
 		oficialDateStart: new FormControl(''),
 		probationEndDate: new FormControl(''),
@@ -51,6 +51,12 @@ export class OrderAppointmentFormComponent extends ReactiveFromComponent<OrderAp
 			this.form.controls.department.reset();
 			this.departmentSelector.selectService.organizationId = id;
 			this.departmentSelector.resetSelectList();
+		}
+		
+		if(id){
+			this.form.controls.department.enable();
+		} else {
+			this.form.controls.department.disable();
 		}
 	}
 }

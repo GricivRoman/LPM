@@ -1,8 +1,8 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, ViewChild, Inject } from '@angular/core';
 import { DepartmentSelectService } from './departmentSelect.service';
 import { DataService } from '../../services/data.service';
 import { SelectSingleComponent } from '../../module-frontend/forc-select/select-single/select-single.component';
+import { SelectComponent } from '../../base-components/selectComponent';
 
 @Component({
 	selector: 'app-select-department',
@@ -13,18 +13,13 @@ import { SelectSingleComponent } from '../../module-frontend/forc-select/select-
 			[selectService]="selectService"
 		></app-select-single>
 	`,
-	providers:[DepartmentSelectService, { provide: 'DS_DataService', useClass: DataService }]
+	providers:[{ provide: 'SelectService', useClass: DepartmentSelectService }, { provide: 'DS_DataService', useClass: DataService }]
 })
-export class DepartmentSelectComponent {
+export class DepartmentSelectComponent extends SelectComponent {
 	@ViewChild(SelectSingleComponent, {static: false}) selector: SelectSingleComponent;
 
-	@Input()
-		label:string = 'Label required';
-
-	@Input()
-		control: FormControl;
-
-	constructor(public selectService: DepartmentSelectService){
+	constructor(@Inject('SelectService') public override selectService: DepartmentSelectService){
+		super(selectService);
 	}
 
 	resetSelectList(){
