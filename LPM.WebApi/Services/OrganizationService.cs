@@ -3,6 +3,7 @@ using LPM.Database;
 using LPM.Database.Models;
 using LPM.Infrastructure.Dto;
 using LPM.Infrastructure.Extensions;
+using LPM.Infrastructure.Filters;
 using LPM.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +26,7 @@ namespace LPM.WebApi.Services
             return _mapper.Map<OrganizationDto>(organivation);
         }
 
-        public async Task<List<OrganizationDto>> GetOrganizationListAsync()
+        public async Task<List<OrganizationDto>> GetOrganizationListAsync(PagedQueryFilter query)
         {
             var organivationList = await _context.Set<Organizadion>()
                 .Include(x => x.Departments)
@@ -38,7 +39,7 @@ namespace LPM.WebApi.Services
                     .ToList();
         }
 
-        public async Task<List<SelectItemDto<Guid>>> GetOrganizationSelectItemList()
+        public async Task<List<SelectItemDto<Guid>>> GetOrganizationSelectItemList(PagedQueryFilter query)
         {
             var selectList = await _context.Set<Organizadion>()
                 .Select(x => new SelectItemDto<Guid>

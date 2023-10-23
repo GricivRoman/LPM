@@ -1,4 +1,5 @@
 ﻿using LPM.Infrastructure.Dto;
+using LPM.Infrastructure.Filters;
 using LPM.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace LPM.WebApi.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetOrganization([FromRoute]Guid id)
+        public async Task<IActionResult> GetOrganization(Guid id)
         {
             var organization = await _organizationService.GetOrganizationAsync(id);
             return Ok(organization);
@@ -26,17 +27,17 @@ namespace LPM.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetOrganizationList()
+        public async Task<IActionResult> GetOrganizationList([FromQuery]PagedQueryFilter query)
         {
-            var organizationList = await _organizationService.GetOrganizationListAsync();
+            var organizationList = await _organizationService.GetOrganizationListAsync(query);
             return Ok(organizationList);
         }
 
         [HttpGet]
         [Route("select-list")]
-        public async Task<IActionResult> GetOrganizationSelectItemList()
+        public async Task<IActionResult> GetOrganizationSelectItemList([FromQuery]PagedQueryFilter query)
         {
-            var selectList = await _organizationService.GetOrganizationSelectItemList();
+            var selectList = await _organizationService.GetOrganizationSelectItemList(query);
             return Ok(selectList);
         }
 

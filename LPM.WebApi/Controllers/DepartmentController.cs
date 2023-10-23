@@ -1,6 +1,6 @@
 ﻿using LPM.Infrastructure.Dto;
+using LPM.Infrastructure.Filters;
 using LPM.Infrastructure.Interfaces;
-using LPM.WebApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,25 +27,24 @@ namespace LPM.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetOrganizationList()
+        public async Task<IActionResult> GetDepartmentList([FromQuery]DepartmentQueryFilter query)
         {
-            var departmentList = await _departmentService.GetDepartmentListAsync();
+            var departmentList = await _departmentService.GetDepartmentListAsync(query);
             return Ok(departmentList);
         }
 
-        // TODO сделать через query, там реализовать пагинацию + передачу объекта для фильтрации
         [HttpGet]
-        [Route("select-list/{organizationId}")]
-        public async Task<IActionResult> GetOrganizationSelectItemList(Guid organizationId)
+        [Route("select-list")]
+        public async Task<IActionResult> GetDepartmentSelectItemList([FromQuery]DepartmentQueryFilter query)
         {
-            var selectList = await _departmentService.GettDepartmentSelectItemList(organizationId);
+            var selectList = await _departmentService.GettDepartmentSelectItemList(query);
             return Ok(selectList);
         }
 
         [HttpPost]
         [HttpPatch]
         [Route("")]
-        public async Task<IActionResult> SaveOrganization([FromBody]DepartmentDto model)
+        public async Task<IActionResult> SaveDepartment([FromBody]DepartmentDto model)
         {
             var createdDepartmentId = await _departmentService.SaveDepartmentAsync(model);
             return Ok(createdDepartmentId);
@@ -53,7 +52,7 @@ namespace LPM.WebApi.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteOrganization(Guid id)
+        public async Task<IActionResult> DeleteDepartment(Guid id)
         {
             await _departmentService.DeleteDepartmentAsync(id);
             return Ok();

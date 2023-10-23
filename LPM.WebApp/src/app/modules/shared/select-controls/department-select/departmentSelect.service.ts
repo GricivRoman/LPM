@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SelectItem } from '../../models/selectItem';
 import { DataService } from '../../services/data.service';
 import { Guid } from 'guid-typescript';
+import { DepartmentFilter } from '../../filters/departmentFilter';
 
 @Injectable()
 export class DepartmentSelectService implements SelectService {
@@ -11,9 +12,10 @@ export class DepartmentSelectService implements SelectService {
 		dataService.url = 'department';
 	}
 
-	// TODO сделать через query, там реализовать пагинацию + передачу объекта для фильтрации
 	organizationId?: Guid;
 	getItemList(): Observable<SelectItem[]>{
-		return this.organizationId ? this.dataService.getSelectItemList(this.organizationId) : this.dataService.getSelectItemList(Guid.createEmpty());
+		var filter = new DepartmentFilter();
+		filter.organizationId = this.organizationId ? this.organizationId : Guid.createEmpty();
+		return this.dataService.getSelectItemList(filter);
 	}
 }
