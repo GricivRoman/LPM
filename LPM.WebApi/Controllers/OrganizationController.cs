@@ -50,7 +50,7 @@ namespace LPM.WebApi.Controllers
         [Route("")]
         public async Task<IActionResult> SaveOrganization([FromBody]OrganizationDto model)
         {
-            var currentUserId = (await _userManager.GetUserAsync(User)).Id;
+            var currentUserId = (await _userManager.FindByNameAsync(User.Identity.Name)).Id;
             var createdOrganizationId = await _organizationService.SaveOrganizationAsync(model, currentUserId);
             return Ok(createdOrganizationId);
         }
