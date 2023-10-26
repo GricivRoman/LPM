@@ -19,12 +19,12 @@ export class DataService<T extends BaseEntity> {
 
 	// TODO пагинация
 	public getList(filterObj: PagedQueryFilter = new PagedQueryFilter()): Observable<T[]>{
-		var query = QueryString.stringify(filterObj, {addQueryPrefix: true, allowDots: true});
+		const query = QueryString.stringify(filterObj, {addQueryPrefix: true, allowDots: true});
 		return this.http.get<T[]>(`${this.url}/list${query}`);
 	}
 
 	public getSelectItemList(filterObj: PagedQueryFilter = new PagedQueryFilter()): Observable<T[]>{
-		var query = QueryString.stringify(filterObj, {addQueryPrefix: true, allowDots: true});
+		const query = QueryString.stringify(filterObj, {addQueryPrefix: true, allowDots: true});
 		return this.http.get<T[]>(`${this.url}/select-list${query}`);
 	}
 

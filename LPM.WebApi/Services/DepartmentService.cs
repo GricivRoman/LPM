@@ -2,6 +2,7 @@
 using LPM.Database;
 using LPM.Database.Models;
 using LPM.Infrastructure.Dto;
+using LPM.Infrastructure.Extensions;
 using LPM.Infrastructure.Filters;
 using LPM.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -31,17 +32,35 @@ namespace LPM.WebApi.Services
 
         public async Task<List<DepartmentDto>> GetDepartmentListAsync(DepartmentQueryFilter query)
         {
-            var departmentList = await _context.Set<Department>()
+            var departmentQuery = _context.Set<Department>()
                     .Include(x => x.Organizadion)
-                    .ToListAsync();
+                    .ThenInclude(x => x.Users).AsQueryable();
+
+            if (query.UserId != null)
+            {
+                departmentQuery = departmentQuery.Where(x => x.Organizadion.Users.Any(i => i.Id == query.UserId));
+            }
+
+            if (query.OrganizationId != null)
+            {
+                departmentQuery = departmentQuery.Where(x => x.OrganizationId == query.OrganizationId);
+            }
+
+            var departmentList = await departmentQuery.PagedBy(query.Paging).ToListAsync();
 
             return _mapper.Map<List<DepartmentDto>>(departmentList);
         }
 
         public async Task<List<SelectItemDto<Guid>>> GettDepartmentSelectItemList(DepartmentQueryFilter query)
         {
+            if(query.OrganizationId == null)
+            {
+                throw new ApplicationException("Невозможно выбрать список департаментов без указания организации");
+            }
+
             var selectList = await _context.Set<Department>()
                 .Where(x => x.OrganizationId == query.OrganizationId)
+                .PagedBy(query.Paging)
                 .Select(x => new SelectItemDto<Guid>
                 {
                     Id = x.Id,

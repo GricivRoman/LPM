@@ -20,6 +20,9 @@ export class SelectSingleComponent implements OnInit {
 	@Input()
 		control: FormControl;
 
+	@Input()
+		hideLabel: boolean;
+
 	private emptyItem: SelectItem = {
 		id: undefined,
 		value: '(empty)'

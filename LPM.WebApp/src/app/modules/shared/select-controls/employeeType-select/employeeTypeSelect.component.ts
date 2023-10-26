@@ -16,6 +16,6 @@ import { SelectComponent } from '../../base-components/selectComponent';
 export class EmployeeTypeSelectComponent extends SelectComponent {
 
 	constructor(@Inject('SelectService') public override selectService: EmployeeTypeSelectService){
-		super(selectService)
+		super(selectService);
 	}
 }

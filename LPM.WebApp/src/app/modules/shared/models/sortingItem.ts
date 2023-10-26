@@ -1,4 +1,4 @@
 export class SortingItem {
-    propertyToSort: string;
-    sortDescending: boolean;
+	propertyToSort: string;
+	sortDescending: boolean;
 }

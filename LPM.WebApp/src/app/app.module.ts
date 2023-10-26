@@ -14,6 +14,7 @@ import { AuthenticationService } from './modules/personnel-management/authentica
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
+import { GlobalOrganizationModule } from './modules/personnel-management/organization/globalOrganization.module';
 
 @NgModule({
 	declarations: [
@@ -31,7 +32,8 @@ import { MatSelectModule } from '@angular/material/select';
 		BrowserAnimationsModule,
 		MatMenuModule,
 		MatAutocompleteModule,
-		MatSelectModule
+		MatSelectModule,
+		GlobalOrganizationModule
 	],
 	providers: [
 		{

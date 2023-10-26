@@ -26,22 +26,41 @@ namespace LPM.WebApi.Services
             return _mapper.Map<OrganizationDto>(organivation);
         }
 
-        public async Task<List<OrganizationDto>> GetOrganizationListAsync(PagedQueryFilter query)
+        public async Task<List<OrganizationDto>> GetOrganizationListAsync(OrganizationQueryFilter query)
         {
-            var organivationList = await _context.Set<Organizadion>()
+            var organizationListQuery = _context.Set<Organizadion>()
+                .Include(x => x.Users)
+                .Where(x => x.Users.Any(i => i.Id == query.UserId))
                 .Include(x => x.Departments)
                 .ThenInclude(x => x.OrderAppointments)
-                .ToListAsync();
+                .AsQueryable();
 
+            if (query.TakeOnlyMainOrganization)
+            {
+                organizationListQuery = organizationListQuery.Where(x => x.IsMainOrganization);
+            }
 
-            return _mapper.Map<List<OrganizationDto>>(organivationList)
+            var organizationList = await organizationListQuery.PagedBy(query.Paging).ToListAsync();
+
+            return _mapper.Map<List<OrganizationDto>>(organizationList)
                     .Map(x => x.EmployeesNumber = CountEmployeesOfOrganization(x))
                     .ToList();
         }
 
-        public async Task<List<SelectItemDto<Guid>>> GetOrganizationSelectItemList(PagedQueryFilter query)
+        public async Task<List<SelectItemDto<Guid>>> GetOrganizationSelectItemList(OrganizationQueryFilter query)
         {
-            var selectList = await _context.Set<Organizadion>()
+            var selectQuery = _context.Set<Organizadion>()                
+                .Include(x => x.Users)
+                .Where(x => x.Users.Any(i => i.Id == query.UserId))
+                .AsQueryable();
+
+            if (query.TakeOnlyMainOrganization)
+            {
+                selectQuery = selectQuery.Where(x => x.IsMainOrganization);
+            }
+
+            var selectList = await selectQuery
+                .PagedBy(query.Paging)
                 .Select(x => new SelectItemDto<Guid>
                 {
                     Id = x.Id,
@@ -52,8 +71,9 @@ namespace LPM.WebApi.Services
             return selectList;
         }
 
-        public async Task<Guid> SaveOrganizationAsync(OrganizationDto model)
+        public async Task<Guid> SaveOrganizationAsync(OrganizationDto model, Guid userId)
         {
+            
             Organizadion organization;
 
             if (model.Id.HasValue)
@@ -62,11 +82,15 @@ namespace LPM.WebApi.Services
             }
             else
             {
+                var user = await _context.Set<User>().Where(x => x.Id == userId).SingleOrDefaultAsync();
                 organization = new Organizadion()
                 {
-                    Id = new Guid()
+                    Id = new Guid(),
+                    Users = new List<User>()
+                    
                 };
                 _context.Add(organization);
+                organization.Users.Add(user);
             }
 
             organization.Name = model.Name;

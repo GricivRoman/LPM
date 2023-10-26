@@ -27,7 +27,6 @@ export class OrderAppointmentFormComponent extends ReactiveFromComponent<OrderAp
 		this.createEmptyModel = () => new OrderAppointment();
 	}
 
-	// TODO департамент задизейблен, пока не установлена организация
 	override form = new FormGroup({
 		organization: new FormControl<SelectItem>(new SelectItem()),
 		department: new FormControl<SelectItem>({value: new SelectItem(), disabled: true}),
@@ -52,7 +51,7 @@ export class OrderAppointmentFormComponent extends ReactiveFromComponent<OrderAp
 			this.departmentSelector.selectService.organizationId = id;
 			this.departmentSelector.resetSelectList();
 		}
-		
+
 		if(id){
 			this.form.controls.department.enable();
 		} else {

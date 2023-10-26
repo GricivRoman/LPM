@@ -22,6 +22,9 @@
             </div>
             <div class="order-2">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" style="width: 125px; margin-top: 5px;">
+                        <app-global-organization-select></app-global-organization-select>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" *ngIf="!authorized" (click)="login()" style="cursor: pointer;">
                             <fa-icon [icon]="loginIcon" class="fa-lg mt-1 mx-2"></fa-icon>

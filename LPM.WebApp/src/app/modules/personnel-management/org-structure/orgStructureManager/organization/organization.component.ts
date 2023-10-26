@@ -5,7 +5,7 @@ import { Guid } from 'guid-typescript';
 	selector: 'app-organization',
 	templateUrl: 'organization.component.html'
 })
-export class OrganizationComponent {
+export class GlobalOrganizationComponent {
 	@Input()
 		userId?: Guid;
 }

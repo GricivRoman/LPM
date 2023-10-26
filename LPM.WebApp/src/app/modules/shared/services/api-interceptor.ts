@@ -2,8 +2,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import config from '../../../../assets/configuration.json';
-import { LocalStorageService } from '../local-storage/localStorage.service';
-import { AuthResponse } from '../local-storage/auth-response';
+import { AuthLocalStorageService } from '../local-storage/auth-localStorage/authLocalStorage.service';
+import { AuthResponse } from '../local-storage/auth-localStorage/auth-response';
 const baseUrl = config.serverUrl;
 
 @Injectable()
@@ -11,8 +11,8 @@ export class ApiInterceptor implements HttpInterceptor, OnDestroy {
 	private authToken: string;
 	private subscriprions: Subscription = new Subscription;
 
-	constructor(private localStorageService: LocalStorageService) {
-		this.subscriprions.add(this.localStorageService.$authInfo.subscribe((info: AuthResponse | null)=>{
+	constructor(private AuthLocalStorageService: AuthLocalStorageService) {
+		this.subscriprions.add(this.AuthLocalStorageService.$authInfo.subscribe((info: AuthResponse | null)=>{
 			if(info){
 				this.authToken = info.token;
 			}

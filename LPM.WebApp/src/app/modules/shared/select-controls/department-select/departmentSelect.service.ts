@@ -14,7 +14,7 @@ export class DepartmentSelectService implements SelectService {
 
 	organizationId?: Guid;
 	getItemList(): Observable<SelectItem[]>{
-		var filter = new DepartmentFilter();
+		const filter = new DepartmentFilter();
 		filter.organizationId = this.organizationId ? this.organizationId : Guid.createEmpty();
 		return this.dataService.getSelectItemList(filter);
 	}
