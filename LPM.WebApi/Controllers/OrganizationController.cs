@@ -31,17 +31,17 @@ namespace LPM.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetOrganizationList([FromQuery] OrganizationQueryFilter query)
+        public async Task<IActionResult> GetOrganizationList([FromQuery] OrganizationQueryFilter filter)
         {
-            var organizationList = await _organizationService.GetOrganizationListAsync(query);
+            var organizationList = await _organizationService.GetOrganizationListAsync(filter);
             return Ok(organizationList);
         }
 
         [HttpGet]
         [Route("select-list")]
-        public async Task<IActionResult> GetOrganizationSelectItemList([FromQuery] OrganizationQueryFilter query)
+        public async Task<IActionResult> GetOrganizationSelectItemList([FromQuery] OrganizationQueryFilter filter)
         {
-            var selectList = await _organizationService.GetOrganizationSelectItemList(query);
+            var selectList = await _organizationService.GetOrganizationSelectItemList(filter);
             return Ok(selectList);
         }
 

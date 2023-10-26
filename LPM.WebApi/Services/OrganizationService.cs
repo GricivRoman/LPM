@@ -26,41 +26,41 @@ namespace LPM.WebApi.Services
             return _mapper.Map<OrganizationDto>(organivation);
         }
 
-        public async Task<List<OrganizationDto>> GetOrganizationListAsync(OrganizationQueryFilter query)
+        public async Task<List<OrganizationDto>> GetOrganizationListAsync(OrganizationQueryFilter filter)
         {
             var organizationListQuery = _context.Set<Organizadion>()
                 .Include(x => x.Users)
-                .Where(x => x.Users.Any(i => i.Id == query.UserId))
+                .Where(x => x.Users.Any(i => i.Id == filter.UserId))
                 .Include(x => x.Departments)
                 .ThenInclude(x => x.OrderAppointments)
                 .AsQueryable();
 
-            if (query.TakeOnlyMainOrganization)
+            if (filter.TakeOnlyMainOrganization)
             {
                 organizationListQuery = organizationListQuery.Where(x => x.IsMainOrganization);
             }
 
-            var organizationList = await organizationListQuery.PagedBy(query.Paging).ToListAsync();
+            var organizationList = await organizationListQuery.PagedBy(filter.Paging).ToListAsync();
 
             return _mapper.Map<List<OrganizationDto>>(organizationList)
                     .Map(x => x.EmployeesNumber = CountEmployeesOfOrganization(x))
                     .ToList();
         }
 
-        public async Task<List<SelectItemDto<Guid>>> GetOrganizationSelectItemList(OrganizationQueryFilter query)
+        public async Task<List<SelectItemDto<Guid>>> GetOrganizationSelectItemList(OrganizationQueryFilter filter)
         {
             var selectQuery = _context.Set<Organizadion>()                
                 .Include(x => x.Users)
-                .Where(x => x.Users.Any(i => i.Id == query.UserId))
+                .Where(x => x.Users.Any(i => i.Id == filter.UserId))
                 .AsQueryable();
 
-            if (query.TakeOnlyMainOrganization)
+            if (filter.TakeOnlyMainOrganization)
             {
                 selectQuery = selectQuery.Where(x => x.IsMainOrganization);
             }
 
             var selectList = await selectQuery
-                .PagedBy(query.Paging)
+                .PagedBy(filter.Paging)
                 .Select(x => new SelectItemDto<Guid>
                 {
                     Id = x.Id,

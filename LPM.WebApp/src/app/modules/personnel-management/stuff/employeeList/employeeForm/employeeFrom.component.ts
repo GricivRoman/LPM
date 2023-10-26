@@ -26,6 +26,6 @@ export class EmployeeFormComponent extends ReactiveFromComponent<Employee> {
 		sex: new FormControl(''),
 		birthDate: new FormControl(''),
 		workPlace: new FormControl(''),
-		hasWHI: new FormControl('')
+		hasVHI: new FormControl('')
 	});
 }

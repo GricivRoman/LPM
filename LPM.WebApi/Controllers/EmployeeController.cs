@@ -1,10 +1,13 @@
 ﻿using LPM.Infrastructure.Dto;
 using LPM.Infrastructure.Filters;
 using LPM.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LPM.WebApi.Controllers
 {
+    [Route("/employee")]
+    [Authorize]
     public class EmployeeController : BaseController
     {
         private readonly IEmployeeService _employeeService;
@@ -24,17 +27,17 @@ namespace LPM.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetEmployeeList([FromQuery]EmployeeQueryFilter query)
+        public async Task<IActionResult> GetEmployeeList([FromQuery]EmployeeQueryFilter filter)
         {
-            var organizationList = await _employeeService.GetEmployeeListAsync(query);
+            var organizationList = await _employeeService.GetEmployeeListAsync(filter);
             return Ok(organizationList);
         }
 
         [HttpGet]
         [Route("select-list")]
-        public async Task<IActionResult> GetEmployeeSelectItemList([FromQuery]EmployeeQueryFilter query)
+        public async Task<IActionResult> GetEmployeeSelectItemList([FromQuery]EmployeeQueryFilter filter)
         {
-            var selectList = await _employeeService.GetEmployeeSelectItemList(query);
+            var selectList = await _employeeService.GetEmployeeSelectItemList(filter);
             return Ok(selectList);
         }
 

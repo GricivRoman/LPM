@@ -86,6 +86,7 @@ namespace LPM.WebApi
             services.AddScoped<IAccountService, AuthService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -15,5 +15,5 @@ export class Employee extends BaseEntity {
 	workPlace: string;
 
 	/* Есть ДМС */
-	hasWHI: boolean;
+	hasVHI: boolean;
 }

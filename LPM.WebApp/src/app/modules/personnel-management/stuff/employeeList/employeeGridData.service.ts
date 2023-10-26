@@ -11,6 +11,6 @@ export class EmployeeGridDataService implements GridDataService<Employee> {
 	}
 
 	getGridData(): Observable<Employee[]>{
-		return of();
+		return this.dataService.getList();
 	}
 }

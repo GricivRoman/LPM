@@ -27,17 +27,17 @@ namespace LPM.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetDepartmentList([FromQuery]DepartmentQueryFilter query)
+        public async Task<IActionResult> GetDepartmentList([FromQuery]DepartmentQueryFilter filter)
         {
-            var departmentList = await _departmentService.GetDepartmentListAsync(query);
+            var departmentList = await _departmentService.GetDepartmentListAsync(filter);
             return Ok(departmentList);
         }
 
         [HttpGet]
         [Route("select-list")]
-        public async Task<IActionResult> GetDepartmentSelectItemList([FromQuery]DepartmentQueryFilter query)
+        public async Task<IActionResult> GetDepartmentSelectItemList([FromQuery]DepartmentQueryFilter filter)
         {
-            var selectList = await _departmentService.GettDepartmentSelectItemList(query);
+            var selectList = await _departmentService.GettDepartmentSelectItemList(filter);
             return Ok(selectList);
         }
 
