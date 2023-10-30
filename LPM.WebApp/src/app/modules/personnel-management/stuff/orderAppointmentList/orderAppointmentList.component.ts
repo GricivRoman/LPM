@@ -1,4 +1,4 @@
-import { Component, Inject, ComponentRef } from '@angular/core';
+import { Component, Inject, ComponentRef, Input, OnChanges } from '@angular/core';
 import { FormWithGridComponent } from 'src/app/modules/shared/base-components/formWithGrid.component';
 import { OrderAppointment } from './orderAppointment';
 import { DataService } from 'src/app/modules/shared/services/data.service';
@@ -7,6 +7,7 @@ import { OrderAppointmentFormComponent } from './orderAppointmentForm/orderAppoi
 import { OrderAppointmentGridDataService } from './orderAppointmentGridData.service';
 import { ModalWindowService } from 'src/app/modules/shared/module-frontend/forc-popup/modalWindow.service';
 import { OrderAppointmentGridOptionsService } from './orderAppointmentGridOptions.service';
+import { Guid } from 'guid-typescript';
 
 @Component({
 	selector: 'app-order-appointment',
@@ -18,7 +19,10 @@ import { OrderAppointmentGridOptionsService } from './orderAppointmentGridOption
 		ModalWindowService
 	]
 })
-export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAppointment> {
+export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAppointment> implements OnChanges {
+	@Input()
+		employeeId?: Guid;
+
 	constructor(public override gridOptionService: OrderAppointmentGridOptionsService,
         public override gridDataService: OrderAppointmentGridDataService,
         public override modalService: ModalWindowService,
@@ -32,6 +36,13 @@ export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAp
 		this.gridDataService = gridDataService;
 	}
 
+	ngOnChanges(){
+		if(this.employeeId){
+			this.gridDataService.employeeId = this.employeeId;
+			this.grid.refresh();
+		}
+	}
+
 	add(){
 		this.modalService.openWithTwoButtons(
 			OrderAppointmentFormComponent,
@@ -41,6 +52,9 @@ export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAp
 			(componentRef: ComponentRef<OrderAppointmentFormComponent>) => {
 				this.setApiUrl(componentRef);
 				componentRef.instance.modelId = this.userId;
+				if(this.employeeId){
+					componentRef.instance.model.employeeId = this.employeeId;
+				}
 			},
 			(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef) => {
 				componentRef.instance.save(() => {
@@ -63,6 +77,9 @@ export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAp
 			(componentRef: ComponentRef<OrderAppointmentFormComponent>) => {
 				componentRef.instance.modelId = this.grid.getSelectedRowsKeys()[0];
 				this.setApiUrl(componentRef);
+				if(this.employeeId){
+					componentRef.instance.model.employeeId = this.employeeId;
+				}
 				componentRef.instance.ngOnInit();
 			},
 			(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef) => {

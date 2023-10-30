@@ -1,6 +1,4 @@
-﻿using LPM.Infrastructure.Enums;
-
-namespace LPM.Infrastructure.Dto
+﻿namespace LPM.Infrastructure.Dto
 {
     /// <summary>
     /// Приказ о назначении
@@ -14,19 +12,14 @@ namespace LPM.Infrastructure.Dto
         public Guid EmployeeId { get; set; }
 
         /// <summary>
-        /// Сотрудник
+        /// Организация
         /// </summary>
-        public EmployeeDto Employee { get; set; }
-
-        /// <summary>
-        /// ID департамента
-        /// </summary>
-        public Guid DepartmentId { get; set; }
+        public SelectItemDto<Guid> Organization { get; set; }
 
         /// <summary>
         /// Департамент
         /// </summary>
-        public DepartmentDto Department { get; set; }
+        public SelectItemDto<Guid> Department { get; set; }
 
         /// <summary>
         /// Дата начала работы
@@ -56,6 +49,6 @@ namespace LPM.Infrastructure.Dto
         /// <summary>
         /// Тип позиции
         /// </summary>
-        public EmployeeTypeEnum EmployeeType { get; set; }
+        public SelectItemDto<int> EmployeeType { get; set; }
     }
 }

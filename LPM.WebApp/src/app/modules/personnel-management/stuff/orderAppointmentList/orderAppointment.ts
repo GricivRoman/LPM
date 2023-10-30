@@ -1,7 +1,13 @@
+import { Guid } from 'guid-typescript';
 import { BaseEntity } from 'src/app/modules/shared/models/baseEntity';
 import { SelectItem } from 'src/app/modules/shared/models/selectItem';
 
 export class OrderAppointment extends BaseEntity {
+	employeeId: Guid;
+
+	/* Отдел */
+	organization: SelectItem;
+
 	/* Отдел */
 	department: SelectItem;
 

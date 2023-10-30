@@ -1,53 +1,53 @@
-<div class=" row">
-    <div class="col">
+<div class="row">
+    <div class="col-6">
         <app-select-organization
             label="Организация"
             [control]="form.controls.organization"
         ></app-select-organization>
     </div>
-    <div class="col">
+    <div class="col-6">
         <app-select-department
             label="Отдел"
             [control]="form.controls.department"
         ></app-select-department>
     </div>
 </div>
-<div class=" row">
-    <div class="col">
+<div class="row">
+    <div class="col-6">
         <app-forc-text
             label="Должность"
             [control]="form.controls.position"
         ></app-forc-text>
     </div>
-    <div class="col">
+    <div class="col-6">
         <app-select-employee-type
             label="Тип должности"
             [control]="form.controls.employeeType"
         ></app-select-employee-type>
     </div>
 </div>
-<div class=" row">
-    <div class="col">
+<div class="row">
+    <div class="col-6">
         <app-forc-date
             label="Начало работы"
             [control]="form.controls.dateStart"
         ></app-forc-date>
     </div>
-    <div class="col">
+    <div class="col-6">
         <app-forc-date
             label="Окончание исп. срока"
             [control]="form.controls.probationEndDate"
         ></app-forc-date>
     </div>
 </div>
-<div class=" row">
-    <div class="col">
+<div class="row">
+    <div class="col-6">
         <app-forc-date
             label="Офиц. трудоустройство"
             [control]="form.controls.oficialDateStart"
         ></app-forc-date>
     </div>
-    <div class="col">
+    <div class="col-6">
         <app-forc-date
             label="Прекращение договора"
             [control]="form.controls.dateEnd"

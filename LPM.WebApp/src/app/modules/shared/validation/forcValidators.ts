@@ -1,4 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { SelectItem } from '../models/selectItem';
 
 export class ForcValidators {
 
@@ -71,6 +72,16 @@ export class ForcValidators {
 			if(control && control.value > num){
 				return { 'lassOrEqualThan': `Значение должно быть не более ${num}` };
 			}
+			return null;
+		};
+	}
+
+	static selectItemRequired(): ValidatorFn {
+		return (control: AbstractControl) : ValidationErrors | null => {
+			if(control?.value && control.value === new SelectItem()){
+				return { 'selectItemRequired': 'Поле обязательно' };
+			}
+
 			return null;
 		};
 	}

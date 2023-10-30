@@ -21,10 +21,6 @@ namespace LPM.Database.EntitiesConfigurations
                 .HasForeignKey(x => x.DepartmentId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasQueryFilter(x => x.DateEnd != null)
-                .HasIndex(x => new { x.EmployeeId, x.DepartmentId })
-                .IsUnique();
         }
     }
 }

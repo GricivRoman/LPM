@@ -4,6 +4,7 @@ using LPM.Database.Models;
 using LPM.Infrastructure.Dto;
 using LPM.Infrastructure.Extensions;
 using LPM.Infrastructure.Filters;
+using LPM.Infrastructure.Helpers;
 using LPM.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,6 +34,7 @@ namespace LPM.WebApi.Services
         public async Task<List<DepartmentDto>> GetDepartmentListAsync(DepartmentQueryFilter query)
         {
             var departmentQuery = _context.Set<Department>()
+                    .Include(x => x.OrderAppointments)
                     .Include(x => x.Organizadion)
                     .ThenInclude(x => x.Users).AsQueryable();
 
@@ -48,7 +50,7 @@ namespace LPM.WebApi.Services
 
             var departmentList = await departmentQuery.PagedBy(query.Paging).ToListAsync();
 
-            return _mapper.Map<List<DepartmentDto>>(departmentList);
+            return _mapper.Map<List<DepartmentDto>>(departmentList).Map(x => x.EmployeesNumber = EmployeeCountHelper.CountEmployeesOfDepartment(x)).ToList();
         }
 
         public async Task<List<SelectItemDto<Guid>>> GettDepartmentSelectItemList(DepartmentQueryFilter query)

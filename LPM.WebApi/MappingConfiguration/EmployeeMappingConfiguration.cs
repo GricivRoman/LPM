@@ -11,7 +11,6 @@ namespace LPM.WebApi.MappingConfiguration
         {
             CreateMap<Employee, EmployeeDto>()
                 .ForMember(x => x.Id, i => i.MapFrom(j => j.Id))
-
                 .ForMember(x => x.BirthDate, i => i.MapFrom(j => j.BirthDate))
                 .ForMember(x => x.WorkPlace, i => i.MapFrom(j => j.WorkPlace))
                 .ForMember(x => x.OrderAppointments, i => i.MapFrom(j => j.OrderAppointments))

@@ -5,9 +5,11 @@
   panelClass="select-list"
   [hideSingleSelectionIndicator]="true"
   (opened)="selectorOpened()"
-
 >
     <mat-option *ngFor="let item of selectList" [value]="item">
       {{item.value}}
     </mat-option>
 </mat-select>
+<div class="text-danger" *ngIf="shouldShowError">
+  <p>{{err}}</p>
+</div>

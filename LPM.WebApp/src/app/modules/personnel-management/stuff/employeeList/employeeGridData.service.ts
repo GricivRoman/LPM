@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { GridDataService } from 'src/app/modules/shared/module-frontend/forc-grid/grid-data.service';
 import { Employee } from './employee';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DataService } from 'src/app/modules/shared/services/data.service';
 
 @Injectable()

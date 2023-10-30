@@ -4,6 +4,7 @@ using LPM.Database.Models;
 using LPM.Infrastructure.Dto;
 using LPM.Infrastructure.Extensions;
 using LPM.Infrastructure.Filters;
+using LPM.Infrastructure.Helpers;
 using LPM.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,7 +44,7 @@ namespace LPM.WebApi.Services
             var organizationList = await organizationListQuery.PagedBy(filter.Paging).ToListAsync();
 
             return _mapper.Map<List<OrganizationDto>>(organizationList)
-                    .Map(x => x.EmployeesNumber = CountEmployeesOfOrganization(x))
+                    .Map(x => x.EmployeesNumber = EmployeeCountHelper.CountEmployeesOfOrganization(x))
                     .ToList();
         }
 
@@ -131,21 +132,6 @@ namespace LPM.WebApi.Services
             _context.Remove(organization);
 
             await _context.SaveChangesAsync();
-        }
-
-        private int CountEmployeesOfOrganization(OrganizationDto org)
-        {
-            var appointmentsList = new List<OrderAppointmentDto>();
-
-            var appointmentsCollections = org.Departments.Select(x => x.OrderAppointments);
-            foreach(var collection in appointmentsCollections)
-            {
-                appointmentsList.Union(collection);
-            }
-
-            var employeesNumber = appointmentsList.Where(x => x.DateEnd != null).DistinctBy(x => x.EmployeeId).Count();
-
-            return employeesNumber;
         }
     }
 }
