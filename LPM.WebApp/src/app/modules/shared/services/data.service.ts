@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
 import { BaseEntity } from '../models/baseEntity';
+import { PagedQueryFilter } from '../filters/pagedQueryFilter';
+import QueryString from 'qs';
 
 @Injectable()
 export class DataService<T extends BaseEntity> {
@@ -16,13 +18,14 @@ export class DataService<T extends BaseEntity> {
 	}
 
 	// TODO пагинация
-	public getList(): Observable<T[]>{
-		return this.http.get<T[]>(`${this.url}/list`);
+	public getList(filterObj: PagedQueryFilter = new PagedQueryFilter()): Observable<T[]>{
+		const query = QueryString.stringify(filterObj, {addQueryPrefix: true, allowDots: true});
+		return this.http.get<T[]>(`${this.url}/list${query}`);
 	}
 
-	// TODO пагинация
-	public getSelectItemList(): Observable<T[]>{
-		return this.http.get<T[]>(`${this.url}/select-list`);
+	public getSelectItemList(filterObj: PagedQueryFilter = new PagedQueryFilter()): Observable<T[]>{
+		const query = QueryString.stringify(filterObj, {addQueryPrefix: true, allowDots: true});
+		return this.http.get<T[]>(`${this.url}/select-list${query}`);
 	}
 
 	public save(model: T): Observable<Guid>{

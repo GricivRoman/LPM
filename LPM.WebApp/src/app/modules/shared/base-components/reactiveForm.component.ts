@@ -70,8 +70,10 @@ export class ReactiveFromComponent<TEntity extends BaseEntity> implements OnInit
 	}
 
 	public save(saveAction?: (id: Guid) => void){
+		this.form.updateValueAndValidity();
 		if(!this.form?.valid){
-			this.alertService.showMessage('The form invalid', AlertDialogStates.error);
+			this.alertService.showMessage('The form is invalid', AlertDialogStates.error);
+			return;
 		}
 		this.updateModel();
 		if(this.model?.id){

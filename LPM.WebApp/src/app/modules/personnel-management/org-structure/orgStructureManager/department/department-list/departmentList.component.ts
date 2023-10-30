@@ -1,4 +1,4 @@
-import { Component, Inject, ComponentRef } from '@angular/core'
+import { Component, Inject, ComponentRef } from '@angular/core';
 import { FormWithGridComponent } from 'src/app/modules/shared/base-components/formWithGrid.component';
 import { Department } from './department';
 import { DataService } from 'src/app/modules/shared/services/data.service';
@@ -9,13 +9,13 @@ import { DepartmentGridOptionService } from './departmentGridOptions.service';
 import { DepartmentGridDataService } from './departmentGridData.service';
 
 @Component({
-    selector: 'app-department-list',
-    templateUrl: 'departmentList.component.html',
-    providers: [{provide: 'DepartmentDataService', useClass: DataService}]
+	selector: 'app-department-list',
+	templateUrl: 'departmentList.component.html',
+	providers: [{provide: 'DepartmentDataService', useClass: DataService}]
 })
 export class DepartmentListComponent extends FormWithGridComponent<Department> {
-    
-    constructor(public override gridOptionService: DepartmentGridOptionService,
+
+	constructor(public override gridOptionService: DepartmentGridOptionService,
         public override gridDataService: DepartmentGridDataService,
         public override modalService: ModalWindowService,
 		@Inject('DepartmentDataService')public override dataService: DataService<Department>,
@@ -23,12 +23,12 @@ export class DepartmentListComponent extends FormWithGridComponent<Department> {
 	){
 		super(modalService, dataService, alertService);
 		dataService.url = 'department';
-        
-        this.gridOptionService = gridOptionService;
-        this.gridDataService = gridDataService;
+
+		this.gridOptionService = gridOptionService;
+		this.gridDataService = gridDataService;
 	}
 
-    add(){
+	add(){
 		this.modalService.openWithTwoButtons(
 			DepartmentFormComponent,
 			'Создать отдел',

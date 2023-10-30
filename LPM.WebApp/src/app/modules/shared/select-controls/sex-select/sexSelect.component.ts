@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
 import { SexSelectService } from './sexSelect.service';
+import { SelectComponent } from '../../base-components/selectComponent';
 
 @Component({
 	selector: 'app-select-sex',
@@ -11,16 +11,11 @@ import { SexSelectService } from './sexSelect.service';
             [selectService]="selectService"
         ></app-select-single>
     `,
-	providers:[SexSelectService]
+	providers:[{ provide: 'SelectService', useClass: SexSelectService }]
 })
-export class SexSelectComponent {
+export class SexSelectComponent extends SelectComponent {
 
-	@Input()
-		label:string = 'Label required';
-
-	@Input()
-		control: FormControl;
-
-	constructor(public selectService: SexSelectService){
+	constructor(@Inject('SelectService') public override selectService: SexSelectService){
+		super(selectService);
 	}
 }

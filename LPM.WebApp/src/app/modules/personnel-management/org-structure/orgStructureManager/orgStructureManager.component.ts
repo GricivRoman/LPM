@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Guid } from 'guid-typescript';
-import { LocalStorageService } from 'src/app/modules/shared/local-storage/localStorage.service';
+import { AuthLocalStorageService } from 'src/app/modules/shared/local-storage/auth-localStorage/authLocalStorage.service';
 
 @Component({
 	selector: 'app-org-structure-manager',
@@ -9,7 +9,7 @@ import { LocalStorageService } from 'src/app/modules/shared/local-storage/localS
 export class OrgStructureManagerComponent {
 	userId?: Guid;
 
-	constructor(private localStorageService: LocalStorageService){
-		this.userId = localStorageService.authInfo?.userId;
+	constructor(private AuthLocalStorageService: AuthLocalStorageService){
+		this.userId = AuthLocalStorageService.authInfo?.userId;
 	}
 }

@@ -1,6 +1,9 @@
-﻿using LPM.Infrastructure.Dto;
+﻿using LPM.Database.Models;
+using LPM.Infrastructure.Dto;
+using LPM.Infrastructure.Filters;
 using LPM.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LPM.WebApi.Controllers
@@ -10,15 +13,17 @@ namespace LPM.WebApi.Controllers
     public class OrganizationController : BaseController
     {
         private readonly IOrganizationService _organizationService;
+        private readonly UserManager<User> _userManager;
 
-        public OrganizationController(IOrganizationService organizationService)
+        public OrganizationController(IOrganizationService organizationService, UserManager<User> userManager)
         {
             _organizationService = organizationService;
+            _userManager = userManager;
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetOrganization([FromRoute]Guid id)
+        public async Task<IActionResult> GetOrganization(Guid id)
         {
             var organization = await _organizationService.GetOrganizationAsync(id);
             return Ok(organization);
@@ -26,17 +31,17 @@ namespace LPM.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetOrganizationList()
+        public async Task<IActionResult> GetOrganizationList([FromQuery] OrganizationQueryFilter filter)
         {
-            var organizationList = await _organizationService.GetOrganizationListAsync();
+            var organizationList = await _organizationService.GetOrganizationListAsync(filter);
             return Ok(organizationList);
         }
 
         [HttpGet]
         [Route("select-list")]
-        public async Task<IActionResult> GetOrganizationSelectItemList()
+        public async Task<IActionResult> GetOrganizationSelectItemList([FromQuery] OrganizationQueryFilter filter)
         {
-            var selectList = await _organizationService.GetOrganizationSelectItemList();
+            var selectList = await _organizationService.GetOrganizationSelectItemList(filter);
             return Ok(selectList);
         }
 
@@ -45,7 +50,8 @@ namespace LPM.WebApi.Controllers
         [Route("")]
         public async Task<IActionResult> SaveOrganization([FromBody]OrganizationDto model)
         {
-            var createdOrganizationId = await _organizationService.SaveOrganizationAsync(model);
+            var currentUserId = (await _userManager.FindByNameAsync(User.Identity.Name)).Id;
+            var createdOrganizationId = await _organizationService.SaveOrganizationAsync(model, currentUserId);
             return Ok(createdOrganizationId);
         }
 

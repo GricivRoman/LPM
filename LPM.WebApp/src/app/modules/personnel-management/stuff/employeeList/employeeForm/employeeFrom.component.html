@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col">
+        <app-forc-text
+            label="ФИО"
+            [control]="form.controls.name"
+        ></app-forc-text>
+    </div>
+    <div class="col">
+        <app-forc-text
+            label="Рабочее место"
+            [control]="form.controls.workPlace"
+        ></app-forc-text>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <app-forc-date
+            label="Дата рождения"
+            [control]="form.controls.birthDate"
+        ></app-forc-date>
+    </div>
+    <div class="col-3">
+        <app-select-sex
+            label="Пол"
+            [control]="form.controls.sex"
+        ></app-select-sex>
+    </div>
+    <div class="col-3 mt-4">
+        <app-forc-checkbox
+            label="Подключен ДМС"
+            [control]="form.controls.hasVHI"
+        ></app-forc-checkbox>
+    </div>
+</div>
+<div class="row mt-2">
+    <app-order-appointment [employeeId]="modelId"></app-order-appointment>
+</div>

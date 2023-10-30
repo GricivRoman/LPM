@@ -3,7 +3,7 @@ import {BehaviorSubject} from 'rxjs';
 import { AuthResponse } from './auth-response';
 
 @Injectable({providedIn: 'root'})
-export class LocalStorageService {
+export class AuthLocalStorageService {
 	$authInfo = new BehaviorSubject(this.authInfo);
 
 	set authInfo(data: AuthResponse | null) {

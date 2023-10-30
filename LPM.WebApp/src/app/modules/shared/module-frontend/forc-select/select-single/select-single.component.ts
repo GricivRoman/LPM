@@ -1,24 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SelectItem } from '../../../models/selectItem';
-import { FormControl } from '@angular/forms';
 import { SelectService } from '../select.service';
 import { first } from 'rxjs';
+import { BaseControlComponent } from '../../controls/baseControl.component';
 
 @Component({
 	selector: 'app-select-single',
 	templateUrl: 'select-single.component.html',
 	styleUrls: ['select-single.component.css']
 })
-export class SelectSingleComponent implements OnInit {
+export class SelectSingleComponent extends BaseControlComponent implements OnInit {
 
 	@Input()
 		selectService: SelectService;
 
 	@Input()
-		label:string = 'Label required';
-
-	@Input()
-		control: FormControl;
+		hideLabel: boolean;
 
 	private emptyItem: SelectItem = {
 		id: undefined,
@@ -32,7 +29,8 @@ export class SelectSingleComponent implements OnInit {
 
 	selectList: any[] = [this.loadingItem];
 
-	ngOnInit(): void {
+	override ngOnInit(): void {
+		super.ngOnInit();
 		this.control.valueChanges.pipe(first()).subscribe({
 			next: () => {
 				if(this.control.value) {
@@ -57,5 +55,9 @@ export class SelectSingleComponent implements OnInit {
 				}
 			}
 		});
+	}
+
+	resetSelectList(){
+		this.selectList = [this.loadingItem];
 	}
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { OrgStructureManagerComponent } from './orgStructureManager/orgStructureManager.component';
 import { OrgStructureRoutingModule } from './org.structure-routing-module';
-import { OrganizationComponent } from './orgStructureManager/organization/organization.component';
+import { GlobalOrganizationComponent } from './orgStructureManager/organization/organization.component';
 import { GridModule } from '../../shared/module-frontend/forc-grid/grid.module';
 import { ForcButtonsModule } from '../../shared/module-frontend/forc-buttons/forc-buttons.module';
 import { OrganizationListComponent } from './orgStructureManager/organization/organication-list/organizationList.component';
@@ -30,7 +30,7 @@ import { OrganizationSelectModule } from '../../shared/select-controls/organizat
 	],
 	declarations: [
 		OrgStructureManagerComponent,
-		OrganizationComponent,
+		GlobalOrganizationComponent,
 		OrganizationListComponent,
 		OrganizationFormComponent,
 		DepartmentComponent,

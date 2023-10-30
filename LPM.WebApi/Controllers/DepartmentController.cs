@@ -1,4 +1,5 @@
 ﻿using LPM.Infrastructure.Dto;
+using LPM.Infrastructure.Filters;
 using LPM.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,16 +27,24 @@ namespace LPM.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetOrganizationList()
+        public async Task<IActionResult> GetDepartmentList([FromQuery]DepartmentQueryFilter filter)
         {
-            var departmentList = await _departmentService.GetDepartmentListAsync();
+            var departmentList = await _departmentService.GetDepartmentListAsync(filter);
             return Ok(departmentList);
+        }
+
+        [HttpGet]
+        [Route("select-list")]
+        public async Task<IActionResult> GetDepartmentSelectItemList([FromQuery]DepartmentQueryFilter filter)
+        {
+            var selectList = await _departmentService.GettDepartmentSelectItemList(filter);
+            return Ok(selectList);
         }
 
         [HttpPost]
         [HttpPatch]
         [Route("")]
-        public async Task<IActionResult> SaveOrganization([FromBody]DepartmentDto model)
+        public async Task<IActionResult> SaveDepartment([FromBody]DepartmentDto model)
         {
             var createdDepartmentId = await _departmentService.SaveDepartmentAsync(model);
             return Ok(createdDepartmentId);
@@ -43,7 +52,7 @@ namespace LPM.WebApi.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteOrganization(Guid id)
+        public async Task<IActionResult> DeleteDepartment(Guid id)
         {
             await _departmentService.DeleteDepartmentAsync(id);
             return Ok();

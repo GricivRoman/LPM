@@ -5,6 +5,12 @@
     border-radius: 0.375rem;
     display: inline-flex;
     height: 2.33rem;
+    background-color: white;
+}
+
+::ng-deep .mat-mdc-select.mat-mdc-select-disabled {
+    background-color: #e9ecef !important;
+    color: black;
 }
 
 ::ng-deep .mat-mdc-select .mat-mdc-select-value {

@@ -94,18 +94,20 @@ namespace LPM.Database.Migrations
                     b.Property<int>("EmployeeType")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("OficialDateStart")
+                    b.Property<DateTime?>("OficialDateStart")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Position")
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("ProbationEndDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("EmployeeId", "DepartmentId")
-                        .IsUnique();
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("OrderAppointment");
                 });

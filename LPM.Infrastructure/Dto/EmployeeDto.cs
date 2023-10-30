@@ -22,7 +22,7 @@ namespace LPM.Infrastructure.Dto
         /// <summary>
         /// Пол
         /// </summary>
-        public SexEnum Sex { get; set; }
+        public SelectItemDto<int> Sex { get; set; }
 
         /// <summary>
         /// Рабочее место

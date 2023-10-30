@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
 import { GridOptionsService } from 'src/app/modules/shared/module-frontend/forc-grid/grid-options.service';
 import { Column } from 'devextreme/ui/data_grid';
 import { GridOptions } from 'src/app/modules/shared/module-frontend/forc-grid/grid-options.component';
@@ -6,7 +6,7 @@ import { GridSelectionModeStates } from 'src/app/modules/shared/module-frontend/
 
 @Injectable()
 export class DepartmentGridOptionService implements GridOptionsService {
-    getColumns(): Column[] {
+	getColumns(): Column[] {
 		return [{
 			dataField: 'organization.value',
 			caption: 'Организация',

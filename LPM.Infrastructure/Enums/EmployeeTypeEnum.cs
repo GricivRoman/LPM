@@ -1,6 +1,6 @@
 ﻿namespace LPM.Infrastructure.Enums
 {
-    public enum EmployeeType
+    public enum EmployeeTypeEnum
     {
         Manager = 1,
         OfficeWorker,
