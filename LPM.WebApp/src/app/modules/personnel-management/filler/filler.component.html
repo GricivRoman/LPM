@@ -1,0 +1,13 @@
+<div>
+    <label for="fileInput">
+        Первоначальная загрузка из Excel
+    </label>
+    <form enctype="multipart/form-data">
+        <input id="fileInput" type="file" (change)="fileChanges($event)">
+    </form>
+</div>
+<div class="mt-2">
+    <button class="btn btn-warning" (click)="save()">
+        Заполнить базу из файла Excel
+    </button>
+</div>

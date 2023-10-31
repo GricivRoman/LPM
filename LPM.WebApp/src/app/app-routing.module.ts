@@ -16,6 +16,11 @@ const routes: Routes = [
 		path: 'org-structure',
 		loadChildren: () => import ('./modules/personnel-management/org-structure/orgStructire.module').then(m => m.OrgStructureModule),
 		canActivate: [AutGuard]
+	},
+	{
+		path: 'filler',
+		loadChildren: () => import ('./modules/personnel-management/filler/filler.module').then(m => m.FillerModule),
+		canActivate: [AutGuard]
 	}
 ];
 
