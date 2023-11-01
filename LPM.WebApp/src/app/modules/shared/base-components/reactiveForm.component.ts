@@ -47,7 +47,7 @@ export class ReactiveFromComponent<TEntity extends BaseEntity> implements OnInit
 
 	onFormValueChange(){
 		this.form.markAsTouched();
-
+		this.saveButtonDisabled = !this.form?.valid;
 		// TODO реализовать метод Equals, для сравнения равенства значений всех полей
 		// this.saveButtonDisabled = this.model === this.modelSource;
 	}
@@ -70,7 +70,6 @@ export class ReactiveFromComponent<TEntity extends BaseEntity> implements OnInit
 	}
 
 	public save(saveAction?: (id: Guid) => void){
-		this.form.updateValueAndValidity();
 		if(!this.form?.valid){
 			this.alertService.showMessage('The form is invalid', AlertDialogStates.error);
 			return;

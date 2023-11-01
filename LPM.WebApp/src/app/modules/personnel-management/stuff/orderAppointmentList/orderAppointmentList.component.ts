@@ -8,6 +8,8 @@ import { OrderAppointmentGridDataService } from './orderAppointmentGridData.serv
 import { ModalWindowService } from 'src/app/modules/shared/module-frontend/forc-popup/modalWindow.service';
 import { OrderAppointmentGridOptionsService } from './orderAppointmentGridOptions.service';
 import { Guid } from 'guid-typescript';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-order-appointment',
@@ -44,49 +46,61 @@ export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAp
 	}
 
 	add(){
-		this.modalService.openWithTwoButtons(
-			OrderAppointmentFormComponent,
-			'Создать договор',
-			'md',
-			true,
-			(componentRef: ComponentRef<OrderAppointmentFormComponent>) => {
-				this.setApiUrl(componentRef);
-				componentRef.instance.modelId = this.userId;
-				if(this.employeeId){
-					componentRef.instance.model.employeeId = this.employeeId;
-				}
-			},
-			(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef) => {
-				componentRef.instance.save(() => {
-					this.grid.refresh();
-					popupRef.close();
-				});
-			},
-			(componentRef, popupRef) => {
-				popupRef.close();
-			}
-		);
+		this.openModal('Создать договор', 'md', this.creationWindowInitAction);
 	}
 
 	edit(){
+		this.openModal('Карточка договора', 'md', this.editingWindowInitAction);
+	}
+
+	private addValidationChangesListener(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef: NgbModalRef){
+		popupRef.componentInstance.saveButtonDisabled = true;
+		const instance = componentRef.instance;
+		instance.form.valueChanges.pipe(takeUntil(instance.destroy$)).subscribe(() => {
+			popupRef.componentInstance.saveButtonDisabled = !instance.form.valid;
+		})
+	}
+
+	private defaultInitAction(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef: NgbModalRef){
+		this.addValidationChangesListener(componentRef, popupRef);
+		this.setApiUrl(componentRef);
+		if(this.employeeId){
+			componentRef.instance.model.employeeId = this.employeeId;
+		}
+	}
+
+	private defaultSaveAction(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef: NgbModalRef){
+		componentRef.instance.save(() => {
+			this.grid.refresh();
+			popupRef.close();
+		});
+	}
+
+	private creationWindowInitAction = (componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef: NgbModalRef) => {
+		this.defaultInitAction(componentRef, popupRef);
+		componentRef.instance.modelId = this.userId;
+	}
+
+	private editingWindowInitAction = (componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef: NgbModalRef) => {
+		this.defaultInitAction(componentRef, popupRef);
+		componentRef.instance.modelId = this.grid.getSelectedRowsKeys()[0];
+		componentRef.instance.ngOnInit();
+	}
+
+	private openModal(title: string, size: string,
+		initAction: (componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef: NgbModalRef) => void,
+		closeAction: (componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef: NgbModalRef) => void = this.defaultSaveAction
+	){
 		this.modalService.openWithTwoButtons(
 			OrderAppointmentFormComponent,
-			'Карточка договора',
-			'md',
+			title,
+			size,
 			true,
-			(componentRef: ComponentRef<OrderAppointmentFormComponent>) => {
-				componentRef.instance.modelId = this.grid.getSelectedRowsKeys()[0];
-				this.setApiUrl(componentRef);
-				if(this.employeeId){
-					componentRef.instance.model.employeeId = this.employeeId;
-				}
-				componentRef.instance.ngOnInit();
+			(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef: NgbModalRef) => {
+				initAction(componentRef, popupRef);
 			},
 			(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef) => {
-				componentRef.instance.save(() => {
-					this.grid.refresh();
-					popupRef.close();
-				});
+				closeAction(componentRef, popupRef);
 			},
 			(componentRef, popupRef) => {
 				popupRef.close();
