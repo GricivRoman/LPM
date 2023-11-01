@@ -57,7 +57,11 @@ namespace LPM.WebApi.Services
 
             if (filter.TakeOnlyMainOrganization)
             {
-                selectQuery = selectQuery.Where(x => x.IsMainOrganization);
+                var mainOrg = await _context.Set<Organizadion>().Where(x => x.IsMainOrganization && x.Users.Any(i => i.Id == filter.UserId)).ToListAsync();
+                if(mainOrg.Count != 0)
+                {
+                    selectQuery = selectQuery.Where(x => x.IsMainOrganization);
+                }
             }
 
             var selectList = await selectQuery
