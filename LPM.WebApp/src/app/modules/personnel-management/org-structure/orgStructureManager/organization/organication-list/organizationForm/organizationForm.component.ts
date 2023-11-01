@@ -4,7 +4,7 @@ import { Organization } from '../../organization';
 import { DataService } from 'src/app/modules/shared/services/data.service';
 import { AlertService } from 'src/app/modules/shared/module-frontend/forc-alert/alert.service';
 import { ApiValidationErrorsResolvingService } from 'src/app/modules/shared/services/apiValidationErrorsResolving.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-organization-form',
@@ -22,7 +22,7 @@ export class OrganizationFormComponent extends ReactiveFromComponent<Organizatio
 	}
 
 	override form = new FormGroup({
-		name: new FormControl(''),
+		name: new FormControl('', [Validators.required]),
 		shortName: new FormControl(''),
 		isMainOrganization: new FormControl(false)
 	});

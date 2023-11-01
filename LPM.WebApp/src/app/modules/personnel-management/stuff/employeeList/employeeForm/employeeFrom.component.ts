@@ -4,7 +4,7 @@ import { Employee } from '../employee';
 import { DataService } from 'src/app/modules/shared/services/data.service';
 import { AlertService } from 'src/app/modules/shared/module-frontend/forc-alert/alert.service';
 import { ApiValidationErrorsResolvingService } from 'src/app/modules/shared/services/apiValidationErrorsResolving.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-employee-form',
@@ -22,9 +22,9 @@ export class EmployeeFormComponent extends ReactiveFromComponent<Employee> {
 	}
 
 	override form = new FormGroup({
-		name: new FormControl(''),
-		sex: new FormControl(''),
-		birthDate: new FormControl(''),
+		name: new FormControl('', [Validators.required]),
+		sex: new FormControl('', [Validators.required]),
+		birthDate: new FormControl('', [Validators.required]),
 		workPlace: new FormControl(''),
 		hasVHI: new FormControl('')
 	});

@@ -19,12 +19,12 @@ export class SelectSingleComponent extends BaseControlComponent implements OnIni
 
 	private emptyItem: SelectItem = {
 		id: undefined,
-		value: '(empty)'
+		value: '(пусто)'
 	};
 
 	private loadingItem: SelectItem = {
 		id: undefined,
-		value: 'loading..'
+		value: 'загрузка..'
 	};
 
 	selectList: any[] = [this.loadingItem];

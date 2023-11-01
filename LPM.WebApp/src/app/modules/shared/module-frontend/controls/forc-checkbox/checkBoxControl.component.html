@@ -1,6 +1,6 @@
 <div>
-    <label>{{label}}</label>
-    <input class="mx-1" id="name" [formControl]="control" (focus)="onControlFocus()" (blur)="onContolBlur()" type="checkbox">
+    <label for="input">{{label}} <app-required-star [required]="controlRequired"></app-required-star> </label>
+    <input class="mx-1" id="input" [formControl]="control" (focus)="onControlFocus()" (blur)="onContolBlur()" type="checkbox">
     <div class="text-danger" *ngIf="shouldShowError">
         <p>{{err}}</p>
     </div>

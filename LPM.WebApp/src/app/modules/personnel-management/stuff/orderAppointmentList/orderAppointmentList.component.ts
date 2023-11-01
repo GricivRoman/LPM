@@ -9,6 +9,7 @@ import { ModalWindowService } from 'src/app/modules/shared/module-frontend/forc-
 import { OrderAppointmentGridOptionsService } from './orderAppointmentGridOptions.service';
 import { Guid } from 'guid-typescript';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AlertDialogStates } from 'src/app/modules/shared/module-frontend/forc-alert/alertDialogStates';
 
 @Component({
 	selector: 'app-order-appointment',
@@ -45,6 +46,10 @@ export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAp
 	}
 
 	add(){
+		if(!this.employeeId){
+			this.alertService.showMessage('Сперва необходимо сохранить сотрудника', AlertDialogStates.warning);
+			return;
+		}
 		this.openModal(OrderAppointmentFormComponent, 'Создать договор', 'md', this.creationWindowInitAction);
 	}
 
