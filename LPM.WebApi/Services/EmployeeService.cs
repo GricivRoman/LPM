@@ -122,10 +122,17 @@ namespace LPM.WebApi.Services
 
         private async Task<Employee> GetEmployeeById(Guid id)
         {
-            var employee = await _context.Set<Employee>().Where(x => x.Id == id).SingleOrDefaultAsync();
+            var employee = await _context.Set<Employee>()
+                .Include(x => x.OrderAppointments)
+                .Where(x => x.Id == id && x.OrderAppointments.Any(i => i.DateEnd != null))
+                .SingleOrDefaultAsync();
             if (employee == null)
             {
-                throw new ApplicationException("Пользователя с указанным ID не существует");
+                throw new ApplicationException("Сотрудника с указанным ID не существует");
+            }
+            if (employee.OrderAppointments.Count != 0)
+            {
+                throw new ApplicationException("Нельзя удалить сотрудника с действующим договором");
             }
             return employee;
         }
