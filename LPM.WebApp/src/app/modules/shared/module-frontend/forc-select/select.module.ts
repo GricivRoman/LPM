@@ -3,6 +3,7 @@ import { SelectSingleComponent } from './select-single/select-single.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { RequiredStarModule } from '../requiredStar/requiredStar.module';
 
 @NgModule({
 	imports: [
@@ -10,7 +11,8 @@ import { MatSelectModule } from '@angular/material/select';
 		FormsModule,
 		MatSelectModule,
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		RequiredStarModule
 	],
 	declarations: [
 		SelectSingleComponent

@@ -1,4 +1,4 @@
-<label *ngIf="!hideLabel" for="select">{{label}}</label>
+<label *ngIf="!hideLabel" for="select">{{label}} <app-required-star [required]="controlRequired"></app-required-star></label>
 <mat-select
   id="select"
   [formControl]="control"

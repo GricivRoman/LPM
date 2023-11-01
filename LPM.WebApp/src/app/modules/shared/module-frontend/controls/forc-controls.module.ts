@@ -8,12 +8,14 @@ import { CheckBoxControlComponent } from './forc-checkbox/checkBoxControl.compon
 import { PasswordControlComponent } from './forc-password/passwordControlComponent';
 import { DateTimeControlComponent } from './forc-date/dateTimeControl.component';
 import { TextAreaControlComponent } from './forc-textArea/textAreaControl.component';
+import { RequiredStarModule } from '../requiredStar/requiredStar.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		RequiredStarModule
 	],
 	declarations: [
 		TextControlComponent,

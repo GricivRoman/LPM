@@ -1,7 +1,7 @@
 <div>
-    <label for="name">{{label}}</label>
+    <label for="input">{{label}} <app-required-star [required]="controlRequired"></app-required-star> </label>
     <textarea 
-        id="name"
+        id="input"
         class="form-control"
         [formControl]="control"
         (focus)="onControlFocus()"

@@ -1,4 +1,4 @@
-import { Component, Inject, ComponentRef } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormWithGridComponent } from 'src/app/modules/shared/base-components/formWithGrid.component';
 import { Department } from './department';
 import { DataService } from 'src/app/modules/shared/services/data.service';
@@ -13,7 +13,7 @@ import { DepartmentGridDataService } from './departmentGridData.service';
 	templateUrl: 'departmentList.component.html',
 	providers: [{provide: 'DepartmentDataService', useClass: DataService}]
 })
-export class DepartmentListComponent extends FormWithGridComponent<Department> {
+export class DepartmentListComponent extends FormWithGridComponent<Department, DepartmentFormComponent> {
 
 	constructor(public override gridOptionService: DepartmentGridOptionService,
         public override gridDataService: DepartmentGridDataService,
@@ -29,48 +29,11 @@ export class DepartmentListComponent extends FormWithGridComponent<Department> {
 	}
 
 	add(){
-		this.modalService.openWithTwoButtons(
-			DepartmentFormComponent,
-			'Создать отдел',
-			'md',
-			true,
-			(componentRef: ComponentRef<DepartmentFormComponent>) => {
-				this.setApiUrl(componentRef);
-				componentRef.instance.modelId = this.userId;
-			},
-			(componentRef: ComponentRef<DepartmentFormComponent>, popupRef) => {
-				componentRef.instance.save(() => {
-					this.grid.refresh();
-					popupRef.close();
-				});
-			},
-			(componentRef, popupRef) => {
-				popupRef.close();
-			}
-		);
+		this.openModal(DepartmentFormComponent, 'Создать отдел', 'md', this.creationWindowInitAction);
 	}
 
 	edit(){
-		this.modalService.openWithTwoButtons(
-			DepartmentFormComponent,
-			'Редактировать отдел',
-			'md',
-			true,
-			(componentRef: ComponentRef<DepartmentFormComponent>) => {
-				componentRef.instance.modelId = this.grid.getSelectedRowsKeys()[0];
-				this.setApiUrl(componentRef);
-				componentRef.instance.ngOnInit();
-			},
-			(componentRef: ComponentRef<DepartmentFormComponent>, popupRef) => {
-				componentRef.instance.save(() => {
-					this.grid.refresh();
-					popupRef.close();
-				});
-			},
-			(componentRef, popupRef) => {
-				popupRef.close();
-			}
-		);
+		this.openModal(DepartmentFormComponent, 'Редактировать отдел', 'md', this.editingWindowInitAction);
 	}
 
 }

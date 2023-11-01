@@ -1,5 +1,4 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { SelectItem } from '../models/selectItem';
 
 export class ForcValidators {
 
@@ -78,10 +77,9 @@ export class ForcValidators {
 
 	static selectItemRequired(): ValidatorFn {
 		return (control: AbstractControl) : ValidationErrors | null => {
-			if(control?.value && control.value === new SelectItem()){
+			if(!control?.value?.id){
 				return { 'selectItemRequired': 'Поле обязательно' };
 			}
-
 			return null;
 		};
 	}

@@ -1,4 +1,4 @@
-import { Component, Inject, ComponentRef } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Employee } from './employee';
 import { FormWithGridComponent } from 'src/app/modules/shared/base-components/formWithGrid.component';
 import { EmployeeFormComponent } from './employeeForm/employeeFrom.component';
@@ -18,7 +18,7 @@ import { AlertService } from 'src/app/modules/shared/module-frontend/forc-alert/
 		ModalWindowService
 	]
 })
-export class EmployeeListComponent extends FormWithGridComponent<Employee> {
+export class EmployeeListComponent extends FormWithGridComponent<Employee, EmployeeFormComponent> {
 	constructor(public override gridOptionService: EmployeeGridOptionService,
         public override gridDataService: EmployeeGridDataService,
         public override modalService: ModalWindowService,
@@ -33,47 +33,10 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee> {
 	}
 
 	add(){
-		this.modalService.openWithTwoButtons(
-			EmployeeFormComponent,
-			'Добавление сотрудника',
-			'lg',
-			true,
-			(componentRef: ComponentRef<EmployeeFormComponent>) => {
-				this.setApiUrl(componentRef);
-				componentRef.instance.modelId = this.userId;
-			},
-			(componentRef: ComponentRef<EmployeeFormComponent>, popupRef) => {
-				componentRef.instance.save(() => {
-					this.grid.refresh();
-					popupRef.close();
-				});
-			},
-			(componentRef, popupRef) => {
-				popupRef.close();
-			}
-		);
+		this.openModal(EmployeeFormComponent, 'Добавление сотрудника', 'lg', this.creationWindowInitAction);
 	}
 
 	edit(){
-		this.modalService.openWithTwoButtons(
-			EmployeeFormComponent,
-			'Карточка сотрудника',
-			'lg',
-			true,
-			(componentRef: ComponentRef<EmployeeFormComponent>) => {
-				componentRef.instance.modelId = this.grid.getSelectedRowsKeys()[0];
-				this.setApiUrl(componentRef);
-				componentRef.instance.ngOnInit();
-			},
-			(componentRef: ComponentRef<EmployeeFormComponent>, popupRef) => {
-				componentRef.instance.save(() => {
-					this.grid.refresh();
-					popupRef.close();
-				});
-			},
-			(componentRef, popupRef) => {
-				popupRef.close();
-			}
-		);
+		this.openModal(EmployeeFormComponent, 'Карточка сотрудника', 'lg', this.editingWindowInitAction);
 	}
 }

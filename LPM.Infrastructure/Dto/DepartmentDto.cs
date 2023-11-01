@@ -25,11 +25,6 @@
         /// <summary>
         /// Сокращенное наименование
         /// </summary>
-        public Guid OrganizationId { get; set; }
-
-        /// <summary>
-        /// Сокращенное наименование
-        /// </summary>
         public SelectItemDto<Guid> Organization { get; set; }
 
         /// <summary>

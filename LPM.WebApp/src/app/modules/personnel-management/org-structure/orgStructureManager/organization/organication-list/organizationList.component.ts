@@ -1,4 +1,4 @@
-import { Component, ComponentRef, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { OrganizationLIstOptionsService } from './organizationListOptions.service';
 import { OrganizationListDataService } from './organizationListData.service';
 import { Organization } from '../organization';
@@ -13,7 +13,7 @@ import { FormWithGridComponent } from 'src/app/modules/shared/base-components/fo
 	templateUrl: 'organizationList.component.html',
 	providers: [{provide: 'OrganizationDataService', useClass: DataService}]
 })
-export class OrganizationListComponent extends FormWithGridComponent<Organization> {
+export class OrganizationListComponent extends FormWithGridComponent<Organization, OrganizationFormComponent> {
 
 	constructor(public override gridOptionService: OrganizationLIstOptionsService,
         public override gridDataService: OrganizationListDataService,
@@ -29,47 +29,10 @@ export class OrganizationListComponent extends FormWithGridComponent<Organizatio
 	}
 
 	add(){
-		this.modalService.openWithTwoButtons(
-			OrganizationFormComponent,
-			'Создать организацию',
-			'md',
-			true,
-			(componentRef: ComponentRef<OrganizationFormComponent>) => {
-				this.setApiUrl(componentRef);
-				componentRef.instance.modelId = this.userId;
-			},
-			(componentRef: ComponentRef<OrganizationFormComponent>, popupRef) => {
-				componentRef.instance.save(() => {
-					this.grid.refresh();
-					popupRef.close();
-				});
-			},
-			(componentRef, popupRef) => {
-				popupRef.close();
-			}
-		);
+		this.openModal(OrganizationFormComponent, 'Создать организацию', 'md', this.creationWindowInitAction);
 	}
 
 	edit(){
-		this.modalService.openWithTwoButtons(
-			OrganizationFormComponent,
-			'Редактировать организацию',
-			'md',
-			true,
-			(componentRef: ComponentRef<OrganizationFormComponent>) => {
-				componentRef.instance.modelId = this.grid.getSelectedRowsKeys()[0];
-				this.setApiUrl(componentRef);
-				componentRef.instance.ngOnInit();
-			},
-			(componentRef: ComponentRef<OrganizationFormComponent>, popupRef) => {
-				componentRef.instance.save(() => {
-					this.grid.refresh();
-					popupRef.close();
-				});
-			},
-			(componentRef, popupRef) => {
-				popupRef.close();
-			}
-		);
+		this.openModal(OrganizationFormComponent, 'Редактировать организацию', 'md', this.editingWindowInitAction);
 	}
 }

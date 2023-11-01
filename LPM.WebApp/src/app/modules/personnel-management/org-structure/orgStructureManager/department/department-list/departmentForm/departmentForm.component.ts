@@ -4,7 +4,8 @@ import { Department } from '../department';
 import { DataService } from 'src/app/modules/shared/services/data.service';
 import { AlertService } from 'src/app/modules/shared/module-frontend/forc-alert/alert.service';
 import { ApiValidationErrorsResolvingService } from 'src/app/modules/shared/services/apiValidationErrorsResolving.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ForcValidators } from 'src/app/modules/shared/validation/forcValidators';
 
 @Component({
 	selector: 'app-department-form',
@@ -22,9 +23,9 @@ export class DepartmentFormComponent extends ReactiveFromComponent<Department> {
 	}
 
 	override form = new FormGroup({
-		name: new FormControl(''),
+		name: new FormControl('', [Validators.required]),
 		shortName: new FormControl(''),
 		description: new FormControl(''),
-		organization: new FormControl('')
+		organization: new FormControl('', [ForcValidators.selectItemRequired()])
 	});
 }

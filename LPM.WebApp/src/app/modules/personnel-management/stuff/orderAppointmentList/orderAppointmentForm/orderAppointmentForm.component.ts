@@ -34,14 +34,14 @@ export class OrderAppointmentFormComponent extends ReactiveFromComponent<OrderAp
 	}
 
 	override form = new FormGroup({
-		organization: new FormControl<SelectItem>(new SelectItem(), [ForcValidators.selectItemRequired]),
-		department: new FormControl<SelectItem>({value: new SelectItem(), disabled: true}, [ForcValidators.selectItemRequired]),
+		organization: new FormControl<SelectItem>(new SelectItem(), [ForcValidators.selectItemRequired()]),
+		department: new FormControl<SelectItem>({ value: new SelectItem(), disabled: true }, [ForcValidators.selectItemRequired()]),
 		dateStart: new FormControl<Date | null>(null, [Validators.required]),
 		oficialDateStart: new FormControl<Date | null>(null),
 		probationEndDate: new FormControl<Date | null>(null),
 		dateEnd: new FormControl<Date | null>(null),
-		position: new FormControl(''),
-		employeeType: new FormControl<SelectItem>(new SelectItem())
+		position: new FormControl('', [Validators.required]),
+		employeeType: new FormControl<SelectItem>(new SelectItem(), [ForcValidators.selectItemRequired()])
 	});
 
 	ngAfterViewInit(): void {

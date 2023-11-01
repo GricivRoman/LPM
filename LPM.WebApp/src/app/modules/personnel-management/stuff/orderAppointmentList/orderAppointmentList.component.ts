@@ -8,6 +8,8 @@ import { OrderAppointmentGridDataService } from './orderAppointmentGridData.serv
 import { ModalWindowService } from 'src/app/modules/shared/module-frontend/forc-popup/modalWindow.service';
 import { OrderAppointmentGridOptionsService } from './orderAppointmentGridOptions.service';
 import { Guid } from 'guid-typescript';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AlertDialogStates } from 'src/app/modules/shared/module-frontend/forc-alert/alertDialogStates';
 
 @Component({
 	selector: 'app-order-appointment',
@@ -19,7 +21,7 @@ import { Guid } from 'guid-typescript';
 		ModalWindowService
 	]
 })
-export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAppointment> implements OnChanges {
+export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAppointment, OrderAppointmentFormComponent> implements OnChanges {
 	@Input()
 		employeeId?: Guid;
 
@@ -44,53 +46,21 @@ export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAp
 	}
 
 	add(){
-		this.modalService.openWithTwoButtons(
-			OrderAppointmentFormComponent,
-			'Создать договор',
-			'md',
-			true,
-			(componentRef: ComponentRef<OrderAppointmentFormComponent>) => {
-				this.setApiUrl(componentRef);
-				componentRef.instance.modelId = this.userId;
-				if(this.employeeId){
-					componentRef.instance.model.employeeId = this.employeeId;
-				}
-			},
-			(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef) => {
-				componentRef.instance.save(() => {
-					this.grid.refresh();
-					popupRef.close();
-				});
-			},
-			(componentRef, popupRef) => {
-				popupRef.close();
-			}
-		);
+		if(!this.employeeId){
+			this.alertService.showMessage('Сперва необходимо сохранить сотрудника', AlertDialogStates.warning);
+			return;
+		}
+		this.openModal(OrderAppointmentFormComponent, 'Создать договор', 'md', this.creationWindowInitAction);
 	}
 
 	edit(){
-		this.modalService.openWithTwoButtons(
-			OrderAppointmentFormComponent,
-			'Карточка договора',
-			'md',
-			true,
-			(componentRef: ComponentRef<OrderAppointmentFormComponent>) => {
-				componentRef.instance.modelId = this.grid.getSelectedRowsKeys()[0];
-				this.setApiUrl(componentRef);
-				if(this.employeeId){
-					componentRef.instance.model.employeeId = this.employeeId;
-				}
-				componentRef.instance.ngOnInit();
-			},
-			(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef) => {
-				componentRef.instance.save(() => {
-					this.grid.refresh();
-					popupRef.close();
-				});
-			},
-			(componentRef, popupRef) => {
-				popupRef.close();
-			}
-		);
+		this.openModal(OrderAppointmentFormComponent, 'Карточка договора', 'md', this.editingWindowInitAction);
+	}
+
+	protected override defaultInitAction(componentRef: ComponentRef<OrderAppointmentFormComponent>, popupRef: NgbModalRef){
+		super.defaultInitAction(componentRef, popupRef);
+		if(this.employeeId){
+			componentRef.instance.model.employeeId = this.employeeId;
+		}
 	}
 }
