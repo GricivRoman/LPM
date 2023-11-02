@@ -3,7 +3,7 @@
         [showBorders]="true"
         [showRowLines]="true"
         
-        [rowAlternationEnabled]="true"
+        
         [allowColumnResizing]="allowColumnResizing"
         columnResizingMode="nextColumn"
         [columnMinWidth]="columnMinWidth"
@@ -15,6 +15,7 @@
         [(autoNavigateToFocusedRow)]="autoNavigateToFocusedRow"
         [(focusedRowKey)]="focusedRowKey"
         (onRowDblClick)="onRowDblClick()"
+        (onSelectionChanged)="onFocusedRowChanged()"
     >
         <dxo-selection [mode] = "selectionMode"></dxo-selection>
         <dxo-header-filter [visible]="true"></dxo-header-filter>

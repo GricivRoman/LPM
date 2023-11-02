@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, Output, EventEmitter, ComponentRef } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter, ComponentRef, AfterViewInit } from '@angular/core';
 import { BaseEntity } from '../models/baseEntity';
 import { GridComponent } from '../module-frontend/forc-grid/grid.component';
 import { Guid } from 'guid-typescript';
@@ -18,12 +18,12 @@ import { takeUntil } from 'rxjs';
 	selector: 'app-form-with-grid',
 	template: ''
 })
-export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm extends ReactiveFromComponent<TModel>> {
+export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm extends ReactiveFromComponent<TModel>> implements AfterViewInit {
     @ViewChild(GridComponent, {static: false}) grid : GridComponent<TModel>;
 
     public addButtonDisabled = false;
     public editButtonDisabled = false;
-    public deleteButtonDisabled = false;
+    public deleteButtonDisabled = true;
 
     @Input()
     public userId?: Guid;
@@ -38,6 +38,11 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 		public dataService: DataService<TModel>,
 		public alertService: AlertService
 	){
+	}
+
+	ngAfterViewInit(){
+		this.grid.onFocusedRowChanged = this.onFocusedRowChanged;
+		this.grid.onRowDblClick = this.onRowDoubleClick;
 	}
 
 	abstract add(): void;
@@ -58,6 +63,11 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 
 	onRowDoubleClick = () => {
 		this.edit();
+	};
+
+	onFocusedRowChanged = () => {
+		const selectedRows = this.grid.getSelectedRowsKeys();
+		this.deleteButtonDisabled = selectedRows.length === 0;
 	};
 
 	gridDataLoaded(data: TModel[]){
