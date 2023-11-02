@@ -17,19 +17,21 @@ export class DepartmentGridOptionService implements GridOptionsService {
 			dataField: 'shortName',
 			caption: 'Отдел',
 			dataType: 'number',
+			alignment: 'left',
 			format: {
 				precision: 0
 			},
-			width: 170
+			width: 340
 		},
 		{
 			dataField: 'employeesNumber',
 			caption: 'Кол-во сотрудников',
 			dataType: 'number',
+			alignment: 'center',
 			format: {
 				precision: 0
 			},
-			width: 170
+			width: 100
 		}
 		];
 	}
@@ -38,7 +40,7 @@ export class DepartmentGridOptionService implements GridOptionsService {
 		options.columns = this.getColumns();
 		options.selectionMode = GridSelectionModeStates.single;
 		options.columnAutoWidth = false;
-		options.gridWidth = '510';
+		options.gridWidth = '630';
 		return options;
 	}
 }

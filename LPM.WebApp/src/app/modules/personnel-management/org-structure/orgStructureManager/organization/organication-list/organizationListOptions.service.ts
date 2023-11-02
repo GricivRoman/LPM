@@ -17,10 +17,11 @@ export class OrganizationLIstOptionsService implements GridOptionsService {
 			dataField: 'employeesNumber',
 			caption: 'Кол-во сотрудников',
 			dataType: 'number',
+			alignment: 'center',
 			format: {
 				precision: 0
 			},
-			width: 170
+			width: 100
 		},
 		{
 			dataField: 'isMainOrganization',
@@ -35,7 +36,7 @@ export class OrganizationLIstOptionsService implements GridOptionsService {
 		options.columns = this.getColumns();
 		options.selectionMode = GridSelectionModeStates.single;
 		options.columnAutoWidth = false;
-		options.gridWidth = '420';
+		options.gridWidth = '350';
 		return options;
 	}
 }
