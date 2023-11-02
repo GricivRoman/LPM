@@ -67,7 +67,7 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 
 		this.selectionMode = options.selectionMode ?? GridSelectionModeStates.multiple;
 		this.gridWidth = options.gridWidth ?? '100%';
-		this.pageSize = options.pageSize ?? 10;
+		this.pageSize = options.pageSize ?? 20;
 		this.searchPanel.visible = options.showSearchPanel ?? false;
 
 		this.allowColumnResizing = options.allowColumnResizing ?? true;

@@ -364,13 +364,13 @@ namespace LPM.Database.Migrations
                     b.HasOne("LPM.Database.Models.Department", "Department")
                         .WithMany("OrderAppointments")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LPM.Database.Models.Employee", "Employee")
                         .WithMany("OrderAppointments")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Department");
@@ -434,13 +434,13 @@ namespace LPM.Database.Migrations
                     b.HasOne("LPM.Database.Models.Organizadion", null)
                         .WithMany()
                         .HasForeignKey("OrganizadionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LPM.Database.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

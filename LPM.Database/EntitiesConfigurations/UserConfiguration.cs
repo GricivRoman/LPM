@@ -13,8 +13,8 @@ namespace LPM.Database.EntitiesConfigurations
             builder.HasMany(x => x.Organizations)
                 .WithMany(x => x.Users)
                 .UsingEntity(
-                i => i.HasOne(typeof(User)).WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.NoAction),
-                j => j.HasOne(typeof(Organizadion)).WithMany().HasForeignKey("OrganizadionId").OnDelete(DeleteBehavior.NoAction));
+                i => i.HasOne(typeof(User)).WithMany().HasForeignKey("UserId"),
+                j => j.HasOne(typeof(Organizadion)).WithMany().HasForeignKey("OrganizadionId"));
         }
     }
 }
