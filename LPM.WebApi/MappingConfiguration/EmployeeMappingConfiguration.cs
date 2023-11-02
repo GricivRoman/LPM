@@ -13,7 +13,6 @@ namespace LPM.WebApi.MappingConfiguration
                 .ForMember(x => x.Id, i => i.MapFrom(j => j.Id))
                 .ForMember(x => x.BirthDate, i => i.MapFrom(j => j.BirthDate))
                 .ForMember(x => x.WorkPlace, i => i.MapFrom(j => j.WorkPlace))
-                .ForMember(x => x.OrderAppointments, i => i.MapFrom(j => j.OrderAppointments))
                 .ForMember(x => x.HasVHI, i => i.MapFrom(j => j.HasVHI))
                 .ForMember(x => x.Sex, i => i.MapFrom(j => new SelectItemDto<int>
                     {
