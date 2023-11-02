@@ -132,9 +132,9 @@ export class ReactiveFromComponent<TEntity extends BaseEntity> implements OnInit
 
 	private getValueToSetToForm(data: TEntity, controlKey: string): any{
 		const fieldValue = Object(data)[controlKey];
-		const date = new Date(fieldValue);
 
-		return typeof fieldValue === 'string' && isFinite(+date) ? this.getDateString(date) : fieldValue;
+		var isDateType = typeof fieldValue === 'string' && (fieldValue as string).includes("T") && typeof parseInt(fieldValue) === "number";
+		return isDateType ? this.getDateString(new Date(fieldValue)) : fieldValue;
 	}
 
 	private getDateString(date: Date): string {
