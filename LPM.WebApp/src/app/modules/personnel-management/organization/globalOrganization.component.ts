@@ -8,6 +8,7 @@ import { OrganizationFilter } from '../../shared/filters/organizationFilter';
 import { AuthLocalStorageService } from '../../shared/local-storage/auth-localStorage/authLocalStorage.service';
 import { AuthResponse } from '../../shared/local-storage/auth-localStorage/auth-response';
 import { SelectSingleComponent } from '../../shared/module-frontend/forc-select/select-single/select-single.component';
+import { FillerService } from '../filler/filler.service';
 
 @Component({
 	selector: 'app-global-organization-select',
@@ -16,13 +17,13 @@ import { SelectSingleComponent } from '../../shared/module-frontend/forc-select/
 })
 export class GlobalOrganizationComponent implements OnInit, AfterViewInit{
 	@ViewChild(SelectSingleComponent, {static: false}) selector: SelectSingleComponent;
-
 	organization = new FormControl<SelectItem>(new SelectItem());
 
 	constructor(
         @Inject('OrganizationSelectService') public selectService: OrganizationSelectService,
         private organizationLocalStorageService: OrganizationLocalStorageService,
-        private authLocalStorageService: AuthLocalStorageService)
+        private authLocalStorageService: AuthLocalStorageService,
+		private fillerService: FillerService)
 	{}
 
 	ngOnInit(){
@@ -32,6 +33,12 @@ export class GlobalOrganizationComponent implements OnInit, AfterViewInit{
 				this.organization.setValue(null, {emitEvent: false});
 			}
 		});
+
+		if(this.organizationLocalStorageService.globalOrganization == null){
+			this.fillerService.dataFromFileHasFilled$.subscribe(() => {
+				this.setMainOrganization();
+			});
+		}
 	}
 
 	ngAfterViewInit(): void {
