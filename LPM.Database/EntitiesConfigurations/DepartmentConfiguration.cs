@@ -13,13 +13,11 @@ namespace LPM.Database.EntitiesConfigurations
             builder.HasOne(x => x.Organizadion)
                 .WithMany(x => x.Departments)
                 .HasForeignKey(x => x.OrganizationId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.NoAction);
+                .IsRequired();
 
             builder.HasMany(x => x.OrderAppointments)
                 .WithOne(x => x.Department)
-                .HasForeignKey(x => x.DepartmentId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(x => x.DepartmentId);
         }
     }
 }

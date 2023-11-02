@@ -12,8 +12,7 @@ namespace LPM.Database.EntitiesConfigurations
 
             builder.HasMany(x => x.OrderAppointments)
                 .WithOne(x => x.Employee)
-                .HasForeignKey(x => x.EmployeeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(x => x.EmployeeId);
         }
     }
 }

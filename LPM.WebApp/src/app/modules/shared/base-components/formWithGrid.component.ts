@@ -51,7 +51,7 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 			},
 			error: (errResponse: HttpErrorResponse) => {
 				console.error(errResponse);
-				this.alertService.showMessage(JSON.stringify(errResponse.error), AlertDialogStates.error);
+				this.alertService.showMessage(errResponse.error.message, AlertDialogStates.error);
 			}
 		});
 	}

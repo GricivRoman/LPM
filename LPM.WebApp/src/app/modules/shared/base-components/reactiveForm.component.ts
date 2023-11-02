@@ -125,8 +125,8 @@ export class ReactiveFromComponent<TEntity extends BaseEntity> implements OnInit
 	}
 
 	private showError(err: any){
-		if(typeof err.error === 'string' ){
-			this.alertService.showMessage(err.error, AlertDialogStates.error);
+		if(typeof err.message === 'string' ){
+			this.alertService.showMessage(err.message, AlertDialogStates.error);
 		}
 	}
 

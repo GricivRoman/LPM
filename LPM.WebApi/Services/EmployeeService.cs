@@ -97,13 +97,7 @@ namespace LPM.WebApi.Services
             return employee.Id;
         }
 
-        public async Task DeleteEmployeeAsync(Guid id)
-        {
-            var employee = await GetEmployeeById(id);
 
-            _context.Set<Employee>().Remove(employee);
-            await _context.SaveChangesAsync();
-        }
 
         private IQueryable<OrderAppointment> FilterOrderAppointmentByEmployeeFilter(IQueryable<OrderAppointment> query, EmployeeQueryFilter filter)
         {
@@ -124,17 +118,27 @@ namespace LPM.WebApi.Services
         {
             var employee = await _context.Set<Employee>()
                 .Include(x => x.OrderAppointments)
-                .Where(x => x.Id == id && x.OrderAppointments.Any(i => i.DateEnd != null))
+                .Where(x => x.Id == id)
                 .SingleOrDefaultAsync();
+
             if (employee == null)
             {
                 throw new ApplicationException("Сотрудника с указанным ID не существует");
             }
-            if (employee.OrderAppointments.Count != 0)
+            
+            return employee;
+        }
+
+        public async Task DeleteEmployeeAsync(Guid id)
+        {
+            var employee = await GetEmployeeById(id);
+
+            if (employee.OrderAppointments.Where(x => x.DateEnd == null).Count() != 0)
             {
                 throw new ApplicationException("Нельзя удалить сотрудника с действующим договором");
             }
-            return employee;
+            _context.Set<Employee>().Remove(employee);
+            await _context.SaveChangesAsync();
         }
     }
 }

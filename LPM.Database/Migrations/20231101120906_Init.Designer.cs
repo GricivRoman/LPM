@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LPM.Database.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231019103640_AlterTableOrganization_RenameColumnMainOrganization")]
-    partial class AlterTableOrganization_RenameColumnMainOrganization
+    [Migration("20231101120906_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,18 +97,20 @@ namespace LPM.Database.Migrations
                     b.Property<int>("EmployeeType")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("OficialDateStart")
+                    b.Property<DateTime?>("OficialDateStart")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Position")
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("ProbationEndDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("EmployeeId", "DepartmentId")
-                        .IsUnique();
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("OrderAppointment");
                 });
@@ -365,13 +367,13 @@ namespace LPM.Database.Migrations
                     b.HasOne("LPM.Database.Models.Department", "Department")
                         .WithMany("OrderAppointments")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LPM.Database.Models.Employee", "Employee")
                         .WithMany("OrderAppointments")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Department");
@@ -435,13 +437,13 @@ namespace LPM.Database.Migrations
                     b.HasOne("LPM.Database.Models.Organizadion", null)
                         .WithMany()
                         .HasForeignKey("OrganizadionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LPM.Database.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

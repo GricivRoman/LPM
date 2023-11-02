@@ -16,7 +16,7 @@ export class DepartmentGridDataService implements GridDataService<Department> {
 	getGridData(): Observable<Department[]>{
 		const filter = new DepartmentFilter();
 		filter.userId = this.authLocalStorageService.authInfo?.userId;
-
+		filter.paging.takeAll = true;
 		return this.dataService.getList(filter);
 	}
 }
