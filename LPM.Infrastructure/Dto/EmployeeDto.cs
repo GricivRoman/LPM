@@ -33,10 +33,5 @@ namespace LPM.Infrastructure.Dto
         /// Имеет ДМС (voluntary health insurance)
         /// </summary>
         public bool HasVHI { get; set; }
-
-        /// <summary>
-        /// Приказ о назначении
-        /// </summary>
-        public ICollection<OrderAppointmentDto> OrderAppointments { get; set; }
     }
 }
