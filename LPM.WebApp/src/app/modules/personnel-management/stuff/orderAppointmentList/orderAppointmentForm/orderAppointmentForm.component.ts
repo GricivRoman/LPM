@@ -9,7 +9,6 @@ import { DepartmentSelectComponent } from 'src/app/modules/shared/select-control
 import { takeUntil } from 'rxjs';
 import { SelectItem } from 'src/app/modules/shared/models/selectItem';
 import { Guid } from 'guid-typescript';
-import { EmployeeTypeEnumDictionary } from 'src/app/modules/shared/enums/employeeTypeEnum';
 import { EmployeeTypeSelectComponent } from 'src/app/modules/shared/select-controls/employeeType-select/employeeTypeSelect.component';
 import { ForcValidators } from 'src/app/modules/shared/validation/forcValidators';
 
@@ -67,12 +66,5 @@ export class OrderAppointmentFormComponent extends ReactiveFromComponent<OrderAp
 	override initFrom(data: OrderAppointment): void {
 		this.departmentSelector.selectService.organizationId = this.model.organization.id;
 		super.initFrom(data);
-
-		const employeeTypeId = this.form.controls.employeeType.value?.id;
-		if(employeeTypeId){
-			const employeeSelectItem = { id: employeeTypeId, value: EmployeeTypeEnumDictionary.list.get(employeeTypeId) as string };
-			this.form.controls.employeeType.setValue(employeeSelectItem);
-			this.employeeTypeSelector.selector.selectList = [employeeSelectItem];
-		}
 	}
 }
