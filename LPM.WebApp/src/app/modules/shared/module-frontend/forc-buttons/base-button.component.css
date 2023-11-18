@@ -47,3 +47,7 @@
     font-size: 1.15rem;
     transform: 0;
 }
+
+.button.filter-button.filter-active {
+    background-color: #e9a6e0;
+}

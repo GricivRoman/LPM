@@ -1,4 +1,4 @@
-import { Component, Inject, ComponentRef } from '@angular/core';
+import { Component, Inject, ComponentRef, ViewChild } from '@angular/core';
 import { Employee } from './employee';
 import { FormWithGridComponent } from 'src/app/modules/shared/base-components/formWithGrid.component';
 import { EmployeeFormComponent } from './employeeForm/employeeFrom.component';
@@ -9,6 +9,9 @@ import { DataService } from 'src/app/modules/shared/services/data.service';
 import { AlertService } from 'src/app/modules/shared/module-frontend/forc-alert/alert.service';
 import { EmployeeFilterComponent } from 'src/app/modules/shared/filters/employeeFilter/employeeFilter.component';
 import { AlertDialogStates } from 'src/app/modules/shared/module-frontend/forc-alert/alertDialogStates';
+import { FilterButtonComponent } from 'src/app/modules/shared/module-frontend/forc-buttons/buttons/filter-button.component';
+import { EmployeeFilter } from 'src/app/modules/shared/filters/employeeFilter/employeeFilter';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-employee-list',
@@ -21,6 +24,8 @@ import { AlertDialogStates } from 'src/app/modules/shared/module-frontend/forc-a
 	]
 })
 export class EmployeeListComponent extends FormWithGridComponent<Employee, EmployeeFormComponent> {
+	@ViewChild(FilterButtonComponent, {static: false}) filterBtn: FilterButtonComponent;
+
 	constructor(public override gridOptionService: EmployeeGridOptionService,
         public override gridDataService: EmployeeGridDataService,
         public override modalService: ModalWindowService,
@@ -43,24 +48,39 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee, Emplo
 	}
 
 	openFilter(){
-		this.modalService.openWithTwoButtons(
+		this.modalService.openWithResetSaveCloseButtons(
 			EmployeeFilterComponent,
 			'Фильр сотрудников',
-			'sm',
+			'md',
 			false,
-			() => {},
-			(ref: ComponentRef<EmployeeFilterComponent>, popupRef) => {
-				console.log(ref.instance.form.value);
-				this.gridDataService.filter.PatchValue(ref.instance.form.value);
-				this.grid.refresh().then(() => {
-					popupRef.close();
-				}).catch(() => {
-					this.alertService.showMessage('Something went wrong', AlertDialogStates.error);
-				});
+			(ref: ComponentRef<EmployeeFilterComponent>) => {
+				ref.instance.form.patchValue(this.gridDataService.filter);
 			},
+			(ref: ComponentRef<EmployeeFilterComponent>, popupRef) => {
+				this.applyFilter(ref, popupRef);
+			},
+			'Применить',
 			(ref, popupRef) => {
 				popupRef.close();
+			},
+			(ref: ComponentRef<EmployeeFilterComponent>, popupRef) => {
+				ref.instance.form.reset();
+				this.applyFilter(ref, popupRef);
 			}
 		);
+	}
+
+	checkFilterEmpty(filter: EmployeeFilter){
+		this.filterBtn.filterIsActive = !!(filter.department || filter.organization);
+	}
+
+	private applyFilter(ref: ComponentRef<EmployeeFilterComponent>, popupRef: NgbModalRef){
+		this.gridDataService.filter.PatchValue(ref.instance.form.value);
+		this.grid.refresh().then(() => {
+			this.checkFilterEmpty(this.gridDataService.filter);
+			popupRef.close();
+		}).catch(() => {
+			this.alertService.showMessage('Something went wrong', AlertDialogStates.error);
+		});
 	}
 }

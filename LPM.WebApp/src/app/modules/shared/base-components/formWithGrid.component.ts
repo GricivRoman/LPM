@@ -97,6 +97,7 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 			(componentRef: ComponentRef<TForm>, popupRef) => {
 				closeAction(componentRef, popupRef);
 			},
+			'Сохранить',
 			(componentRef, popupRef) => {
 				popupRef.close();
 			}

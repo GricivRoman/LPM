@@ -17,7 +17,7 @@ export class ModalWindowService {
 		initAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {},
 		closeAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {}
 	){
-		const modalComponent = this.openGeneric(component, title, size, centered, initAction, undefined, closeAction).componentInstance as ModalWindowComponent;
+		const modalComponent = this.openGeneric(component, title, size, centered, initAction, undefined, '', closeAction).componentInstance as ModalWindowComponent;
 		modalComponent.saveButtonVisible = false;
 	}
 
@@ -28,9 +28,36 @@ export class ModalWindowService {
 		centered: boolean = false,
 		initAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {},
 		saveAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {},
+		saveButtonTitle: string = 'Сохранить',
 		closeAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {}
 	){
-		this.openGeneric(component, title, size, centered, initAction, saveAction, closeAction);
+		this.openGeneric(component, title, size, centered, initAction, saveAction, saveButtonTitle, closeAction);
+	}
+
+	public openWithResetSaveCloseButtons(
+		component: ComponentType<any>,
+		title: string = '',
+		size: string = 'lg',
+		centered: boolean = false,
+		initAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {},
+		saveAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {},
+		saveButtonTitle: string = 'Сохранить',
+		closeAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {},
+		resetAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {}
+	){
+		const modalComponent = this.openGeneric(
+			component,
+			title,
+			size,
+			centered,
+			initAction,
+			saveAction,
+			saveButtonTitle,
+			closeAction,
+			resetAction
+		).componentInstance as ModalWindowComponent;
+
+		modalComponent.resetButtonVisible = true;
 	}
 
 	private openGeneric(
@@ -40,7 +67,9 @@ export class ModalWindowService {
 		centered: boolean = true,
 		initAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {},
 		saveAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {},
-		closeAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {}
+		saveButtonTitle: string = 'Сохранить',
+		closeAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {},
+		resetAction: (componentRef: ComponentRef<any>, popupRef: NgbModalRef) => void = () => {}
 	): NgbModalRef{
 		ModalWindowComponent.componentToWrap = component;
 		const dialogRef = this.dialog.open(ModalWindowComponent, {
@@ -51,6 +80,7 @@ export class ModalWindowService {
 
 		const popupWindowInstance = dialogRef.componentInstance as ModalWindowComponent;
 		popupWindowInstance.title = title;
+		popupWindowInstance.saveButtonTitle = saveButtonTitle;
 
 		dialogRef.shown.subscribe(() => {
 			this.componentRef = dialogRef.componentInstance.inerRef._componentRef;
@@ -60,6 +90,10 @@ export class ModalWindowService {
 			};
 			popupWindowInstance.close = () => {
 				closeAction(this.componentRef,dialogRef);
+			};
+
+			popupWindowInstance.reset = () => {
+				resetAction(this.componentRef,dialogRef);
 			};
 
 			initAction(this.componentRef,dialogRef);
