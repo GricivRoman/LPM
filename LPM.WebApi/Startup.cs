@@ -89,6 +89,7 @@ namespace LPM.WebApi
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IOrderAppointmentService, OrderAppointmentService>();
             services.AddScoped<IFillerService, FillerService>();
+            services.AddScoped<IPositionService, PositionService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

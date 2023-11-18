@@ -12,6 +12,7 @@ import { EmployeeTypeEnumDictionary } from '../../enums/employeeTypeEnum';
 			[label]="label"
 			[control]="control"
 			[selectService]="selectService"
+			[isMultiple]="isMultiple"
 		></app-select>
 	`,
 	providers:[{ provide: 'SelectService', useClass: EmployeeTypeSelectService }]
@@ -24,13 +25,21 @@ export class EmployeeTypeSelectComponent extends BaseSelector implements OnInit 
 	}
 
 	ngOnInit(){
-		this.control.valueChanges.subscribe((employeeType) => this.setLocalEnumValue(employeeType));
+		this.control.valueChanges.subscribe((employeeTypes) => this.setLocalEnumValue(employeeTypes));
 	}
 
-	setLocalEnumValue(employeeType: SelectItem){
-		this.control.patchValue({
-			id: employeeType.id,
-			value: EmployeeTypeEnumDictionary.list.get(employeeType.id)
-		}, {emitEvent: false});
+	setLocalEnumValue(employeeTypes: SelectItem | SelectItem[]){
+		if(this.isMultiple){
+			(employeeTypes as SelectItem[]).map((employeeType: SelectItem) => {
+				employeeType.value = EmployeeTypeEnumDictionary.list.get(employeeType.id) as string;
+			});
+			this.control.patchValue(employeeTypes, {emitEvent: false});
+		} else {
+			const employeeType = employeeTypes as SelectItem;
+			this.control.patchValue({
+				id: employeeType.id,
+				value: EmployeeTypeEnumDictionary.list.get(employeeType.id)
+			}, {emitEvent: false});
+		}
 	}
 }

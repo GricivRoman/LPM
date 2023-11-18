@@ -10,6 +10,7 @@ import { BaseSelector} from '../../base-components/selectComponent';
 			[label]="label"
 			[control]="control"
 			[selectService]="selectService"
+			[isMultiple]="isMultiple"
 		></app-select>
 	`,
 	providers:[{ provide: 'SelectService', useClass: OrganizationSelectService }, { provide: 'OS_DataService', useClass: DataService }]

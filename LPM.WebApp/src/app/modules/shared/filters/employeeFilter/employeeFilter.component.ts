@@ -8,12 +8,14 @@ import { OrganizationSelectModule } from '../../select-controls/organization-sel
 import { take } from 'rxjs';
 import { ForcControlsModule } from '../../module-frontend/controls/forc-controls.module';
 import { SexSelectModule } from '../../select-controls/sex-select/sexSelect.module';
+import { EmployeeTypeSelectModule } from '../../select-controls/employeeType-select/employeeTypeSelect.module';
+import { PositionSelectModule } from '../../select-controls/position-select/positionSelect.module';
 
 @Component({
 	selector: 'employee-filter',
 	templateUrl: 'employeeFilter.component.html',
 	standalone: true,
-	imports: [OrganizationSelectModule, DepartmentSelectModule, ForcControlsModule, SexSelectModule]
+	imports: [OrganizationSelectModule, DepartmentSelectModule, ForcControlsModule, SexSelectModule, PositionSelectModule, EmployeeTypeSelectModule ]
 })
 
 export class EmployeeFilterComponent implements AfterViewInit {
@@ -22,14 +24,14 @@ export class EmployeeFilterComponent implements AfterViewInit {
 	@ViewChild(DepartmentSelectComponent, {static: false}) departmentSelector: DepartmentSelectComponent;
 
 	public form = new FormGroup({
-		organization: new FormControl<SelectItem>(new SelectItem()),
-		department: new FormControl<SelectItem[]>({ value: [new SelectItem()], disabled: true }),
+		organization: new FormControl<SelectItem>(new SelectItem),
+		department: new FormControl<SelectItem[]>({ value: [new SelectItem], disabled: true }),
 		ageDiapazoneStart: new FormControl<number | null>(null),
 		ageDiapazoneEnd: new FormControl<number | null>(null),
-		sex: new FormControl<SelectItem>(new SelectItem()),
+		sex: new FormControl<SelectItem>(new SelectItem),
 		hasVMI: new FormControl<boolean>(false),
-		position: new FormControl<SelectItem[]>([new SelectItem()]),
-		positionType: new FormControl<SelectItem[]>([new SelectItem()]),
+		position: new FormControl<SelectItem[]>([new SelectItem]),
+		positionType: new FormControl<SelectItem[]>([new SelectItem]),
 		dateStartPeriodStart: new FormControl<Date | null>(null),
 		dateStartPeriodEnd: new FormControl<Date | null>(null),
 		onProbationPeriod: new FormControl<boolean>(false),
