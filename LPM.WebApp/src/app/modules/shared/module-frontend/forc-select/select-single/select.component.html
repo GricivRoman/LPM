@@ -5,6 +5,7 @@
   panelClass="select-list"
   [hideSingleSelectionIndicator]="true"
   (opened)="selectorOpened()"
+  [multiple]="isMultiple"
 >
     <mat-option *ngFor="let item of selectList" [value]="item">
       {{item?.value}}

@@ -40,6 +40,7 @@ export class EmployeeGridOptionService implements GridOptionsService {
 		options.selectionMode = GridSelectionModeStates.single;
 		options.columnAutoWidth = false;
 		options.gridWidth = '580';
+		options.showPager = true;
 		return options;
 	}
 }

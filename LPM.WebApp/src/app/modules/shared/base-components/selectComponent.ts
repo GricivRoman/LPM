@@ -6,7 +6,7 @@ import { SelectService } from '../module-frontend/forc-select/select.service';
 	selector: 'app-select-component',
 	template: ''
 })
-export class SelectComponent {
+export class BaseSelector {
 	@Input()
 		label:string = 'Label required';
 
@@ -15,6 +15,9 @@ export class SelectComponent {
 
 	@Input()
 		disabled: boolean;
+
+	@Input()
+		isMultiple: boolean = false;
 
 	constructor(@Inject('SelectService') public selectService: SelectService){
 	}

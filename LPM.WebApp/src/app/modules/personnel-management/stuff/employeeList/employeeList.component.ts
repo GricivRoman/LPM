@@ -75,7 +75,7 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee, Emplo
 	}
 
 	private applyFilter(ref: ComponentRef<EmployeeFilterComponent>, popupRef: NgbModalRef){
-		this.gridDataService.filter.PatchValue(ref.instance.form.value);
+		this.gridDataService.filter.PatchValue(ref.instance.form.value as EmployeeFilter);
 		this.grid.refresh().then(() => {
 			this.checkFilterEmpty(this.gridDataService.filter);
 			popupRef.close();

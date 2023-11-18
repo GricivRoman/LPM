@@ -5,13 +5,91 @@
             [control]="form.controls.organization"
         ></app-select-organization>
     </div>
-    <div class="col-6">
+</div>
+<div class="row">
+    <div>
         <app-select-department
             label="Отдел"
             [control]="form.controls.department"
+            [isMultiple]="true"
         ></app-select-department>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-3">
+        <app-forc-number
+            label="Возраст от"
+            [control]="form.controls.ageDiapazoneStart"
+        ></app-forc-number>
+    </div>
+    <div class="col-3">
+        <app-forc-number
+            label="Возраст до"
+            [control]="form.controls.ageDiapazoneEnd"
+        ></app-forc-number>
+    </div>
+    <div class="col-3">
+        <app-forc-number
+            label="Стаж от"
+            [control]="form.controls.workLengthDiapazoneStart"
+        ></app-forc-number>
+    </div>
+    <div class="col-3">
+        <app-forc-number
+            label="Стаж до"
+            [control]="form.controls.workLengthDiapazoneEnd"
+        ></app-forc-number>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <app-forc-date
+            label="Дата начала с"
+            [control]="form.controls.dateStartPeriodStart"
+        ></app-forc-date>
+    </div>
+    <div class="col-6">
+        <app-forc-date
+            label="Дата начала по"
+            [control]="form.controls.dateStartPeriodEnd"
+        ></app-forc-date>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <app-forc-date
+            label="Должность"
+            [control]="form.controls.position"
+        ></app-forc-date>
+    </div>
+    <div class="col-6">
+        <app-forc-date
+            label="Тип должности"
+            [control]="form.controls.positionType"
+        ></app-forc-date>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <app-select-sex
+            label="Пол"
+            [control]="form.controls.sex"
+        ></app-select-sex>
+    </div>
+    <div class="col-6 mt-3 mx-3">
+        <div class="row">
+            <app-forc-checkbox
+                label="Есть ДМС"
+                [control]="form.controls.hasVMI"
+            ></app-forc-checkbox>
+        </div>
+        <div class="row">
+            <app-forc-checkbox
+                label="На испытательном сроке"
+                [control]="form.controls.onProbationPeriod"
+            ></app-forc-checkbox>
+        </div>
+    </div>
+</div>
 
 

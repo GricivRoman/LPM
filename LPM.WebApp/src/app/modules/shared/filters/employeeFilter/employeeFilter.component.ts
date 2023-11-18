@@ -6,12 +6,14 @@ import { Guid } from 'guid-typescript';
 import { DepartmentSelectComponent } from '../../select-controls/department-select/departmentSelectComponent';
 import { OrganizationSelectModule } from '../../select-controls/organization-select/organizationSelect.module';
 import { take } from 'rxjs';
+import { ForcControlsModule } from '../../module-frontend/controls/forc-controls.module';
+import { SexSelectModule } from '../../select-controls/sex-select/sexSelect.module';
 
 @Component({
 	selector: 'employee-filter',
 	templateUrl: 'employeeFilter.component.html',
 	standalone: true,
-	imports: [OrganizationSelectModule, DepartmentSelectModule]
+	imports: [OrganizationSelectModule, DepartmentSelectModule, ForcControlsModule, SexSelectModule]
 })
 
 export class EmployeeFilterComponent implements AfterViewInit {
@@ -21,7 +23,18 @@ export class EmployeeFilterComponent implements AfterViewInit {
 
 	public form = new FormGroup({
 		organization: new FormControl<SelectItem>(new SelectItem()),
-		department: new FormControl<SelectItem>({ value: new SelectItem(), disabled: true }),
+		department: new FormControl<SelectItem[]>({ value: [new SelectItem()], disabled: true }),
+		ageDiapazoneStart: new FormControl<number | null>(null),
+		ageDiapazoneEnd: new FormControl<number | null>(null),
+		sex: new FormControl<SelectItem>(new SelectItem()),
+		hasVMI: new FormControl<boolean>(false),
+		position: new FormControl<SelectItem[]>([new SelectItem()]),
+		positionType: new FormControl<SelectItem[]>([new SelectItem()]),
+		dateStartPeriodStart: new FormControl<Date | null>(null),
+		dateStartPeriodEnd: new FormControl<Date | null>(null),
+		onProbationPeriod: new FormControl<boolean>(false),
+		workLengthDiapazoneStart: new FormControl<number | null>(null),
+		workLengthDiapazoneEnd: new FormControl<number | null>(null)
 	});
 
 	ngAfterViewInit(): void {

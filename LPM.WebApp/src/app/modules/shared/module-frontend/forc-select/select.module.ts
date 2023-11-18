@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SelectSingleComponent } from './select-single/select-single.component';
+import { SelectComponent } from './select-single/select.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -15,10 +15,10 @@ import { RequiredStarModule } from '../requiredStar/requiredStar.module';
 		RequiredStarModule
 	],
 	declarations: [
-		SelectSingleComponent
+		SelectComponent
 	],
 	exports: [
-		SelectSingleComponent
+		SelectComponent
 	],
 	providers: [
 

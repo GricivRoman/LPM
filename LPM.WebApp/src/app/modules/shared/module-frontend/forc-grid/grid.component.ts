@@ -33,6 +33,7 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 	protected columnMinWidth: number;
 	protected columnAutoWidth: boolean;
 	protected pageSize: number;
+	protected showPager: boolean;
 
 	protected allowGrouping: boolean;
 	protected expandAll = true;
@@ -56,6 +57,7 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 		this.gridWidth = options.gridWidth ?? '100%';
 		this.pageSize = options.pageSize ?? 20;
 		this.searchPanel.visible = options.showSearchPanel ?? false;
+		this.showPager = options.showPager;
 
 		this.allowColumnResizing = options.allowColumnResizing ?? true;
 		this.columnMinWidth = options.columnMinWidth ?? 50;
