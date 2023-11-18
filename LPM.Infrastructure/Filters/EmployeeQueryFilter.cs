@@ -1,9 +1,10 @@
-﻿namespace LPM.Infrastructure.Filters
+﻿using LPM.Infrastructure.Dto;
+
+namespace LPM.Infrastructure.Filters
 {
     public class EmployeeQueryFilter : PagedQueryFilter
     {
-        public Guid? OrganizationId { get; set; }
-
-        public Guid? DepartmentId { get; set; }
+        public SelectItemDto<Guid> Organization { get; set; }
+        public SelectItemDto<Guid> Department { get; set; }
     }
 }

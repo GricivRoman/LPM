@@ -31,7 +31,7 @@ namespace LPM.WebApi.Services
         {
             List<Employee> employeeList;
             // TODO На уровне валидации проверять, что в фильтре департамент входит в организацию, если оба значения есть
-            if (filter.OrganizationId != null || filter.DepartmentId != null)
+            if (filter.Organization?.Id != null || filter.Department?.Id != null)
             {
                 var query = _context.Set<OrderAppointment>().AsQueryable();
 
@@ -101,14 +101,14 @@ namespace LPM.WebApi.Services
 
         private IQueryable<OrderAppointment> FilterOrderAppointmentByEmployeeFilter(IQueryable<OrderAppointment> query, EmployeeQueryFilter filter)
         {
-            if (filter.OrganizationId != null)
+            if (filter.Organization?.Id != null)
             {
-                query = query.Where(x => x.Department.OrganizationId == filter.OrganizationId);
+                query = query.Where(x => x.Department.OrganizationId == filter.Organization.Id);
             }
 
-            if (filter.DepartmentId != null)
+            if (filter.Department?.Id != null)
             {
-                query = query.Where(x => x.DepartmentId == filter.DepartmentId);
+                query = query.Where(x => x.DepartmentId == filter.Department.Id);
             }
 
             return query;

@@ -22,7 +22,7 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
     @ViewChild(GridComponent, {static: false}) grid : GridComponent<TModel>;
 
     public addButtonDisabled = false;
-    public editButtonDisabled = false;
+    public editButtonDisabled = true;
     public deleteButtonDisabled = true;
 
     @Input()
@@ -67,7 +67,10 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 
 	onFocusedRowChanged = () => {
 		const selectedRows = this.grid.getSelectedRowsKeys();
-		this.deleteButtonDisabled = selectedRows.length === 0;
+
+		const disableEditAndDelete = selectedRows.length === 0;
+		this.deleteButtonDisabled = disableEditAndDelete;
+		this.editButtonDisabled = disableEditAndDelete;
 	};
 
 	gridDataLoaded(data: TModel[]){
