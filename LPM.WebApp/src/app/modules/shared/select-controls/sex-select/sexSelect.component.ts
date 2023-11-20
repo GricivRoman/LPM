@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { SexSelectService } from './sexSelect.service';
 import { BaseSelector } from '../../base-components/selectComponent';
 import { SelectItem } from '../../models/selectItem';
 import { SexEnumDictionary } from '../../enums/sexEnum';
+import { SelectComponent } from '../../module-frontend/forc-select/select-single/select.component';
 
 @Component({
 	selector: 'app-select-sex',
@@ -16,6 +17,7 @@ import { SexEnumDictionary } from '../../enums/sexEnum';
 	providers:[{ provide: 'SelectService', useClass: SexSelectService }]
 })
 export class SexSelectComponent extends BaseSelector implements OnInit {
+	@ViewChild(SelectComponent, {static: false}) selector: SelectComponent;
 
 	constructor(@Inject('SelectService') public override selectService: SexSelectService){
 		super(selectService);
@@ -26,6 +28,10 @@ export class SexSelectComponent extends BaseSelector implements OnInit {
 	}
 
 	setLocalEnumValue(sex: SelectItem){
+		if(this.selector.selectorTouched){
+			return;
+		}
+
 		this.control.patchValue({
 			id: sex.id,
 			value: SexEnumDictionary.list.get(sex.id)
