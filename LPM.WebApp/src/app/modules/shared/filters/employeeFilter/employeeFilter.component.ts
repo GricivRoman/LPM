@@ -25,7 +25,7 @@ export class EmployeeFilterComponent implements AfterViewInit {
 
 	public form = new FormGroup({
 		organization: new FormControl<SelectItem>(new SelectItem),
-		department: new FormControl<SelectItem[]>({ value: [new SelectItem], disabled: true }),
+		departmentList: new FormControl<SelectItem[]>({ value: [new SelectItem], disabled: true }),
 		ageDiapazoneStart: new FormControl<number | null>(null),
 		ageDiapazoneEnd: new FormControl<number | null>(null),
 		sex: new FormControl<SelectItem>(new SelectItem),
@@ -51,23 +51,23 @@ export class EmployeeFilterComponent implements AfterViewInit {
 	initializeOrganizationInDepartmentSelector(id?: Guid){
 		if(id){
 			this.departmentSelector.selectService.organizationId = id;
-			this.form.controls.department.enable({emitEvent: false});
+			this.form.controls.departmentList.enable({emitEvent: false});
 		} else {
-			this.form.controls.department.disable();
+			this.form.controls.departmentList.disable();
 		}
 	}
 
 	setOrganizationInDepartmentSelector(id?: Guid){
 		if(!id || this.departmentSelector.selectService.organizationId !== id){
-			this.form.controls.department.reset();
+			this.form.controls.departmentList.reset();
 			this.departmentSelector.selectService.organizationId = id;
 			this.departmentSelector.resetSelectList();
 		}
 
 		if(id){
-			this.form.controls.department.enable({emitEvent: false});
+			this.form.controls.departmentList.enable({emitEvent: false});
 		} else {
-			this.form.controls.department.disable();
+			this.form.controls.departmentList.disable();
 		}
 	}
 }

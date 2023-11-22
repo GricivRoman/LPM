@@ -71,7 +71,7 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee, Emplo
 	}
 
 	checkFilterEmpty(filter: EmployeeFilter){
-		this.filterBtn.filterIsActive = !!(filter.department || filter.organization);
+		this.filterBtn.filterIsActive = !!(filter.departmentList || filter.organization);
 	}
 
 	private applyFilter(ref: ComponentRef<EmployeeFilterComponent>, popupRef: NgbModalRef){

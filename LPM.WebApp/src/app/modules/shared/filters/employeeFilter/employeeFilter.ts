@@ -3,7 +3,7 @@ import { PagedQueryFilter } from '../pagedQueryFilter';
 
 export class EmployeeFilter extends PagedQueryFilter {
 	organization?: SelectItem;
-	department?: SelectItem[];
+	departmentList?: SelectItem[];
 	ageDiapazoneStart?: number;
 	ageDiapazoneEnd?: number;
 	sex?: SelectItem;
@@ -19,7 +19,7 @@ export class EmployeeFilter extends PagedQueryFilter {
 	// TODO переделать это
 	public PatchValue(model : EmployeeFilter){
 		this.organization = model.organization;
-		this.department = model.department;
+		this.departmentList = model.departmentList;
 		this.ageDiapazoneStart = model.ageDiapazoneStart;
 		this.ageDiapazoneEnd = model.ageDiapazoneEnd;
 		this.sex = model.sex;
@@ -31,5 +31,7 @@ export class EmployeeFilter extends PagedQueryFilter {
 		this.onProbationPeriod = model.onProbationPeriod;
 		this.workLengthDiapazoneStart = model.workLengthDiapazoneStart;
 		this.workLengthDiapazoneEnd = model.workLengthDiapazoneEnd;
+
+		this.paging.takeAll = true;
 	}
 }

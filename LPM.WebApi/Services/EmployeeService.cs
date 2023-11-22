@@ -27,31 +27,15 @@ namespace LPM.WebApi.Services
             return _mapper.Map<EmployeeDto>(employee);
         }
 
-        public async Task<List<EmployeeDto>> GetEmployeeListAsync(EmployeeQueryFilter filter)
+        public async Task<List<EmployeeDto>> GetEmployeeListAsync(EmployeeGridListFilter filter)
         {
-            List<Employee> employeeList;
-            // TODO На уровне валидации проверять, что в фильтре департамент входит в организацию, если оба значения есть
-            if (filter.Organization?.Id != null || filter.Department?.Id != null)
-            {
-                var query = _context.Set<OrderAppointment>().AsQueryable();
+            var employees = _context.Set<Employee>().AsQueryable();
+            employees = GetFilteredEmployeQuery(employees, filter);
 
-                query = FilterOrderAppointmentByEmployeeFilter(query, filter);
-
-                employeeList = await query
-                    .PagedBy(filter.Paging)
-                    .Select(x => x.Employee)
-                    .ToListAsync();
-            }
-            else
-            {
-                // TODO Либо дать сотруднику базовую пренадлежность той организации, на которой он создавался, либо как-то еще определить его для конкретного пользователяч
-                employeeList = await _context.Set<Employee>().ToListAsync();
-            }
-
-            return _mapper.Map<List<EmployeeDto>>(employeeList);
+            return _mapper.Map<List<EmployeeDto>>(await employees.ToListAsync());
         }
 
-        public async Task<List<SelectItemDto<Guid>>> GetEmployeeSelectItemList(EmployeeQueryFilter filter)
+        public async Task<List<SelectItemDto<Guid>>> GetEmployeeSelectItemList(BaseEmployeeQueryFilter filter)
         {
             var query = _context.Set<OrderAppointment>().AsQueryable();
 
@@ -97,9 +81,19 @@ namespace LPM.WebApi.Services
             return employee.Id;
         }
 
+        public async Task DeleteEmployeeAsync(Guid id)
+        {
+            var employee = await GetEmployeeById(id);
 
+            if (employee.OrderAppointments.Where(x => x.DateEnd == null).Count() != 0)
+            {
+                throw new ApplicationException("Нельзя удалить сотрудника с действующим договором");
+            }
+            _context.Set<Employee>().Remove(employee);
+            await _context.SaveChangesAsync();
+        }
 
-        private IQueryable<OrderAppointment> FilterOrderAppointmentByEmployeeFilter(IQueryable<OrderAppointment> query, EmployeeQueryFilter filter)
+        private IQueryable<OrderAppointment> FilterOrderAppointmentByEmployeeFilter(IQueryable<OrderAppointment> query, BaseEmployeeQueryFilter filter)
         {
             if (filter.Organization?.Id != null)
             {
@@ -129,16 +123,87 @@ namespace LPM.WebApi.Services
             return employee;
         }
 
-        public async Task DeleteEmployeeAsync(Guid id)
+        private IQueryable<Employee> GetFilteredEmployeQuery(IQueryable<Employee> query, EmployeeGridListFilter filter)
         {
-            var employee = await GetEmployeeById(id);
-
-            if (employee.OrderAppointments.Where(x => x.DateEnd == null).Count() != 0)
+            if (filter.Organization != null)
             {
-                throw new ApplicationException("Нельзя удалить сотрудника с действующим договором");
+                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && GetOrdetAppointmentForEmplouee(x).Department.OrganizationId == filter.Organization.Id);
             }
-            _context.Set<Employee>().Remove(employee);
-            await _context.SaveChangesAsync();
+
+            if (filter.DepartmentList != null && filter.DepartmentList.Count != 0)
+            {
+                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && filter.DepartmentList.Any(i => i.Id == GetOrdetAppointmentForEmplouee(x).DepartmentId));
+            }
+
+            if (filter.AgeDiapazoneStart != null)
+            {
+                query = query.Where(x => x.GetAge() >= filter.AgeDiapazoneStart);
+            }
+
+            if (filter.AgeDiapazoneEnd != null)
+            {
+                query = query.Where(x => x.GetAge() <= filter.AgeDiapazoneEnd);
+            }
+
+            if (filter.Sex != null)
+            {
+                query = query.Where(x => x.Sex == (SexEnum)filter.Sex.Id);
+            }
+
+            if (filter.HasVMI != null)
+            {
+                query = query.Where(x => x.HasVHI == filter.HasVMI);
+            }
+
+            if (filter.Position != null)
+            {
+                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && filter.Position.Any(i => i.Value == GetOrdetAppointmentForEmplouee(x).Position));
+            }
+
+            if (filter.PositionType != null)
+            {
+                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && filter.PositionType.Any(i => (EmployeeTypeEnum)i.Id == GetOrdetAppointmentForEmplouee(x).EmployeeType));
+            }
+
+            if (filter.DateStartPeriodStart != null)
+            {
+                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && GetOrdetAppointmentForEmplouee(x).DateStart >= filter.DateStartPeriodStart);
+            }
+
+            if (filter.DateStartPeriodEnd != null)
+            {
+                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && GetOrdetAppointmentForEmplouee(x).DateStart >= filter.DateStartPeriodEnd);
+            }
+
+            if (filter.OnProbationPeriod != null)
+            {
+                //query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && filter.OnProbationPeriod == GetOrdetAppointmentForEmplouee(x).ProbationEndDate < DateTime.Now);
+            }
+
+            if (filter.WorkLengthDiapazoneStart != null)
+            {
+                query = query.Where(x => x.OrderAppointments.Select(i => GetWorkLengthForOrderAppointment(i)).Sum() >= filter.WorkLengthDiapazoneStart);
+            }
+
+            if (filter.WorkLengthDiapazoneEnd != null)
+            {
+                query = query.Where(x => x.OrderAppointments.Select(i => GetWorkLengthForOrderAppointment(i)).Sum() <= filter.WorkLengthDiapazoneEnd);
+            }
+
+            return query.PagedBy(filter.Paging);
+        }
+
+        private OrderAppointment GetOrdetAppointmentForEmplouee(Employee employee)
+        {
+            return employee.OrderAppointments.Where(x => x.DateEnd == null).FirstOrDefault();
+        }
+
+        private double GetWorkLengthForOrderAppointment(OrderAppointment orderAppointment)
+        {
+            var dateEnd = orderAppointment.DateEnd == null ? DateTime.Now : orderAppointment.DateEnd;
+            var workingTime = (DateTime)dateEnd - orderAppointment.DateStart;
+
+            return Math.Round(workingTime.TotalDays / 365, 2);
         }
     }
 }
