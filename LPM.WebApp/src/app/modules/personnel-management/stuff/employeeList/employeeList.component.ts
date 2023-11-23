@@ -50,7 +50,7 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee, Emplo
 	openFilter(){
 		this.modalService.openWithResetSaveCloseButtons(
 			EmployeeFilterComponent,
-			'Фильр сотрудников',
+			'Фильтр сотрудников',
 			'md',
 			false,
 			(ref: ComponentRef<EmployeeFilterComponent>) => {

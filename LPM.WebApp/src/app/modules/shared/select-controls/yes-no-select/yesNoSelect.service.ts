@@ -8,11 +8,11 @@ export class YesNoSelectService implements SelectService {
 	items: SelectItem[] = [
 		{
 			id: true,
-			value: "Да"
+			value: 'Да'
 		},
 		{
 			id: false,
-			value: "Нет"
+			value: 'Нет'
 		}
 	];
 

@@ -1,16 +1,22 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { YesNoSelectService } from './yesNoSelect.service';
 import { BaseSelector } from '../../base-components/selectComponent';
-import { SelectComponent } from '../../module-frontend/forc-select/selector/select.component';
 
 @Component({
 	selector: 'yes-no-select',
 	template: `
-        <app-select
-            [label]="label"
-            [control]="control"
-            [selectService]="selectService"
-        ></app-select>
+        <div class="row">
+            <div class=col-8>
+                <label for="selector">{{label}}</label>
+            </div>
+            <div class=col-4>
+                <app-select
+                    [control]="control"
+                    [selectService]="selectService"
+                ></app-select>
+            </div>
+        </div>
+
     `,
 	providers:[{ provide: 'SelectService', useClass: YesNoSelectService }]
 })
