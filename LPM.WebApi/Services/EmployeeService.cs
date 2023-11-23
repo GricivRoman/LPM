@@ -127,22 +127,22 @@ namespace LPM.WebApi.Services
         {
             if (filter.Organization != null)
             {
-                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && GetOrdetAppointmentForEmplouee(x).Department.OrganizationId == filter.Organization.Id);
+                query = query.Where(x => x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().Department.OrganizationId == filter.Organization.Id);
             }
 
             if (filter.DepartmentList != null && filter.DepartmentList.Count != 0)
             {
-                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && filter.DepartmentList.Any(i => i.Id == GetOrdetAppointmentForEmplouee(x).DepartmentId));
+                query = query.Where(x => filter.DepartmentList.Select(i => i.Id).Contains(x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().DepartmentId));
             }
 
             if (filter.AgeDiapazoneStart != null)
             {
-                query = query.Where(x => x.GetAge() >= filter.AgeDiapazoneStart);
+                query = query.Where(x => (DateTime.Now - x.BirthDate).TotalDays / 365 >= filter.AgeDiapazoneStart);
             }
 
             if (filter.AgeDiapazoneEnd != null)
             {
-                query = query.Where(x => x.GetAge() <= filter.AgeDiapazoneEnd);
+                query = query.Where(x => (DateTime.Now - x.BirthDate).TotalDays / 365 <= filter.AgeDiapazoneEnd);
             }
 
             if (filter.Sex != null)
@@ -155,55 +155,46 @@ namespace LPM.WebApi.Services
                 query = query.Where(x => x.HasVHI == filter.HasVMI);
             }
 
-            if (filter.Position != null)
+            if (filter.Position != null && filter.Position.Count > 0)
             {
-                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && filter.Position.Any(i => i.Value == GetOrdetAppointmentForEmplouee(x).Position));
+                query = query.Where(x => filter.Position.Select(i => i.Value).Contains(x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().Position));
             }
 
-            if (filter.PositionType != null)
+            if (filter.PositionType != null && filter.PositionType.Count > 0)
             {
-                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && filter.PositionType.Any(i => (EmployeeTypeEnum)i.Id == GetOrdetAppointmentForEmplouee(x).EmployeeType));
+                query = query.Where(x => filter.PositionType.Select(x => (EmployeeTypeEnum)x.Id).Contains(x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().EmployeeType));
             }
 
             if (filter.DateStartPeriodStart != null)
             {
-                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && GetOrdetAppointmentForEmplouee(x).DateStart >= filter.DateStartPeriodStart);
+                query = query.Where(x => x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().DateStart >= filter.DateStartPeriodStart);
             }
 
             if (filter.DateStartPeriodEnd != null)
             {
-                query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && GetOrdetAppointmentForEmplouee(x).DateStart >= filter.DateStartPeriodEnd);
+                query = query.Where(x => x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().DateStart <= filter.DateStartPeriodEnd);
             }
 
             if (filter.OnProbationPeriod != null)
             {
-                //query = query.Where(x => GetOrdetAppointmentForEmplouee(x) != null && filter.OnProbationPeriod == GetOrdetAppointmentForEmplouee(x).ProbationEndDate < DateTime.Now);
+                query = query.Where(x => filter.OnProbationPeriod == x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().ProbationEndDate > DateTime.Now);
             }
 
             if (filter.WorkLengthDiapazoneStart != null)
             {
-                query = query.Where(x => x.OrderAppointments.Select(i => GetWorkLengthForOrderAppointment(i)).Sum() >= filter.WorkLengthDiapazoneStart);
+                query = query.Where(x =>
+                            x.OrderAppointments.Sum(i => ((DateTime)(i.DateEnd == null ? DateTime.Now : i.DateEnd) - i.DateStart).TotalDays / 365)
+                            >= filter.WorkLengthDiapazoneStart);
             }
 
             if (filter.WorkLengthDiapazoneEnd != null)
             {
-                query = query.Where(x => x.OrderAppointments.Select(i => GetWorkLengthForOrderAppointment(i)).Sum() <= filter.WorkLengthDiapazoneEnd);
+                query = query.Where(x =>
+                            x.OrderAppointments.Sum(i => ((DateTime)(i.DateEnd == null ? DateTime.Now : i.DateEnd) - i.DateStart).TotalDays / 365)
+                            <= filter.WorkLengthDiapazoneEnd);
             }
 
             return query.PagedBy(filter.Paging);
-        }
-
-        private OrderAppointment GetOrdetAppointmentForEmplouee(Employee employee)
-        {
-            return employee.OrderAppointments.Where(x => x.DateEnd == null).FirstOrDefault();
-        }
-
-        private double GetWorkLengthForOrderAppointment(OrderAppointment orderAppointment)
-        {
-            var dateEnd = orderAppointment.DateEnd == null ? DateTime.Now : orderAppointment.DateEnd;
-            var workingTime = (DateTime)dateEnd - orderAppointment.DateStart;
-
-            return Math.Round(workingTime.TotalDays / 365, 2);
         }
     }
 }

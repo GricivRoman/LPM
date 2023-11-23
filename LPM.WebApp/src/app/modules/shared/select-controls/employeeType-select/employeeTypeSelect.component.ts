@@ -1,7 +1,7 @@
 import { Component, Inject, ViewChild, OnInit } from '@angular/core';
 import { EmployeeTypeSelectService } from './employeeTypeSelect.service';
 import { BaseSelector} from '../../base-components/selectComponent';
-import { SelectComponent } from '../../module-frontend/forc-select/select-single/select.component';
+import { SelectComponent } from '../../module-frontend/forc-select/selector/select.component';
 import { SelectItem } from '../../models/selectItem';
 import { EmployeeTypeEnumDictionary } from '../../enums/employeeTypeEnum';
 

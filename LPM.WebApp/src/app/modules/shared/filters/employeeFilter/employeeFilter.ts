@@ -31,7 +31,5 @@ export class EmployeeFilter extends PagedQueryFilter {
 		this.onProbationPeriod = model.onProbationPeriod;
 		this.workLengthDiapazoneStart = model.workLengthDiapazoneStart;
 		this.workLengthDiapazoneEnd = model.workLengthDiapazoneEnd;
-
-		this.paging.takeAll = true;
 	}
 }

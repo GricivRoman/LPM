@@ -32,10 +32,5 @@ namespace LPM.Database.Models
         /// Приказ о назначении
         /// </summary>
         public ICollection<OrderAppointment> OrderAppointments { get; set; }
-
-        public double GetAge()
-        {
-            return Math.Round((DateTime.Now - BirthDate).TotalDays / 365, 2);
-        }
     }
 }

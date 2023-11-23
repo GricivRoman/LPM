@@ -56,9 +56,11 @@ export class SelectComponent extends BaseControlComponent implements OnInit {
 		this.selectorTouched = true;
 		this.selectService.getItemList().subscribe({
 			next: (items: SelectItem[]) => {
+				console.log(this.selectList);
+				console.log(items);
 				if(items.length > 0){
-					const itemsToPush = items.filter(x => !this.selectList.map(i => i.id).includes(x.id));
-					this.selectList = this.selectList.concat(itemsToPush).filter(x => x !== this.loadingItem);
+					const itemsToPush = items.filter(x => !this.selectList.includes(x));
+					this.selectList = this.selectList.concat(itemsToPush).filter(x => x.id !== undefined );
 				} else {
 					this.selectList = [this.emptyItem];
 				}

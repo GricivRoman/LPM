@@ -7,7 +7,7 @@ import { OrganizationLocalStorageService } from '../../shared/local-storage/orga
 import { OrganizationFilter } from '../../shared/filters/organizationFilter';
 import { AuthLocalStorageService } from '../../shared/local-storage/auth-localStorage/authLocalStorage.service';
 import { AuthResponse } from '../../shared/local-storage/auth-localStorage/auth-response';
-import { SelectComponent } from '../../shared/module-frontend/forc-select/select-single/select.component';
+import { SelectComponent } from '../../shared/module-frontend/forc-select/selector/select.component';
 import { FillerService } from '../filler/filler.service';
 
 @Component({

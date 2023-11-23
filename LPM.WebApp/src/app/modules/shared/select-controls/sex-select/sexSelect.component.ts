@@ -3,7 +3,7 @@ import { SexSelectService } from './sexSelect.service';
 import { BaseSelector } from '../../base-components/selectComponent';
 import { SelectItem } from '../../models/selectItem';
 import { SexEnumDictionary } from '../../enums/sexEnum';
-import { SelectComponent } from '../../module-frontend/forc-select/select-single/select.component';
+import { SelectComponent } from '../../module-frontend/forc-select/selector/select.component';
 
 @Component({
 	selector: 'app-select-sex',

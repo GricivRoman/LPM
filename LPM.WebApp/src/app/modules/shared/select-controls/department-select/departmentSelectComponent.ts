@@ -1,7 +1,7 @@
 import { Component, ViewChild, Inject } from '@angular/core';
 import { DepartmentSelectService } from './departmentSelect.service';
 import { DataService } from '../../services/data.service';
-import { SelectComponent } from '../../module-frontend/forc-select/select-single/select.component';
+import { SelectComponent } from '../../module-frontend/forc-select/selector/select.component';
 import { BaseSelector} from '../../base-components/selectComponent';
 
 @Component({
