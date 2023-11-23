@@ -29,10 +29,9 @@ export class EmployeeTypeSelectComponent extends BaseSelector implements OnInit 
 	}
 
 	setLocalEnumValue(employeeTypes: SelectItem | SelectItem[]){
-		if(this.selector.selectorTouched){
+		if(!employeeTypes || this.selector.selectorTouched){
 			return;
 		}
-
 		if(this.isMultiple){
 			(employeeTypes as SelectItem[]).map((employeeType: SelectItem) => {
 				employeeType.value = EmployeeTypeEnumDictionary.list.get(employeeType.id) as string;

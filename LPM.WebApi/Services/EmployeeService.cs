@@ -152,7 +152,7 @@ namespace LPM.WebApi.Services
 
             if (filter.HasVMI != null)
             {
-                query = query.Where(x => x.HasVHI == filter.HasVMI);
+                query = query.Where(x => x.HasVHI == filter.HasVMI.Id);
             }
 
             if (filter.Position != null && filter.Position.Count > 0)
@@ -177,7 +177,7 @@ namespace LPM.WebApi.Services
 
             if (filter.OnProbationPeriod != null)
             {
-                query = query.Where(x => filter.OnProbationPeriod == x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().ProbationEndDate > DateTime.Now);
+                query = query.Where(x => filter.OnProbationPeriod.Id == x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().ProbationEndDate > DateTime.Now);
             }
 
             if (filter.WorkLengthDiapazoneStart != null)

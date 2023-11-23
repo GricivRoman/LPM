@@ -7,12 +7,12 @@ export class EmployeeFilter extends PagedQueryFilter {
 	ageDiapazoneStart?: number;
 	ageDiapazoneEnd?: number;
 	sex?: SelectItem;
-	hasVMI?: boolean;
+	hasVMI?: SelectItem;
 	position?: SelectItem[];
 	positionType?: SelectItem[];
 	dateStartPeriodStart?: Date;
 	dateStartPeriodEnd?: Date;
-	onProbationPeriod: boolean;
+	onProbationPeriod: SelectItem;
 	workLengthDiapazoneStart: number;
 	workLengthDiapazoneEnd: number;
 

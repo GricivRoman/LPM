@@ -10,12 +10,13 @@ import { ForcControlsModule } from '../../module-frontend/controls/forc-controls
 import { SexSelectModule } from '../../select-controls/sex-select/sexSelect.module';
 import { EmployeeTypeSelectModule } from '../../select-controls/employeeType-select/employeeTypeSelect.module';
 import { PositionSelectModule } from '../../select-controls/position-select/positionSelect.module';
+import { YesNoSelectModule } from '../../select-controls/yes-no-select/yesNoSelect.module';
 
 @Component({
 	selector: 'employee-filter',
 	templateUrl: 'employeeFilter.component.html',
 	standalone: true,
-	imports: [OrganizationSelectModule, DepartmentSelectModule, ForcControlsModule, SexSelectModule, PositionSelectModule, EmployeeTypeSelectModule ]
+	imports: [OrganizationSelectModule, DepartmentSelectModule, ForcControlsModule, SexSelectModule, PositionSelectModule, EmployeeTypeSelectModule, YesNoSelectModule ]
 })
 
 export class EmployeeFilterComponent implements AfterViewInit {
@@ -29,12 +30,12 @@ export class EmployeeFilterComponent implements AfterViewInit {
 		ageDiapazoneStart: new FormControl<number | null>(null),
 		ageDiapazoneEnd: new FormControl<number | null>(null),
 		sex: new FormControl<SelectItem>(new SelectItem),
-		hasVMI: new FormControl<boolean>(false),
+		hasVMI: new FormControl<SelectItem>(new SelectItem),
 		position: new FormControl<SelectItem[]>([new SelectItem]),
 		positionType: new FormControl<SelectItem[]>([new SelectItem]),
 		dateStartPeriodStart: new FormControl<Date | null>(null),
 		dateStartPeriodEnd: new FormControl<Date | null>(null),
-		onProbationPeriod: new FormControl<boolean>(false),
+		onProbationPeriod: new FormControl<SelectItem>(new SelectItem),
 		workLengthDiapazoneStart: new FormControl<number | null>(null),
 		workLengthDiapazoneEnd: new FormControl<number | null>(null)
 	});

@@ -28,7 +28,7 @@ export class SexSelectComponent extends BaseSelector implements OnInit {
 	}
 
 	setLocalEnumValue(sex: SelectItem){
-		if(this.selector.selectorTouched){
+		if(!sex || this.selector.selectorTouched){
 			return;
 		}
 

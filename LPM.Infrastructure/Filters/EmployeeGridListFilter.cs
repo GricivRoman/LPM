@@ -30,7 +30,7 @@ namespace LPM.Infrastructure.Filters
         /// <summary>
         /// Сотрудник имеет ДМС
         /// </summary>
-        public bool? HasVMI { get; set; }
+        public SelectItemDto<bool> HasVMI { get; set; }
 
         /// <summary>
         /// Должность
@@ -55,7 +55,7 @@ namespace LPM.Infrastructure.Filters
         /// <summary>
         /// Сотрудник находится на испытательном сроке
         /// </summary>
-        public bool? OnProbationPeriod { get; set; }
+        public SelectItemDto<bool> OnProbationPeriod { get; set; }
 
         /// <summary>
         /// Стаж от
