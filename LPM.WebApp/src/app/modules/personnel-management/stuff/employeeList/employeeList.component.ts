@@ -71,7 +71,9 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee, Emplo
 	}
 
 	checkFilterEmpty(filter: EmployeeFilter){
-		this.filterBtn.filterIsActive = !!(filter.departmentList || filter.organization);
+		// TODO переделать
+		this.filterBtn.filterIsActive = !!(filter.ageDiapazoneEnd || filter.ageDiapazoneStart || filter.dateStartPeriodEnd || filter.dateStartPeriodStart ||
+		filter.departmentList || filter.hasVMI || filter.onProbationPeriod || filter.organization || filter.position || filter.positionType);
 	}
 
 	private applyFilter(ref: ComponentRef<EmployeeFilterComponent>, popupRef: NgbModalRef){

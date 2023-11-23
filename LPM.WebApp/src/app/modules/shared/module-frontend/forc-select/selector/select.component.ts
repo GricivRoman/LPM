@@ -20,6 +20,8 @@ export class SelectComponent extends BaseControlComponent implements OnInit {
 	@Input()
 		isMultiple: boolean = false;
 
+	public title = '';
+
 	private emptyItem: SelectItem = {
 		id: undefined,
 		value: '(пусто)'
@@ -50,6 +52,8 @@ export class SelectComponent extends BaseControlComponent implements OnInit {
 				}
 			}
 		});
+
+		this.control.valueChanges.subscribe(() => this.setTitle());
 	}
 
 	selectorOpened() {
@@ -65,6 +69,15 @@ export class SelectComponent extends BaseControlComponent implements OnInit {
 				}
 			}
 		});
+	}
+
+	setTitle(){
+		if(this.isMultiple){
+			const values = (this.control.value as SelectItem[]).map(x => x.value);
+			this.title = values.join(', ');
+		} else {
+			this.title = (this.control.value as SelectItem).value;
+		}
 	}
 
 	resetSelectList(){
