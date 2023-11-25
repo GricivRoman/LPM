@@ -11,6 +11,7 @@ import { SexSelectModule } from '../../select-controls/sex-select/sexSelect.modu
 import { EmployeeTypeSelectModule } from '../../select-controls/employeeType-select/employeeTypeSelect.module';
 import { PositionSelectModule } from '../../select-controls/position-select/positionSelect.module';
 import { YesNoSelectModule } from '../../select-controls/yes-no-select/yesNoSelect.module';
+import { ForcValidators } from '../../validation/forcValidators';
 
 @Component({
 	selector: 'employee-filter',
@@ -40,6 +41,7 @@ export class EmployeeFilterComponent implements AfterViewInit {
 		workLengthDiapazoneEnd: new FormControl<number | null>(null)
 	});
 
+	private isValidatingControl = false;
 	ngAfterViewInit(): void {
 		this.form.controls.organization.valueChanges
 			.pipe(take(1))
@@ -47,6 +49,17 @@ export class EmployeeFilterComponent implements AfterViewInit {
 
 		this.form.controls.organization.valueChanges
 			.subscribe((organization) => this.setOrganizationInDepartmentSelector(organization?.id));
+
+		this.setValidators();
+
+		this.form?.controls?.ageDiapazoneStart;
+		this.form?.controls?.ageDiapazoneEnd;
+
+		this.form?.controls?.dateStartPeriodStart;
+		this.form?.controls?.dateStartPeriodEnd;
+
+		this.form?.controls?.workLengthDiapazoneStart;
+		this.form?.controls?.workLengthDiapazoneEnd;
 	}
 
 	initializeOrganizationInDepartmentSelector(id?: Guid){
@@ -69,6 +82,33 @@ export class EmployeeFilterComponent implements AfterViewInit {
 			this.form.controls.departmentList.enable({emitEvent: false});
 		} else {
 			this.form.controls.departmentList.disable();
+		}
+	}
+
+	private setValidators(){
+		const controls = this.form.controls;
+
+		controls.ageDiapazoneStart.valueChanges.subscribe(() => this.setGreaterThanValidator(controls.ageDiapazoneStart, controls.ageDiapazoneEnd));
+		controls.ageDiapazoneEnd.valueChanges.subscribe(() => this.setGreaterThanValidator(controls.ageDiapazoneStart, controls.ageDiapazoneEnd));
+
+		controls.dateStartPeriodStart.valueChanges.subscribe(() => this.setGreaterThanValidator(controls.dateStartPeriodStart, controls.dateStartPeriodEnd));
+		controls.dateStartPeriodEnd.valueChanges.subscribe(() => this.setGreaterThanValidator(controls.dateStartPeriodStart, controls.dateStartPeriodEnd));
+
+		controls.workLengthDiapazoneStart.valueChanges.subscribe(() => this.setGreaterThanValidator(controls.workLengthDiapazoneStart, controls.workLengthDiapazoneEnd));
+		controls.workLengthDiapazoneEnd.valueChanges.subscribe(() => this.setGreaterThanValidator(controls.workLengthDiapazoneStart, controls.workLengthDiapazoneEnd));
+	}
+
+	private setGreaterThanValidator(lowerControl: FormControl, greaterControl: FormControl){
+		if(lowerControl.value){
+			greaterControl.setValidators(ForcValidators.greaterThan(lowerControl.value));
+			if(greaterControl.value){
+				if(this.isValidatingControl){
+					this.isValidatingControl = false;
+					return;
+				}
+				this.isValidatingControl = true;
+				greaterControl.updateValueAndValidity();
+			}
 		}
 	}
 }

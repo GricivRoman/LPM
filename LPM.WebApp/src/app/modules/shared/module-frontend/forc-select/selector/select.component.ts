@@ -72,6 +72,10 @@ export class SelectComponent extends BaseControlComponent implements OnInit {
 	}
 
 	setTitle(){
+		if(!this.control?.value){
+			return;
+		}
+
 		if(this.isMultiple){
 			const values = (this.control.value as SelectItem[]).map(x => x.value);
 			this.title = values.join(', ');

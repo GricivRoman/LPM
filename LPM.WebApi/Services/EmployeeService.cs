@@ -162,7 +162,10 @@ namespace LPM.WebApi.Services
 
             if (filter.PositionType != null && filter.PositionType.Count > 0)
             {
-                query = query.Where(x => filter.PositionType.Select(x => (EmployeeTypeEnum)x.Id).Contains(x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().EmployeeType));
+                query = query
+                    .Where(x =>
+                        filter.PositionType.Select(x => (EmployeeTypeEnum)x.Id)
+                        .Contains(x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().EmployeeType));
             }
 
             if (filter.DateStartPeriodStart != null)
@@ -177,7 +180,11 @@ namespace LPM.WebApi.Services
 
             if (filter.OnProbationPeriod != null)
             {
-                query = query.Where(x => filter.OnProbationPeriod.Id == x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().ProbationEndDate > DateTime.Now);
+                query = query.Where(x =>
+                    filter.OnProbationPeriod.Id 
+                        == x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().ProbationEndDate
+                            > DateTime.Now
+                            || x.OrderAppointments.Where(i => i.DateEnd == null).FirstOrDefault().ProbationEndDate == null);
             }
 
             if (filter.WorkLengthDiapazoneStart != null)

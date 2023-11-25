@@ -52,7 +52,7 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 	delete(){
 		this.dataService.delete(this.grid.getSelectedRowsKeys()[0]).subscribe({
 			next: () => {
-				this.grid.refresh();
+				this.grid.refresh().subscribe();
 			},
 			error: (errResponse: HttpErrorResponse) => {
 				console.error(errResponse);
@@ -106,7 +106,7 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 
 	protected defaultSaveAction = (componentRef: ComponentRef<TForm>, popupRef: NgbModalRef) => {
 		componentRef.instance.save(() => {
-			this.grid.refresh();
+			this.grid.refresh().subscribe();
 			popupRef.close();
 		});
 	};

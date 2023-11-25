@@ -8,10 +8,10 @@ import { ModalWindowService } from 'src/app/modules/shared/module-frontend/forc-
 import { DataService } from 'src/app/modules/shared/services/data.service';
 import { AlertService } from 'src/app/modules/shared/module-frontend/forc-alert/alert.service';
 import { EmployeeFilterComponent } from 'src/app/modules/shared/filters/employeeFilter/employeeFilter.component';
-import { AlertDialogStates } from 'src/app/modules/shared/module-frontend/forc-alert/alertDialogStates';
 import { FilterButtonComponent } from 'src/app/modules/shared/module-frontend/forc-buttons/buttons/filter-button.component';
 import { EmployeeFilter } from 'src/app/modules/shared/filters/employeeFilter/employeeFilter';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ApiValidationErrorsResolvingService } from 'src/app/modules/shared/services/apiValidationErrorsResolving.service';
 
 @Component({
 	selector: 'app-employee-list',
@@ -30,7 +30,8 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee, Emplo
         public override gridDataService: EmployeeGridDataService,
         public override modalService: ModalWindowService,
 		@Inject('EmployeeDataService')public override dataService: DataService<Employee>,
-		public override alertService: AlertService
+		public override alertService: AlertService,
+		protected errorResolvingService: ApiValidationErrorsResolvingService
 	){
 		super(modalService, dataService, alertService);
 
@@ -78,11 +79,14 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee, Emplo
 
 	private applyFilter(ref: ComponentRef<EmployeeFilterComponent>, popupRef: NgbModalRef){
 		this.gridDataService.filter.PatchValue(ref.instance.form.value as EmployeeFilter);
-		this.grid.refresh().then(() => {
-			this.checkFilterEmpty(this.gridDataService.filter);
-			popupRef.close();
-		}).catch(() => {
-			this.alertService.showMessage('Something went wrong', AlertDialogStates.error);
+		this.grid.refresh().subscribe({
+			next: () => {
+				this.checkFilterEmpty(this.gridDataService.filter);
+				popupRef.close();
+			},
+			error: (err) => {
+				this.errorResolvingService.resolveApiValidationErrors(ref.instance.form, err);
+			}
 		});
 	}
 }
