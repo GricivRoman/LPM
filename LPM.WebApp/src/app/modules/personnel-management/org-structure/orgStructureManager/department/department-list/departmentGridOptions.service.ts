@@ -41,6 +41,7 @@ export class DepartmentGridOptionService implements GridOptionsService {
 		options.selectionMode = GridSelectionModeStates.single;
 		options.columnAutoWidth = false;
 		options.gridWidth = '630';
+		options.showPager = true;
 		return options;
 	}
 }

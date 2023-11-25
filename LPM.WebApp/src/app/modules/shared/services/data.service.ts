@@ -2,12 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
-import { BaseEntity } from '../models/baseEntity';
 import { PagedQueryFilter } from '../filters/pagedQueryFilter';
 import QueryString from 'qs';
 
 @Injectable()
-export class DataService<T extends BaseEntity> {
+export class DataService<T> {
 	public url: string;
 
 	constructor(private http: HttpClient){

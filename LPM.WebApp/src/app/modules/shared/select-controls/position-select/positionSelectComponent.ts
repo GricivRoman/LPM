@@ -1,11 +1,11 @@
 import { Component, ViewChild, Inject } from '@angular/core';
-import { DepartmentSelectService } from './departmentSelect.service';
+import { PositionSelectService } from './positionSelect.service';
 import { DataService } from '../../services/data.service';
 import { SelectComponent } from '../../module-frontend/forc-select/selector/select.component';
 import { BaseSelector} from '../../base-components/selectComponent';
 
 @Component({
-	selector: 'app-select-department',
+	selector: 'app-select-position',
 	template: `
 		<app-select
 			[label]="label"
@@ -14,12 +14,12 @@ import { BaseSelector} from '../../base-components/selectComponent';
 			[isMultiple]="isMultiple"
 		></app-select>
 	`,
-	providers:[{ provide: 'SelectService', useClass: DepartmentSelectService }, { provide: 'DS_DataService', useClass: DataService }]
+	providers:[{ provide: 'SelectService', useClass: PositionSelectService }, { provide: 'PS_DataService', useClass: DataService }]
 })
-export class DepartmentSelectComponent extends BaseSelector {
+export class PositionSelectComponent extends BaseSelector {
 	@ViewChild(SelectComponent, {static: false}) selector: SelectComponent;
 
-	constructor(@Inject('SelectService') public override selectService: DepartmentSelectService){
+	constructor(@Inject('SelectService') public override selectService: PositionSelectService){
 		super(selectService);
 	}
 

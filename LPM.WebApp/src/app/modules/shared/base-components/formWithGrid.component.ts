@@ -22,7 +22,7 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
     @ViewChild(GridComponent, {static: false}) grid : GridComponent<TModel>;
 
     public addButtonDisabled = false;
-    public editButtonDisabled = false;
+    public editButtonDisabled = true;
     public deleteButtonDisabled = true;
 
     @Input()
@@ -52,7 +52,7 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 	delete(){
 		this.dataService.delete(this.grid.getSelectedRowsKeys()[0]).subscribe({
 			next: () => {
-				this.grid.refresh();
+				this.grid.refresh().subscribe();
 			},
 			error: (errResponse: HttpErrorResponse) => {
 				console.error(errResponse);
@@ -67,7 +67,10 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 
 	onFocusedRowChanged = () => {
 		const selectedRows = this.grid.getSelectedRowsKeys();
-		this.deleteButtonDisabled = selectedRows.length === 0;
+
+		const disableEditAndDelete = selectedRows.length === 0;
+		this.deleteButtonDisabled = disableEditAndDelete;
+		this.editButtonDisabled = disableEditAndDelete;
 	};
 
 	gridDataLoaded(data: TModel[]){
@@ -94,6 +97,7 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 			(componentRef: ComponentRef<TForm>, popupRef) => {
 				closeAction(componentRef, popupRef);
 			},
+			'Сохранить',
 			(componentRef, popupRef) => {
 				popupRef.close();
 			}
@@ -102,7 +106,7 @@ export abstract class FormWithGridComponent<TModel extends BaseEntity, TForm ext
 
 	protected defaultSaveAction = (componentRef: ComponentRef<TForm>, popupRef: NgbModalRef) => {
 		componentRef.instance.save(() => {
-			this.grid.refresh();
+			this.grid.refresh().subscribe();
 			popupRef.close();
 		});
 	};

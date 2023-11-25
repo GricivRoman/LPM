@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Reflection;
 using LPM.Infrastructure.Interfaces;
+using FluentValidation;
 
 namespace LPM.WebApi
 {
@@ -72,15 +73,13 @@ namespace LPM.WebApi
             
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-            services.AddControllers().AddFluentValidation(fv =>
-            {
-                fv.ImplicitlyValidateChildProperties = true;
-                fv.ImplicitlyValidateRootCollectionElements = true;
-                fv.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-            }).AddNewtonsoftJson(opt =>
+            services.AddControllers().AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<ValidationFilterAttribute>();
             services.AddScoped<IAccountService, AuthService>();
@@ -89,6 +88,7 @@ namespace LPM.WebApi
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IOrderAppointmentService, OrderAppointmentService>();
             services.AddScoped<IFillerService, FillerService>();
+            services.AddScoped<IPositionService, PositionService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

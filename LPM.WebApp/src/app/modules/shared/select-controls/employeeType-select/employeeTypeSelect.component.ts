@@ -1,36 +1,48 @@
 import { Component, Inject, ViewChild, OnInit } from '@angular/core';
 import { EmployeeTypeSelectService } from './employeeTypeSelect.service';
-import { SelectComponent } from '../../base-components/selectComponent';
-import { SelectSingleComponent } from '../../module-frontend/forc-select/select-single/select-single.component';
+import { BaseSelector} from '../../base-components/selectComponent';
+import { SelectComponent } from '../../module-frontend/forc-select/selector/select.component';
 import { SelectItem } from '../../models/selectItem';
 import { EmployeeTypeEnumDictionary } from '../../enums/employeeTypeEnum';
 
 @Component({
 	selector: 'app-select-employee-type',
 	template: `
-		<app-select-single
+		<app-select
 			[label]="label"
 			[control]="control"
 			[selectService]="selectService"
-		></app-select-single>
+			[isMultiple]="isMultiple"
+		></app-select>
 	`,
 	providers:[{ provide: 'SelectService', useClass: EmployeeTypeSelectService }]
 })
-export class EmployeeTypeSelectComponent extends SelectComponent implements OnInit {
-	@ViewChild(SelectSingleComponent, {static: false}) selector: SelectSingleComponent;
+export class EmployeeTypeSelectComponent extends BaseSelector implements OnInit {
+	@ViewChild(SelectComponent, {static: false}) selector: SelectComponent;
 
 	constructor(@Inject('SelectService') public override selectService: EmployeeTypeSelectService){
 		super(selectService);
 	}
 
 	ngOnInit(){
-		this.control.valueChanges.subscribe((employeeType) => this.setLocalEnumValue(employeeType));
+		this.control.valueChanges.subscribe((employeeTypes) => this.setLocalEnumValue(employeeTypes));
 	}
 
-	setLocalEnumValue(employeeType: SelectItem){
-		this.control.patchValue({
-			id: employeeType.id,
-			value: EmployeeTypeEnumDictionary.list.get(employeeType.id)
-		}, {emitEvent: false});
+	setLocalEnumValue(employeeTypes: SelectItem | SelectItem[]){
+		if(!employeeTypes || this.selector.selectorTouched){
+			return;
+		}
+		if(this.isMultiple){
+			(employeeTypes as SelectItem[]).map((employeeType: SelectItem) => {
+				employeeType.value = EmployeeTypeEnumDictionary.list.get(employeeType.id) as string;
+			});
+			this.control.patchValue(employeeTypes, {emitEvent: false});
+		} else {
+			const employeeType = employeeTypes as SelectItem;
+			this.control.patchValue({
+				id: employeeType.id,
+				value: EmployeeTypeEnumDictionary.list.get(employeeType.id)
+			}, {emitEvent: false});
+		}
 	}
 }

@@ -7,7 +7,7 @@ import { OrganizationLocalStorageService } from '../../shared/local-storage/orga
 import { OrganizationFilter } from '../../shared/filters/organizationFilter';
 import { AuthLocalStorageService } from '../../shared/local-storage/auth-localStorage/authLocalStorage.service';
 import { AuthResponse } from '../../shared/local-storage/auth-localStorage/auth-response';
-import { SelectSingleComponent } from '../../shared/module-frontend/forc-select/select-single/select-single.component';
+import { SelectComponent } from '../../shared/module-frontend/forc-select/selector/select.component';
 import { FillerService } from '../filler/filler.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { FillerService } from '../filler/filler.service';
 	providers: [{provide: 'OrganizationSelectService', useClass: OrganizationSelectService}, { provide: 'OS_DataService', useClass: DataService },]
 })
 export class GlobalOrganizationComponent implements OnInit, AfterViewInit{
-	@ViewChild(SelectSingleComponent, {static: false}) selector: SelectSingleComponent;
+	@ViewChild(SelectComponent, {static: false}) selector: SelectComponent;
 	organization = new FormControl<SelectItem>(new SelectItem());
 
 	constructor(

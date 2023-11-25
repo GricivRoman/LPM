@@ -39,7 +39,7 @@ export class ForcValidators {
 		};
 	}
 
-	static greaterThan(num: number): ValidatorFn {
+	static greaterThan(num: any): ValidatorFn {
 		return (control: AbstractControl) : ValidationErrors | null => {
 			if(control && control.value <= num){
 				return { 'greaterThan': `Значение должно быть больше ${num}` };

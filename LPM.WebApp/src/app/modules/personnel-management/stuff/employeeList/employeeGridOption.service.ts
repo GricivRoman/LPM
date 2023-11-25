@@ -15,7 +15,7 @@ export class EmployeeGridOptionService implements GridOptionsService {
 				width: 300
 			},
 			{
-				dataField: 'birthDate',
+				dataField: 'birthDate', // TODO сортировать по значению а не по итоговой строке
 				caption: 'Дата рождения',
 				dataType: 'date',
 				calculateCellValue:
@@ -24,6 +24,17 @@ export class EmployeeGridOptionService implements GridOptionsService {
 					return date.toLocaleDateString('ru');
 				},
 				width: 140
+			},
+			{
+				dataField: 'birthDate',
+				caption: 'Возраст',
+				dataType: 'number',
+				calculateCellValue:
+				(rowData) => {
+					const age = Math.floor((new Date().getTime() - new Date(rowData.birthDate).getTime()) / (1000 * 3600 * 24 * 365));
+					return age;
+				},
+				width: 100
 			},
 			{
 				dataField: 'workPlace',
@@ -39,7 +50,8 @@ export class EmployeeGridOptionService implements GridOptionsService {
 		options.columns = this.getColumns();
 		options.selectionMode = GridSelectionModeStates.single;
 		options.columnAutoWidth = false;
-		options.gridWidth = '580';
+		options.gridWidth = '680';
+		options.showPager = true;
 		return options;
 	}
 }

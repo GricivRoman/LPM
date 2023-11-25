@@ -6,6 +6,7 @@ import { Column } from 'devextreme/ui/data_grid';
 import { GridDataService } from './grid-data.service';
 import { BaseEntity } from '../../models/baseEntity';
 import { Guid } from 'guid-typescript';
+import { Observable, map } from 'rxjs';
 
 @Component({
 	selector: 'app-grid',
@@ -33,6 +34,7 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 	protected columnMinWidth: number;
 	protected columnAutoWidth: boolean;
 	protected pageSize: number;
+	protected showPager: boolean;
 
 	protected allowGrouping: boolean;
 	protected expandAll = true;
@@ -50,12 +52,13 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 	ngOnInit() {
 		const options = this.optionsService.getGridOptions();
 		this.columns = options.columns;
-		this.loadData();
+		this.loadData().subscribe();
 
 		this.selectionMode = options.selectionMode ?? GridSelectionModeStates.multiple;
 		this.gridWidth = options.gridWidth ?? '100%';
 		this.pageSize = options.pageSize ?? 20;
 		this.searchPanel.visible = options.showSearchPanel ?? false;
+		this.showPager = options.showPager;
 
 		this.allowColumnResizing = options.allowColumnResizing ?? true;
 		this.columnMinWidth = options.columnMinWidth ?? 50;
@@ -79,15 +82,17 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 		}
 	}
 
-	public async refresh() {
-		await this.loadData();
-		this.grid.filterValue = null;
+	public refresh(): Observable<void> {
+		return this.loadData().pipe(map(() => {
+			this.grid.filterValue = null;
+		}));
 	}
 
-	private async loadData() {
-		await this.dataService.getGridData().subscribe((data) => {
+	private loadData() : Observable<TClass[]> {
+		return this.dataService.getGridData().pipe<TClass[]>(map((data) => {
 			this.dataSource = data;
 			this.gridDataLoaded.emit(data);
-		});
+			return data;
+		}));
 	}
 }

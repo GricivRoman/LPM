@@ -27,7 +27,7 @@ namespace LPM.WebApi.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetEmployeeList([FromQuery]EmployeeQueryFilter filter)
+        public async Task<IActionResult> GetEmployeeList([FromQuery]EmployeeGridListFilter filter)
         {
             var organizationList = await _employeeService.GetEmployeeListAsync(filter);
             return Ok(organizationList);
@@ -35,7 +35,7 @@ namespace LPM.WebApi.Controllers
 
         [HttpGet]
         [Route("select-list")]
-        public async Task<IActionResult> GetEmployeeSelectItemList([FromQuery]EmployeeQueryFilter filter)
+        public async Task<IActionResult> GetEmployeeSelectItemList([FromQuery]BaseEmployeeQueryFilter filter)
         {
             var selectList = await _employeeService.GetEmployeeSelectItemList(filter);
             return Ok(selectList);

@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-3">
+        <app-select-organization
+            label="Организация"
+            [control]="form.controls.organization"
+        ></app-select-organization>
+    </div>
+    <div class="col-9">
+        <app-select-department
+            label="Отдел"
+            [control]="form.controls.departmentList"
+            [isMultiple]="true"
+        ></app-select-department>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <app-forc-number
+            label="Возраст от"
+            [control]="form.controls.ageDiapazoneStart"
+        ></app-forc-number>
+    </div>
+    <div class="col-3">
+        <app-forc-number
+            label="Возраст до"
+            [control]="form.controls.ageDiapazoneEnd"
+        ></app-forc-number>
+    </div>
+    <div class="col-3">
+        <app-forc-number
+            label="Стаж от"
+            [control]="form.controls.workLengthDiapazoneStart"
+        ></app-forc-number>
+    </div>
+    <div class="col-3">
+        <app-forc-number
+            label="Стаж до"
+            [control]="form.controls.workLengthDiapazoneEnd"
+        ></app-forc-number>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <app-forc-date
+            label="Дата начала с"
+            [control]="form.controls.dateStartPeriodStart"
+        ></app-forc-date>
+    </div>
+    <div class="col-6">
+        <app-forc-date
+            label="Дата начала по"
+            [control]="form.controls.dateStartPeriodEnd"
+        ></app-forc-date>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <app-select-position
+            label="Должность"
+            [control]="form.controls.position"
+            [isMultiple]="true"
+        ></app-select-position>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <app-select-employee-type
+            label="Тип должности"
+            [control]="form.controls.positionType"
+            [isMultiple]="true"
+        ></app-select-employee-type>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4 mt-2">
+        <app-select-sex
+            label="Пол"
+            [control]="form.controls.sex"
+        ></app-select-sex>
+    </div>
+    <div class="col-8 mt-3">
+        <div class="row">
+            <yes-no-select
+                label="Есть ДМС"
+                [control]="form.controls.hasVMI"
+            ></yes-no-select>
+        </div>
+        <div class="row">
+            <yes-no-select
+                label="На испытательном сроке"
+                [control]="form.controls.onProbationPeriod"
+            ></yes-no-select>
+        </div>
+    </div>
+</div>
+
+

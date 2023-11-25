@@ -15,6 +15,7 @@ import { OrderAppointmentFormComponent } from './orderAppointmentList/orderAppoi
 import { DepartmentSelectModule } from '../../shared/select-controls/department-select/departmentSelect.module';
 import { EmployeeTypeSelectModule } from '../../shared/select-controls/employeeType-select/employeeTypeSelect.module';
 import { OrganizationSelectModule } from '../../shared/select-controls/organization-select/organizationSelect.module';
+import { EmployeeFilterComponent } from '../../shared/filters/employeeFilter/employeeFilter.component';
 
 @NgModule({
 	imports: [
@@ -25,7 +26,8 @@ import { OrganizationSelectModule } from '../../shared/select-controls/organizat
 		SexSelectModule,
 		DepartmentSelectModule,
 		EmployeeTypeSelectModule,
-		OrganizationSelectModule
+		OrganizationSelectModule,
+		EmployeeFilterComponent
 	],
 	declarations: [
 		StuffComponent,

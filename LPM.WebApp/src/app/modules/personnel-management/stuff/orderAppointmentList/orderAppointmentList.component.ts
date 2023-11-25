@@ -41,7 +41,7 @@ export class OrderAppointmentListComponent extends FormWithGridComponent<OrderAp
 	ngOnChanges(){
 		if(this.employeeId){
 			this.gridDataService.employeeId = this.employeeId;
-			this.grid.refresh();
+			this.grid.refresh().subscribe();
 		}
 	}
 
