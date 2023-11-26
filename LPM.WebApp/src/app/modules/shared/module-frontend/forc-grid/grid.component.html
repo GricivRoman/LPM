@@ -1,4 +1,5 @@
 <dx-data-grid class="mt-2"
+        id = "gridContainer"
         [dataSource]="dataSource"        
         [showBorders]="true"
         [showRowLines]="true"
@@ -14,24 +15,25 @@
         [(focusedRowKey)]="focusedRowKey"
         (onRowDblClick)="onRowDblClick()"
         (onSelectionChanged)="onFocusedRowChanged()"
+        [style]="style"
     >
         <dxo-selection [mode] = "selectionMode"></dxo-selection>
         <dxo-header-filter [visible]="true"></dxo-header-filter>
-        <dxo-paging [pageSize]="pageSize"></dxo-paging>
+        <dxo-paging [enabled]="false"></dxo-paging>
         <dxo-pager
             [visible]="showPager"
             displayMode="full"
+            [infoText]="infoText"
             [showPageSizeSelector]="false"
             [showInfo]="true"
-            [showNavigationButtons]="true"
+            [showNavigationButtons]="false"
         >
-        </dxo-pager>
+        </dxo-pager>S
         <dxo-grouping [autoExpandAll]="expandAll"></dxo-grouping>
         <dxo-group-panel [visible]="allowGrouping"></dxo-group-panel>
         <dxo-scrolling
             [useNative]="false"
             [scrollByContent]="true"
-            [scrollByThumb]="true"
             showScrollbar="onHover"
         ></dxo-scrolling>
   </dx-data-grid>
