@@ -33,7 +33,7 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 	protected allowColumnResizing: boolean;
 	protected columnMinWidth: number;
 	protected columnAutoWidth: boolean;
-	protected pageSize: number;
+	protected maxPageSize: number;
 	protected showPager: boolean;
 
 	protected allowGrouping: boolean;
@@ -41,6 +41,9 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 
 	protected focusedRowKey: number;
 	protected autoNavigateToFocusedRow: boolean;
+
+	protected style: string = 'height: 100px;';
+	protected infoText: string = '';
 
 	protected searchPanel = {
 		highlightCaseSensitive: false,
@@ -56,7 +59,7 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 
 		this.selectionMode = options.selectionMode ?? GridSelectionModeStates.multiple;
 		this.gridWidth = options.gridWidth ?? '100%';
-		this.pageSize = options.pageSize ?? 20;
+		this.maxPageSize = options.maxPageSize ?? 20;
 		this.searchPanel.visible = options.showSearchPanel ?? false;
 		this.showPager = options.showPager;
 
@@ -66,6 +69,8 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 
 		this.allowGrouping = options.allowGrouping ?? false;
 		this.autoNavigateToFocusedRow = options.autoNavigateToFocusedRow ?? false;
+
+		this.gridDataLoaded.asObservable().subscribe((data) => this.setSizeAndInformationTextSize(data));
 	}
 
 	public getSelectedRowsData() : TClass[] {
@@ -86,6 +91,13 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 		return this.loadData().pipe(map(() => {
 			this.grid.filterValue = null;
 		}));
+	}
+
+	private setSizeAndInformationTextSize(data: TClass[]){
+		const gridRows = data.length < this.maxPageSize ? data.length: this.maxPageSize;
+
+		this.style = `height: ${34 + 37*gridRows}px;`;
+		this.infoText = `${data.length} записей`;
 	}
 
 	private loadData() : Observable<TClass[]> {

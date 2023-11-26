@@ -7,7 +7,7 @@ export class GridOptions {
 	allowColumnResizing?: true;
 	columnMinWidth?: number;
 	columnAutoWidth?: boolean;
-	pageSize?: number;
+	maxPageSize?: number;
 	allowGrouping?: boolean;
 	autoNavigateToFocusedRow?: boolean;
 	showSearchPanel?: boolean;
