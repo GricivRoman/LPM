@@ -12,6 +12,8 @@ import { FilterButtonComponent } from 'src/app/modules/shared/module-frontend/fo
 import { EmployeeFilter } from 'src/app/modules/shared/filters/employeeFilter/employeeFilter';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ApiValidationErrorsResolvingService } from 'src/app/modules/shared/services/apiValidationErrorsResolving.service';
+import { OrganizationLocalStorageService } from 'src/app/modules/shared/local-storage/organization-localStorage/organizationLocalStorage.service';
+import { SelectItem } from 'src/app/modules/shared/models/selectItem';
 
 @Component({
 	selector: 'app-employee-list',
@@ -31,7 +33,8 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee, Emplo
         public override modalService: ModalWindowService,
 		@Inject('EmployeeDataService')public override dataService: DataService<Employee>,
 		public override alertService: AlertService,
-		protected errorResolvingService: ApiValidationErrorsResolvingService
+		protected errorResolvingService: ApiValidationErrorsResolvingService,
+		protected organizationLocalStorageService: OrganizationLocalStorageService
 	){
 		super(modalService, dataService, alertService);
 
@@ -55,6 +58,7 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee, Emplo
 			'md',
 			false,
 			(ref: ComponentRef<EmployeeFilterComponent>) => {
+				this.gridDataService.filter.organization = this.organizationLocalStorageService.globalOrganization as SelectItem;
 				ref.instance.form.patchValue(this.gridDataService.filter);
 			},
 			(ref: ComponentRef<EmployeeFilterComponent>, popupRef) => {
