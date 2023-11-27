@@ -201,7 +201,11 @@ namespace LPM.WebApi.Services
                             <= filter.WorkLengthDiapazoneEnd);
             }
 
-            return query.PagedBy(filter.Paging);
+            return query
+                .Include(x => x.OrderAppointments)
+                .ThenInclude(x => x.Department)
+                .ThenInclude(x => x.Organizadion)
+                .PagedBy(filter.Paging);
         }
     }
 }

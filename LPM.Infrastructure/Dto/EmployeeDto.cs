@@ -1,7 +1,7 @@
-﻿using LPM.Infrastructure.Enums;
-
-namespace LPM.Infrastructure.Dto
+﻿namespace LPM.Infrastructure.Dto
 {
+    // TODO разделить на 2 ДТОшки, выделить всё, что для грида в отдельную ДТО EmployeeListItemDto
+
     /// <summary>
     /// Сотрудник
     /// </summary>
@@ -20,6 +20,11 @@ namespace LPM.Infrastructure.Dto
         public DateTime BirthDate { get; set; }
 
         /// <summary>
+        /// Возраст - полных лет
+        /// </summary>
+        public int Age { get; set; }
+
+        /// <summary>
         /// Пол
         /// </summary>
         public SelectItemDto<int> Sex { get; set; }
@@ -33,5 +38,45 @@ namespace LPM.Infrastructure.Dto
         /// Имеет ДМС (voluntary health insurance)
         /// </summary>
         public bool HasVHI { get; set; }
+
+        /// <summary>
+        /// Организация по актуальному договору
+        /// </summary>
+        public string ActualOrganizationName { get; set; }
+
+        /// <summary>
+        /// Департамент по актуальному договору
+        /// </summary>
+        public string ActualDepartmentName { get; set; }
+
+        /// <summary>
+        /// Дата начала работы по актуальному договору
+        /// </summary>
+        public DateTime? ActualDateStart { get; set; }
+
+        /// <summary>
+        /// Дата трудоустройства по актуальному договору
+        /// </summary>
+        public DateTime? ActualOficialDateStart { get; set; }
+
+        /// <summary>
+        /// Дата окончания испытательного срока по актуальному договору
+        /// </summary>
+        public DateTime? ActualProbationEndDate { get; set; }
+
+        /// <summary>
+        /// Должность по актуальному договору
+        /// </summary>
+        public string ActualPosition { get; set; }
+
+        /// <summary>
+        /// Тип позиции по актуальному договору
+        /// </summary>
+        public string ActualEmployeeTypeName { get; set; }
+
+        /// <summary>
+        /// Стаж работы в компании
+        /// </summary>
+        public double? ActualWorkLength { get; set; }
     }
 }
