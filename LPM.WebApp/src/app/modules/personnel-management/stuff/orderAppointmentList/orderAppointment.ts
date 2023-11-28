@@ -28,4 +28,7 @@ export class OrderAppointment extends BaseEntity {
 
 	/* Тип сотрудника */
 	employeeType: SelectItem;
+
+	/* Стаж */
+	workLength: number;
 }

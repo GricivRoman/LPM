@@ -3,85 +3,83 @@ import { GridOptionsService } from 'src/app/modules/shared/module-frontend/forc-
 import { Column } from 'devextreme/ui/data_grid';
 import { GridOptions } from 'src/app/modules/shared/module-frontend/forc-grid/grid-options.component';
 import { GridSelectionModeStates } from 'src/app/modules/shared/module-frontend/forc-grid/gridElementsModeStates';
+import { ColumnCellTemplateData } from 'devextreme/ui/tree_list';
 
 @Injectable()
 export class OrderAppointmentGridOptionsService implements GridOptionsService {
-	// TODO придумать как вынести стилизацию дат либо в типы либо в отдельную реализацию конвертера
 	getColumns(): Column[] {
 		return [
 			{
 				dataField: 'organization.value',
 				caption: 'Организация',
 				dataType: 'string',
-				width: 120
+				width: 100
 			},
 			{
 				dataField: 'department.value',
 				caption: 'Отдел',
 				dataType: 'string',
-				width: 120
+				width: 130
 			},
 			{
 				dataField: 'position',
 				caption: 'Должность',
 				dataType: 'string',
-				width: 120
+				width: 150
 			},
 			{
 				dataField: 'dateStart',
 				caption: 'Начало',
 				dataType: 'date',
-				calculateCellValue:
-				(rowData) => {
-					if(!rowData.dateStart){
-						return;
+				cellTemplate: (cellelement: HTMLElement, cellInfo: ColumnCellTemplateData) => {
+					if(cellInfo.value){
+						const date = new Date(cellInfo.value);
+						cellelement.innerHTML = date.toLocaleDateString('ru');
 					}
-					const date = new Date(rowData.dateStart);
-					return date.toLocaleDateString('ru');
 				},
-				width: 100
+				width: 80
 			},
 			{
 				dataField: 'oficialDateStart',
 				caption: 'Офф. начало',
 				dataType: 'date',
-				calculateCellValue:
-				(rowData) => {
-					if(!rowData.oficialDateStart){
-						return;
+				cellTemplate: (cellelement: HTMLElement, cellInfo: ColumnCellTemplateData) => {
+					if(cellInfo.value){
+						const date = new Date(cellInfo.value);
+						cellelement.innerHTML = date.toLocaleDateString('ru');
 					}
-					const date = new Date(rowData.oficialDateStart);
-					return date.toLocaleDateString('ru');
 				},
-				width: 100
+				width: 80
 			},
 			{
 				dataField: 'probationEndDate',
 				caption: 'Окончание исп. срока',
 				dataType: 'date',
-				calculateCellValue:
-				(rowData) => {
-					if(!rowData.probationEndDate){
-						return;
+				cellTemplate: (cellelement: HTMLElement, cellInfo: ColumnCellTemplateData) => {
+					if(cellInfo.value){
+						const date = new Date(cellInfo.value);
+						cellelement.innerHTML = date.toLocaleDateString('ru');
 					}
-					const date = new Date(rowData.probationEndDate);
-					return date.toLocaleDateString('ru');
 				},
-				width: 100
+				width: 80
 			},
 			{
 				dataField: 'dateEnd',
 				caption: 'Окончание',
 				dataType: 'date',
-				calculateCellValue:
-				(rowData) => {
-					if(!rowData.dateEnd){
-						return;
+				cellTemplate: (cellelement: HTMLElement, cellInfo: ColumnCellTemplateData) => {
+					if(cellInfo.value){
+						const date = new Date(cellInfo.value);
+						cellelement.innerHTML = date.toLocaleDateString('ru');
 					}
-					const date = new Date(rowData.dateEnd);
-					return date.toLocaleDateString('ru');
 				},
-				width: 100
+				width: 60
+			},
+			{
+				dataField: 'workLength',
+				caption: 'Стаж',
+				dataType: 'number',
+				width: 80
 			}
 		];
 	}

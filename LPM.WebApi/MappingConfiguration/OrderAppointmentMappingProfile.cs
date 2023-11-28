@@ -31,6 +31,7 @@ namespace LPM.WebApi.MappingConfiguration
                     Id = j.Department.OrganizationId,
                     Value = j.Department.Organizadion.ShortName
                 }))
+                .ForMember(x => x.WorkLength, i => i.MapFrom(j => Math.Round(((j.DateEnd ?? DateTime.Now) - j.DateStart).TotalDays / 365, 2)))
                 .ReverseMap()
                 .ForMember(x => x.EmployeeType, i => i.MapFrom(j => (SexEnum)j.EmployeeType.Id))
                 .ForMember(x => x.DepartmentId, i => i.MapFrom(j => j.Department.Id))
