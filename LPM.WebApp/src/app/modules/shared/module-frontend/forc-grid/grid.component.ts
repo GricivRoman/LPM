@@ -7,6 +7,9 @@ import { GridDataService } from './grid-data.service';
 import { BaseEntity } from '../../models/baseEntity';
 import { Guid } from 'guid-typescript';
 import { Observable, map } from 'rxjs';
+import { Workbook } from 'exceljs';
+import { exportDataGrid } from 'devextreme/excel_exporter';
+import { saveAs } from 'file-saver';
 
 @Component({
 	selector: 'app-grid',
@@ -106,5 +109,22 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 			this.gridDataLoaded.emit(data);
 			return data;
 		}));
+	}
+
+
+	// Переписать всё, вызывать извне по кнопке
+	onExporting(e: any) {
+		const workbook = new Workbook();
+		const worksheet = workbook.addWorksheet('Employees');
+
+		exportDataGrid({
+			component: e.component,
+			worksheet,
+			autoFilterEnabled: true,
+		}).then(() => {
+			workbook.xlsx.writeBuffer().then((buffer) => {
+				saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'DataGrid.xlsx');
+			});
+		});
 	}
 }
