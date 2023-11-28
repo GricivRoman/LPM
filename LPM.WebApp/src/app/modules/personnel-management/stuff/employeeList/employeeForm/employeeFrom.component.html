@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col">
+    <div class="col-6">
         <app-forc-text
             label="ФИО"
             [control]="form.controls.name"
         ></app-forc-text>
     </div>
-    <div class="col">
+    <div class="col-6">
         <app-forc-text
             label="Рабочее место"
             [control]="form.controls.workPlace"
@@ -31,7 +31,13 @@
             [control]="form.controls.hasVHI"
         ></app-forc-checkbox>
     </div>
+    <div class="col-2">
+        <app-forc-number
+            label="Общий стаж"
+            [control]="form.controls.wholeWorkLength"
+        ></app-forc-number>
+    </div>
 </div>
 <div class="row mt-2">
-    <app-order-appointment [employeeId]="modelId"></app-order-appointment>
+    <app-order-appointment (dataLoaded)="orderAppointmentListLoaded($event)" [employeeId]="modelId"></app-order-appointment>
 </div>

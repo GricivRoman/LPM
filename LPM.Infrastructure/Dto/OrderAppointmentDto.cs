@@ -50,5 +50,10 @@
         /// Тип позиции
         /// </summary>
         public SelectItemDto<int> EmployeeType { get; set; }
+
+        /// <summary>
+        /// Стаж работы по договору
+        /// </summary>
+        public double? WorkLength { get; set; }
     }
 }
