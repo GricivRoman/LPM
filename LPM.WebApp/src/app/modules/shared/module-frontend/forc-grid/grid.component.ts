@@ -7,6 +7,10 @@ import { GridDataService } from './grid-data.service';
 import { BaseEntity } from '../../models/baseEntity';
 import { Guid } from 'guid-typescript';
 import { Observable, map } from 'rxjs';
+import { Workbook } from 'exceljs';
+import { exportDataGrid } from 'devextreme/excel_exporter';
+import { saveAs } from 'file-saver';
+import { DxoExportComponent } from 'devextreme-angular/ui/nested';
 
 @Component({
 	selector: 'app-grid',
@@ -15,6 +19,7 @@ import { Observable, map } from 'rxjs';
 })
 export class GridComponent<TClass extends BaseEntity> implements OnInit {
 	@ViewChild(DxDataGridComponent, {static: false} ) grid: DxDataGridComponent;
+	@ViewChild(DxoExportComponent, {static: false}) exportTool: DxoExportComponent;
 
 	@Input()
 	public optionsService: GridOptionsService;
@@ -106,5 +111,20 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 			this.gridDataLoaded.emit(data);
 			return data;
 		}));
+	}
+
+	exportExcel(fileName: string = 'ExpostedExcel') {
+		const workbook = new Workbook();
+		const worksheet = workbook.addWorksheet('List1');
+
+		exportDataGrid({
+			component: this.grid.instance,
+			worksheet,
+			autoFilterEnabled: true,
+		}).then(() => {
+			workbook.xlsx.writeBuffer().then((buffer) => {
+				saveAs(new Blob([buffer], { type: 'application/octet-stream' }), `${fileName}.xlsx`);
+			});
+		});
 	}
 }

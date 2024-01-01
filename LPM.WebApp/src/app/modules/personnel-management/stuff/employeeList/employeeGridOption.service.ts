@@ -27,7 +27,9 @@ export class EmployeeGridOptionService implements GridOptionsService {
 						cellelement.innerHTML = date.toLocaleDateString('ru');
 					}
 				},
-				width: 130
+				allowExporting: true,
+
+				width: 110
 			},
 			{
 				dataField: 'age',
@@ -46,16 +48,16 @@ export class EmployeeGridOptionService implements GridOptionsService {
 				dataField: 'sex.value',
 				caption: 'Пол',
 				dataType: 'string',
-				cellTemplate: (cellelement: HTMLElement, cellInfo: ColumnCellTemplateData) => {
-					if(!cellInfo?.value){
-						return;
+				calculateCellValue(rowData) {
+					if(rowData.sex){
+						const typeId = Object.entries(SexEnum).find(([, val]) => (val as string).toLowerCase() === (rowData.sex.value as string).toLowerCase())?.[0];
+
+						if(typeId){
+							return (SexEnumDictionary.list.get(JSON.parse(typeId)) as string)[0];
+						}
 					}
 
-					const typeId = Object.entries(SexEnum).find(([, val]) => (val as string).toLowerCase() === (cellInfo.value as string).toLowerCase())?.[0];
-
-					if(typeId){
-						cellelement.innerHTML = (SexEnumDictionary.list.get(JSON.parse(typeId)) as string)[0];
-					}
+					return;
 				},
 				width: 80
 			},
@@ -63,13 +65,13 @@ export class EmployeeGridOptionService implements GridOptionsService {
 				dataField: 'actualDepartmentName',
 				caption: 'Отдел',
 				dataType: 'string',
-				width: 250
+				width: 220
 			},
 			{
 				dataField: 'actualPosition',
 				caption: 'Должность',
 				dataType: 'string',
-				width: 250
+				width: 220
 			},
 			{
 				dataField: 'actualDateStart',
@@ -118,16 +120,17 @@ export class EmployeeGridOptionService implements GridOptionsService {
 			{
 				dataField: 'actualEmployeeTypeName',
 				caption: 'Тип должности',
-				cellTemplate: (cellelement: HTMLElement, cellInfo: ColumnCellTemplateData) => {
-					if(!cellInfo?.value){
-						return;
+				calculateCellValue(rowData) {
+					if(rowData.actualEmployeeTypeName){
+						const typeId = Object.entries(EmployeeTypeEnum)
+							.find(([, val]) => (val as string).toLowerCase() === (rowData.actualEmployeeTypeName as string).toLowerCase())?.[0];
+
+						if(typeId){
+							return (EmployeeTypeEnumDictionary.list.get(JSON.parse(typeId)) as string);
+						}
 					}
 
-					const typeId = Object.entries(EmployeeTypeEnum).find(([, val]) => (val as string).toLowerCase() === (cellInfo.value as string).toLowerCase())?.[0];
-
-					if(typeId){
-						cellelement.innerHTML = EmployeeTypeEnumDictionary.list.get(JSON.parse(typeId)) as string;
-					}
+					return;
 				},
 				dataType: 'string',
 				width: 140
@@ -145,7 +148,7 @@ export class EmployeeGridOptionService implements GridOptionsService {
 		options.columns = this.getColumns();
 		options.selectionMode = GridSelectionModeStates.single;
 		options.columnAutoWidth = false;
-		options.gridWidth = '1705';
+		options.gridWidth = '1625';
 		options.showPager = true;
 		return options;
 	}
