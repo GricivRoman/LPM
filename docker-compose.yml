@@ -1,0 +1,33 @@
+version: '3.9'
+
+networks:
+  lpmNetwork:
+    driver: bridge
+
+services:
+  lpm:
+    image: gricivroman/lpm.api:latest
+    volumes: 
+    - ./cons:/usr/src/app
+    ports:
+    - "8080:8080"
+    networks:
+        - lpmNetwork
+    depends_on:
+        - db
+    command: bash -c "cd ./LPM.WebApi && dotnet ef database update"
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "LPM_BD"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
+    networks:
+    - lpmNetwork
+    volumes:
+    - lpm-data:/var/lib/postgresql/data
+
+volumes:
+    lpm-data:
