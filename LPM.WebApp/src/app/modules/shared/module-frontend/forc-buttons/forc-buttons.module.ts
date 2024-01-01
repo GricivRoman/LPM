@@ -5,6 +5,7 @@ import { EditButtonComponent } from './buttons/edit-button.component';
 import { DeleteButtonComponent } from './buttons/delete-button.component';
 import { CommonModule } from '@angular/common';
 import { FilterButtonComponent } from './buttons/filter-button.component';
+import { ExportButtonComponent } from './buttons/export-button.component';
 
 @NgModule({
 	imports: [
@@ -15,13 +16,15 @@ import { FilterButtonComponent } from './buttons/filter-button.component';
 		AddButtonComponent,
 		EditButtonComponent,
 		DeleteButtonComponent,
-		FilterButtonComponent
+		FilterButtonComponent,
+		ExportButtonComponent
 	],
 	exports: [
 		AddButtonComponent,
 		EditButtonComponent,
 		DeleteButtonComponent,
-		FilterButtonComponent
+		FilterButtonComponent,
+		ExportButtonComponent
 	],
 	providers: [
 

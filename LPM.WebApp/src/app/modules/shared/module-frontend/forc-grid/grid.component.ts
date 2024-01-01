@@ -10,6 +10,7 @@ import { Observable, map } from 'rxjs';
 import { Workbook } from 'exceljs';
 import { exportDataGrid } from 'devextreme/excel_exporter';
 import { saveAs } from 'file-saver';
+import { DxoExportComponent } from 'devextreme-angular/ui/nested';
 
 @Component({
 	selector: 'app-grid',
@@ -18,6 +19,7 @@ import { saveAs } from 'file-saver';
 })
 export class GridComponent<TClass extends BaseEntity> implements OnInit {
 	@ViewChild(DxDataGridComponent, {static: false} ) grid: DxDataGridComponent;
+	@ViewChild(DxoExportComponent, {static: false}) exportTool: DxoExportComponent;
 
 	@Input()
 	public optionsService: GridOptionsService;
@@ -111,19 +113,17 @@ export class GridComponent<TClass extends BaseEntity> implements OnInit {
 		}));
 	}
 
-
-	// Переписать всё, вызывать извне по кнопке
-	onExporting(e: any) {
+	exportExcel(fileName: string = 'ExpostedExcel') {
 		const workbook = new Workbook();
-		const worksheet = workbook.addWorksheet('Employees');
+		const worksheet = workbook.addWorksheet('List1');
 
 		exportDataGrid({
-			component: e.component,
+			component: this.grid.instance,
 			worksheet,
 			autoFilterEnabled: true,
 		}).then(() => {
 			workbook.xlsx.writeBuffer().then((buffer) => {
-				saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'DataGrid.xlsx');
+				saveAs(new Blob([buffer], { type: 'application/octet-stream' }), `${fileName}.xlsx`);
 			});
 		});
 	}

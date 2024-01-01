@@ -51,6 +51,10 @@ export class EmployeeListComponent extends FormWithGridComponent<Employee, Emplo
 		this.openModal(EmployeeFormComponent, 'Карточка сотрудника', 'lg', this.editingWindowInitAction);
 	}
 
+	export(){
+		this.grid.exportExcel(`Сотрудники ${(new Date()).toLocaleDateString('ru')}`);
+	}
+
 	openFilter(){
 		this.modalService.openWithResetSaveCloseButtons(
 			EmployeeFilterComponent,

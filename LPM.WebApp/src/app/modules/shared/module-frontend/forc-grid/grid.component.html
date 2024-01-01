@@ -16,7 +16,6 @@
         (onRowDblClick)="onRowDblClick()"
         (onSelectionChanged)="onFocusedRowChanged()"
         [style]="style"
-        (onExporting)="onExporting($event)"
     >
         <dxo-selection [mode] = "selectionMode"></dxo-selection>
         <dxo-header-filter [visible]="true"></dxo-header-filter>
@@ -29,7 +28,7 @@
             [showInfo]="true"
             [showNavigationButtons]="false"
         >
-        </dxo-pager>S
+        </dxo-pager>
         <dxo-grouping [autoExpandAll]="expandAll"></dxo-grouping>
         <dxo-group-panel [visible]="allowGrouping"></dxo-group-panel>
         <dxo-scrolling
@@ -37,6 +36,4 @@
             [scrollByContent]="true"
             showScrollbar="onHover"
         ></dxo-scrolling>
-
-        <dxo-export [enabled]="true"></dxo-export>
   </dx-data-grid>

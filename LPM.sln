@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{03EDEB84
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LPM.IntegtationTests", "LPM.IntegtationTests\LPM.IntegtationTests.csproj", "{937B61B5-698A-4149-AB25-F18160BAB6DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPM.Infrastructure", "LPM.Infrastructure\LPM.Infrastructure.csproj", "{C16FEE50-39F4-466B-AB7C-D6A3B2274553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LPM.Infrastructure", "LPM.Infrastructure\LPM.Infrastructure.csproj", "{C16FEE50-39F4-466B-AB7C-D6A3B2274553}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{D07B97E1-9FB6-44FB-9869-25B5A4A78A67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
