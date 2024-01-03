@@ -1,3 +1,5 @@
+using LPM.Database;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace LPM.WebApi
@@ -7,6 +9,7 @@ namespace LPM.WebApi
         static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            ApplyMigrations(host);
             host.Run();
         }
 
@@ -26,6 +29,13 @@ namespace LPM.WebApi
 
                     webBuilder.UseStartup<Startup>();
                 });
+        }
+
+        private static void ApplyMigrations(IHost host)
+        {
+            using var scope = host.Services.CreateScope();
+            using var contest = scope.ServiceProvider.GetRequiredService<DataContext>();
+            contest.Database.Migrate();
         }
     }
 }

@@ -7,15 +7,14 @@ networks:
 services:
   lpm:
     image: gricivroman/lpm.api:latest
-    volumes: 
-    - ./cons:/usr/src/app
+    volumes:
+        - ./cons:/usr/src/app
     ports:
-    - "8080:8080"
+        - "8080:8080"
     networks:
         - lpmNetwork
     depends_on:
         - db
-    command: bash -c "cd ./LPM.WebApi && dotnet ef database update"
   db:
     image: postgres:latest
     environment:
@@ -25,9 +24,9 @@ services:
     ports:
       - "5432:5432"
     networks:
-    - lpmNetwork
+        - lpmNetwork
     volumes:
-    - lpm-data:/var/lib/postgresql/data
+        - lpm-data:/var/lib/postgresql/data
 
 volumes:
     lpm-data:
