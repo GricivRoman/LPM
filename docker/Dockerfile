@@ -7,17 +7,18 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["aspd.csproj", "."]
-RUN dotnet restore "./././aspd.csproj"
+
+COPY ["../", "."]
+RUN dotnet restore "./././././LPM.WebApi/LPM.WebApi.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "./aspd.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./LPM.WebApi/LPM.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./aspd.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./LPM.WebApi/LPM.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "aspd.dll"]
+ENTRYPOINT ["dotnet", "LPM.WebApi.dll"]
