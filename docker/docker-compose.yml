@@ -7,7 +7,9 @@ networks:
 services:
   lpm_web:
     container_name: lpm_web
-    image: gricivroman/lpm-web:latest
+    build:
+        context: ../LPM.WebApp
+        dockerfile: Dockerfile
     networks:
         - lpmNetwork
   nginx:
@@ -25,7 +27,9 @@ services:
         - lpm_api
   lpm_api:
     container_name: lpm_api
-    image: gricivroman/lpm.api:latest
+    build:
+        context: ../
+        dockerfile: Dockerfile
     volumes:
         - ./cons:/usr/src/app
     ports:
