@@ -5,7 +5,7 @@ import { DataService } from 'src/app/modules/shared/services/data.service';
 import { AlertService } from 'src/app/modules/shared/module-frontend/forc-alert/alert.service';
 import { ApiValidationErrorsResolvingService } from 'src/app/modules/shared/services/apiValidationErrorsResolving.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { OrderAppointment } from '../../orderAppointmentList/orderAppointment';
+import { OrderAppointment } from '../../orderAppointment/orderAppointment';
 
 @Component({
 	selector: 'app-employee-form',
