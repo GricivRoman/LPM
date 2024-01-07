@@ -5,29 +5,12 @@
     /// <summary>
     /// Сотрудник
     /// </summary>
-    public class EmployeeDto
+    public class EmployeeDto : HumanDto
     {
-        public Guid? Id { get; set; }
-
-        /// <summary>
-        /// Имя сотрудника
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Дата рождения
-        /// </summary>
-        public DateTime BirthDate { get; set; }
-
         /// <summary>
         /// Возраст - полных лет
         /// </summary>
         public int Age { get; set; }
-
-        /// <summary>
-        /// Пол
-        /// </summary>
-        public SelectItemDto<int> Sex { get; set; }
 
         /// <summary>
         /// Рабочее место
