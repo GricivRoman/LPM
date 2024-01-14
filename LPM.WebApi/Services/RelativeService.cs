@@ -23,18 +23,25 @@ namespace LPM.WebApi.Services
 
         public async Task<RelativeDto> GetRelativeAsync(Guid relativeId)
         {
-            var relative = await _context.Set<Relative>().Where(x => x.Id == relativeId).SingleOrDefaultAsync();
+            var relative = await _context.Set<Relative>()
+                .Where(x => x.Id == relativeId)
+                .Include(x => x.Employees)
+                .SingleOrDefaultAsync();
+
             return _mapper.Map<RelativeDto>(relative);
         }
 
         public async Task<List<RelativeDto>> GetEmployeeRelativesAsync(RelativeQueryFilter filter)
         {
             var employeeRelatives = await _context.Set<Relative>()
-                .Where(x => filter.EmployeeIdList.Contains(x.Id))
+                .Where(x => x.Employees.Select(i => i.Id).Any(u => u == filter.EmployeeId))
                 .PagedBy(filter.Paging)
                 .ToListAsync();
 
-            return _mapper.Map<List<RelativeDto>>(employeeRelatives);
+            var relativeDto = _mapper.Map<List<RelativeDto>>(employeeRelatives);
+            relativeDto.Select(x => x.EmployeeId = filter.EmployeeId).ToList();
+
+            return relativeDto;
         }
 
         public async Task<Guid> SaveRelativeAsync(RelativeDto model)
@@ -42,7 +49,10 @@ namespace LPM.WebApi.Services
             Relative relative;
             if (model.Id != null)
             {
-                relative = await _context.Set<Relative>().Where(x => x.Id == model.Id).SingleOrDefaultAsync();
+                relative = await _context.Set<Relative>()
+                    .Include(x => x.Employees)
+                    .Where(x => x.Id == model.Id)
+                    .SingleOrDefaultAsync();
             }
             else
             {
@@ -50,6 +60,8 @@ namespace LPM.WebApi.Services
                 {
                     Id = Guid.NewGuid()
                 };
+
+                _context.Set<Relative>().Add(relative);
             }
 
             relative.Sex = (SexEnum)model.Sex.Id;
@@ -59,21 +71,24 @@ namespace LPM.WebApi.Services
             relative.Name = model.Name;
             relative.RelativeKind = model.RelativeKind;
 
-
-            if(model.Employees.Count > 0)
+            if (relative.Employees == null || !relative.Employees.Any(x => x.Id == model.EmployeeId))
             {
-                relative.Employees = await _context.Set<Employee>()
-                    .Where(x => model.Employees
-                    .Select(i => i.Id).Contains(x.Id))
-                    .ToListAsync();
-            }
-            else
-            {
-                if(relative.Employees.Count > 0)
-                {
+                if (relative.Employees == null)
                     relative.Employees = new List<Employee>();
+
+                var relativeEmployee = await _context.Set<Employee>().Where(x => x.Id == model.EmployeeId).FirstOrDefaultAsync();
+
+                if(relativeEmployee != null)
+                {
+                    relative.Employees.Add(relativeEmployee);
                 }
-            }
+                else
+                {
+                    throw new ApplicationException("Invalid employee Id");
+                }
+            }                
+
+            await _context.SaveChangesAsync();
 
             return relative.Id;
         }

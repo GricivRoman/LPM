@@ -3,8 +3,8 @@
     public class RelativeQueryFilter : PagedQueryFilter
     {
         /// <summary>
-        /// Связанные сотрудники
+        /// Сотрудник, по которому идет отбор
         /// </summary>
-        public IReadOnlyList<Guid> EmployeeIdList { get; set; }
+        public Guid EmployeeId { get; set; }
     }
 }

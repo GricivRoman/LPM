@@ -23,8 +23,10 @@ namespace LPM.WebApi.MappingConfiguration
                 .ForMember(x => x.IsSchoolkid, i => i.MapFrom(j => j.IsSchoolkid))
                 .ForMember(x => x.IsCripple, i => i.MapFrom(j => j.IsCripple))
                 .ForMember(x => x.Employees, i => i.MapFrom(j => j.Employees))
+                .ForMember(x => x.EmployeeId, i => i.Ignore())
                 .ReverseMap()
-                .ForMember(x => x.Sex, i => i.MapFrom(j => (SexEnum)j.Sex.Id));
+                .ForMember(x => x.Sex, i => i.MapFrom(j => (SexEnum)j.Sex.Id))
+                .ForMember(x => x.Employees, i => i.Ignore());
         }
     }
 }

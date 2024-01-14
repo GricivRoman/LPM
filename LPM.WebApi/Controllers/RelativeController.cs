@@ -26,7 +26,7 @@ namespace LPM.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("employee-list")]
+        [Route("list")]
         public async Task<IActionResult> GetEmployeeRelatives([FromQuery] RelativeQueryFilter filter)
         {
             var relatives = await _relativeService.GetEmployeeRelativesAsync(filter);
@@ -35,15 +35,14 @@ namespace LPM.WebApi.Controllers
 
         [HttpPost]
         [HttpPatch]
-        [Route("employee")]
-        public async Task<IActionResult> SaveRelative(RelativeDto model)
+        public async Task<IActionResult> SaveRelative([FromBody]RelativeDto model)
         {
             await _relativeService.SaveRelativeAsync(model);
             return Ok();
         }
 
         [HttpDelete]
-        [Route("employee/{relativeId}")]
+        [Route("{relativeId}")]
         public async Task<IActionResult> DeleteRelative(Guid relativeId)
         {
             await _relativeService.DeleteRelativeAsync(relativeId);

@@ -8,7 +8,7 @@ import { EmployeeTypeEnum, EmployeeTypeEnumDictionary } from 'src/app/modules/sh
 import { SexEnum, SexEnumDictionary } from 'src/app/modules/shared/enums/sexEnum';
 
 @Injectable()
-export class EmployeeGridOptionService implements GridOptionsService {
+export class EmployeeGridOptionsService implements GridOptionsService {
 	getColumns(): Column[] {
 		return [
 			{

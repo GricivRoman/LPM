@@ -61,5 +61,10 @@
         /// Стаж работы в компании
         /// </summary>
         public double? ActualWorkLength { get; set; }
+
+        /// <summary>
+        /// Родственники
+        /// </summary>
+        public ICollection<RelativeDto> Relatives { get; set; }
     }
 }

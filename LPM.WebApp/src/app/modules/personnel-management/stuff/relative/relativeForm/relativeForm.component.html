@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-12">
+        <app-forc-text
+            label="ФИО"
+            [control]="form.controls.name"
+        ></app-forc-text>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-7">
+        <app-forc-date
+            label="Дата рождения"
+            [control]="form.controls.birthDate"
+        ></app-forc-date>
+    </div>
+    <div class="col-5">
+        <app-select-sex
+            label="Пол"
+            [control]="form.controls.sex"
+        ></app-select-sex>
+    </div>
+</div>

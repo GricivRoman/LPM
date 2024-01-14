@@ -14,6 +14,7 @@ namespace LPM.WebApi.MappingConfiguration
                 .ForMember(x => x.BirthDate, i => i.MapFrom(j => j.BirthDate))
                 .ForMember(x => x.WorkPlace, i => i.MapFrom(j => j.WorkPlace))
                 .ForMember(x => x.HasVHI, i => i.MapFrom(j => j.HasVHI))
+                .ForMember(x => x.Relatives, i => i.MapFrom(j => j.Relatives))
                 .ForMember(x => x.Sex, i => i.MapFrom(j => new SelectItemDto<int>
                     {
                         Id = (int)j.Sex,

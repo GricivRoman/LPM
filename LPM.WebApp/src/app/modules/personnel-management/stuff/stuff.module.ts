@@ -16,6 +16,8 @@ import { DepartmentSelectModule } from '../../shared/select-controls/department-
 import { EmployeeTypeSelectModule } from '../../shared/select-controls/employeeType-select/employeeTypeSelect.module';
 import { OrganizationSelectModule } from '../../shared/select-controls/organization-select/organizationSelect.module';
 import { EmployeeFilterComponent } from '../../shared/filters/employeeFilter/employeeFilter.component';
+import { RelativeListComponent } from './relative/relativeListComponent';
+import { RelativeFormComponent } from './relative/relativeForm/relativeFormComponent';
 
 @NgModule({
 	imports: [
@@ -34,13 +36,16 @@ import { EmployeeFilterComponent } from '../../shared/filters/employeeFilter/emp
 		EmployeeListComponent,
 		EmployeeFormComponent,
 		OrderAppointmentListComponent,
-		OrderAppointmentFormComponent
+		OrderAppointmentFormComponent,
+		RelativeListComponent,
+		RelativeFormComponent
 	],
 	providers: [
 		ModalWindowService,
 		AlertService,
 		{provide: 'EmployeeDataService', useClass: DataService},
 		{provide: 'OrderAppointmentDataService', useClass: DataService},
+		{provide: 'RelativeDataService', useClass: DataService},
 	]
 })
 export class StuffModule {
