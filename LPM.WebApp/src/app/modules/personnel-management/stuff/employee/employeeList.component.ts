@@ -2,7 +2,7 @@ import { Component, Inject, ComponentRef, ViewChild } from '@angular/core';
 import { Employee } from './employee';
 import { FormWithGridComponent } from 'src/app/modules/shared/base-components/formWithGrid.component';
 import { EmployeeFormComponent } from './employeeForm/employeeFrom.component';
-import { EmployeeGridOptionService } from './employeeGridOption.service';
+import { EmployeeGridOptionsService } from './employeeGridOptions.service';
 import { EmployeeGridDataService } from './employeeGridData.service';
 import { ModalWindowService } from 'src/app/modules/shared/module-frontend/forc-popup/modalWindow.service';
 import { DataService } from 'src/app/modules/shared/services/data.service';
@@ -21,14 +21,14 @@ import { SelectItem } from 'src/app/modules/shared/models/selectItem';
 	providers: [
 		{provide: 'EmployeeDataService',useClass: DataService},
 		EmployeeGridDataService,
-		EmployeeGridOptionService,
+		EmployeeGridOptionsService,
 		ModalWindowService
 	]
 })
 export class EmployeeListComponent extends FormWithGridComponent<Employee, EmployeeFormComponent> {
 	@ViewChild(FilterButtonComponent, {static: false}) filterBtn: FilterButtonComponent;
 
-	constructor(public override gridOptionService: EmployeeGridOptionService,
+	constructor(public override gridOptionService: EmployeeGridOptionsService,
         public override gridDataService: EmployeeGridDataService,
         public override modalService: ModalWindowService,
 		@Inject('EmployeeDataService')public override dataService: DataService<Employee>,

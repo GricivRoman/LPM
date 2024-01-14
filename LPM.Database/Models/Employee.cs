@@ -1,23 +1,12 @@
-﻿using LPM.Infrastructure.Enums;
-using LPM.Database.Models.Base;
+﻿using LPM.Database.Models.Base;
 
 namespace LPM.Database.Models
 {
     /// <summary>
     /// Карточка сотрудника
     /// </summary>
-    public class Employee: EntityWithName<Guid>
+    public class Employee: Human
     {
-        /// <summary>
-        /// Дата рождения
-        /// </summary>
-        public DateTime BirthDate { get; set; }
-
-        /// <summary>
-        /// Пол
-        /// </summary>
-        public SexEnum Sex { get; set; }
-
         /// <summary>
         /// Рабочее место
         /// </summary>
@@ -32,5 +21,10 @@ namespace LPM.Database.Models
         /// Приказ о назначении
         /// </summary>
         public ICollection<OrderAppointment> OrderAppointments { get; set; }
+
+        /// <summary>
+        /// Родственники
+        /// </summary>
+        public ICollection<Relative> Relatives { get; set; }
     }
 }

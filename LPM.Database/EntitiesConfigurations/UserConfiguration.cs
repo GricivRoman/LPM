@@ -9,6 +9,7 @@ namespace LPM.Database.EntitiesConfigurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.Id);
 
             builder.HasMany(x => x.Organizations)
                 .WithMany(x => x.Users)

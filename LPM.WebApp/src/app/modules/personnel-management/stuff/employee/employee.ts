@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/app/modules/shared/models/baseEntity';
 import { SelectItem } from 'src/app/modules/shared/models/selectItem';
+import { Relative } from '../relative/relative';
 
 export class Employee extends BaseEntity {
 	/* ФИО */
@@ -16,4 +17,7 @@ export class Employee extends BaseEntity {
 
 	/* Есть ДМС */
 	hasVHI: boolean;
+
+	/* Родственники */
+	relatives: Relative[];
 }

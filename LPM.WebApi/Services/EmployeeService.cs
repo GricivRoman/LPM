@@ -112,6 +112,7 @@ namespace LPM.WebApi.Services
         {
             var employee = await _context.Set<Employee>()
                 .Include(x => x.OrderAppointments)
+                .Include(x => x.Relatives)
                 .Where(x => x.Id == id)
                 .SingleOrDefaultAsync();
 

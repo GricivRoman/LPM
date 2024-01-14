@@ -4,19 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LPM.Database.EntitiesConfigurations
 {
-    public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+    public class RelativeConfiguration : IEntityTypeConfiguration<Relative>
     {
-        public void Configure(EntityTypeBuilder<Employee> builder)
+        public void Configure(EntityTypeBuilder<Relative> builder)
         {
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.Id);
 
-            builder.HasMany(x => x.OrderAppointments)
-                .WithOne(x => x.Employee)
-                .HasForeignKey(x => x.EmployeeId);
-            
-            builder.HasMany(x => x.Relatives)
-                .WithMany(x => x.Employees)
+            builder.HasMany(x => x.Employees)
+                .WithMany(x => x.Relatives)
                 .UsingEntity(
                 i => i.HasOne(typeof(Employee)).WithMany().HasForeignKey("EmployeeId"),
                 j => j.HasOne(typeof(Relative)).WithMany().HasForeignKey("RelativeId"));

@@ -1,39 +1,42 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Relative } from '../relative';
 import { ReactiveFromComponent } from 'src/app/modules/shared/base-components/reactiveForm.component';
-import { Employee } from '../employee';
 import { DataService } from 'src/app/modules/shared/services/data.service';
 import { AlertService } from 'src/app/modules/shared/module-frontend/forc-alert/alert.service';
 import { ApiValidationErrorsResolvingService } from 'src/app/modules/shared/services/apiValidationErrorsResolving.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { OrderAppointment } from '../../orderAppointmentList/orderAppointment';
+import { Guid } from 'guid-typescript';
 
 @Component({
-	selector: 'app-employee-form',
-	templateUrl: 'employeeFrom.component.html',
-	providers: [{provide: 'EmployeeDataService', useClass: DataService}, AlertService]
+	selector: 'app-relative-form',
+	templateUrl: 'relativeForm.component.html',
+	providers: [
+		{provide: 'RelativeDataService',useClass: DataService}
+	]
 })
-export class EmployeeFormComponent extends ReactiveFromComponent<Employee> {
+
+export class RelativeFormComponent extends ReactiveFromComponent<Relative> implements OnInit {
+
+	public employeeId: Guid;
+
 	override form = new FormGroup({
 		name: new FormControl('', [Validators.required]),
 		sex: new FormControl('', [Validators.required]),
 		birthDate: new FormControl('', [Validators.required]),
-		workPlace: new FormControl(''),
-		hasVHI: new FormControl(''),
-		wholeWorkLength: new FormControl<number>({disabled: true, value: 0}),
+		employeeId: new FormControl<Guid>(Guid.createEmpty()),
 	});
 
 	constructor(
-        @Inject('EmployeeDataService') protected override dataService: DataService<Employee>,
+        @Inject('RelativeDataService') protected override dataService: DataService<Relative>,
         protected override alertService: AlertService,
         protected override errorResolvingService: ApiValidationErrorsResolvingService
 	){
 		super(dataService, alertService, errorResolvingService);
-		this.createEmptyModel = () => new Employee();
+		this.createEmptyModel = () => new Relative();
 	}
 
-	orderAppointmentListLoaded(appointmentList: OrderAppointment[]){
-		if(appointmentList.length > 0){
-			this.form.controls.wholeWorkLength.setValue(appointmentList.map(x => x.workLength).reduce((a, b) => a + b));
-		}
+	override ngOnInit(): void {
+		super.ngOnInit();
+		this.form.statusChanges.subscribe(() => this.form.controls.employeeId.setValue(this.employeeId, { emitEvent: false }));
 	}
 }

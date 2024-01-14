@@ -12,30 +12,45 @@
         ></app-forc-text>
     </div>
 </div>
-<div class="row">
+<div class="row mt-2">
     <div class="col-3">
         <app-forc-date
             label="Дата рождения"
             [control]="form.controls.birthDate"
         ></app-forc-date>
     </div>
-    <div class="col-3">
+    <div class="col-2">
         <app-select-sex
             label="Пол"
             [control]="form.controls.sex"
         ></app-select-sex>
     </div>
-    <div class="col-3 mt-4">
-        <app-forc-checkbox
-            label="Подключен ДМС"
-            [control]="form.controls.hasVHI"
-        ></app-forc-checkbox>
+    <div class="col-2 mt-1">
+        <div class="row">
+            <div class=" col-6">
+                <label>Подключен ДМС</label>
+            </div>
+            <div class="col-3">
+                <app-forc-checkbox
+                    [control]="form.controls.hasVHI"
+                ></app-forc-checkbox>
+            </div>
+        </div>
     </div>
     <div class="col-2">
-        <app-forc-number
-            label="Общий стаж"
-            [control]="form.controls.wholeWorkLength"
-        ></app-forc-number>
+        <div class="row-cols-8">
+            <app-forc-number
+                label="Итого стаж"
+                [control]="form.controls.wholeWorkLength"
+            ></app-forc-number>
+        </div>
+    </div>
+    <div class="col-2 mt-4">
+        <button
+            class="btn btn-outline-secondary"
+            (click)="showChildren()"
+        >Дети({{numberOfRelatives}})
+        </button>
     </div>
 </div>
 <div class="row mt-2">

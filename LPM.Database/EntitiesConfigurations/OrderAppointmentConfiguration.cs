@@ -9,6 +9,8 @@ namespace LPM.Database.EntitiesConfigurations
         public void Configure(EntityTypeBuilder<OrderAppointment> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.Id);
+            builder.HasIndex(x => x.DepartmentId);
 
             builder.HasOne(x => x.Employee)
                 .WithMany(x => x.OrderAppointments)
